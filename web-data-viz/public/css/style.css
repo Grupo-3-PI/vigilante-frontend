@@ -1,0 +1,64 @@
+/*Resetando o documento*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+    font-family: "Lexend Deca", sans-serif;
+}
+
+.interface{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/*Estilo do header*/
+header{
+    width: 100%;
+    padding: 40px 0;
+}
+
+header .interface{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo img{
+    max-width: 160px;
+}
+
+header .menu-desktop nav ul{
+    list-style-type: none;
+}
+
+
+header .menu-desktop nav ul li{
+    display: inline-block;
+    margin: 0 40px;
+}
+
+header .menu-desktop nav ul li a{
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    transition: .2s;
+}
+
+header .menu-desktop nav ul li a:hover{
+    transform: scale(1.05);
+}
+
+header .btn-contato button{
+    width: 140px;
+    height: 50px;
+    font-size: 15px;
+    background-color: transparent;
+    border: 2px solid black;
+    cursor: pointer;
+    transition: .5s;
+}
+
+header .btn-contato button:hover{
+    background-color: #1B6A4F;
+    color: white;
+}
