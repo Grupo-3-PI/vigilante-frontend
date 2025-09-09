@@ -135,13 +135,16 @@ header {
   font-weight: bold;
   border-radius: 40px;
   text-decoration: none;
-  transition: 0.3s;
+  transition: all 0.3s ease;
   margin-top: 20px;
+  box-shadow: 0 5px 15px rgba(255, 123, 0, 0.4); /* sombra inicial suave */
 }
 
 .btn-hero:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
+  transform: scale(1.05);                
+  box-shadow: 0 10px 25px rgba(255, 123, 0, 0.6); 
+  filter: brightness(1.15);               
+  background: linear-gradient(135deg, #ff9500, #ff4a00); 
 }
 
 .sobre h2, .beneficios h2 {
