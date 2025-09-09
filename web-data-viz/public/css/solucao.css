@@ -243,92 +243,112 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+@media (max-width: 430px) {
 
-
-@media (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    gap: 12px;
-    padding: 12px;
+    gap: 10px;
+    padding: 8px 10px;
+  }
+
+  .logo img {
+    width: 50px;
   }
 
   .menu-desktop ul {
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     text-align: center;
   }
 
   .btn-contato button {
     width: 100%;
-    padding: 12px;
+    padding: 8px 0;
+    font-size: 0.8rem;
   }
 
   .banner {
-    height: 60vh;
-    padding: 20px;
+    height: 35vh;
+    padding: 10px;
+  }
+
+  .banner-texto {
+    text-align: center;
   }
 
   .banner-texto h1 {
-    font-size: 3rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
   }
 
   .banner-texto p {
-    font-size: 1.2rem;
+    font-size: 0.85rem;
   }
 
   .hero {
-    padding: 60px 15px;
+    padding: 30px 10px;
   }
 
   .hero h1 {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
   }
 
   .hero p {
-    font-size: 1rem;
+    font-size: 0.85rem;
+    max-width: 90%;
+  }
+
+  .btn-hero {
+    padding: 10px 20px;
+    font-size: 0.85rem;
   }
 
   .cards {
     flex-direction: column;
+    gap: 15px;
+    margin: 20px 10px;
     align-items: center;
   }
 
   .card {
     width: 90%;
-    max-width: 320px;
+    max-width: 280px;
+    height: auto;
+    padding: 15px;
   }
 
-
-  .beneficios {
-    background-size: cover; 
-    padding: 80px 15px 120px;
-  }
-}
-
-@media (max-width: 480px) {
-  .banner {
-    height: 50vh;
+  .card img {
+    width: 80px;
+    margin-bottom: 8px;
   }
 
-  .banner-texto h1 {
-    font-size: 2.2rem;
-  }
-
-  .banner-texto p {
+  .card h3 {
     font-size: 1rem;
   }
 
-  .btn-hero {
-    padding: 12px 24px;
-    font-size: 0.9rem;
-  }
-
-  .btn-contato button {
-    font-size: 0.9rem;
-  }
-
-  footer {
+  .card p {
     font-size: 0.8rem;
-    padding: 20px 10px;
+  }
+
+  .sobre h2, .beneficios h2 {
+    font-size: 1.6rem;
+    margin: 20px 10px;
+  }
+
+  .sobre h2::after, .beneficios h2::after {
+    width: 200px;
+  }
+
+  .beneficios {
+    padding: 60px 10px 80px;
+  }
+
+  
+  footer {
+    font-size: 0.75rem;
+    padding: 15px 10px;
   }
 }
