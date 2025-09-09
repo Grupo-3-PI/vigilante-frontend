@@ -94,7 +94,7 @@ header {
 }
 
 .banner-texto h1 {
-  font-size: 6rem;
+  font-size: 8rem;
   font-weight: 700;
 }
 
@@ -185,7 +185,7 @@ header {
 
 
 .degrade {
-  background: linear-gradient(to bottom, #fff, #ff7b00);
+  background: linear-gradient(to bottom, #fff, #ff7b00, #ff5100);
 }
 
 .beneficios {
