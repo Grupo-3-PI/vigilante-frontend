@@ -326,6 +326,114 @@ button:hover {
 .img-6 {
   font-size: 15px;
 }
+}
 
+/* Seção da solução */
+
+.container-solucao {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.container-solucao .title-solucao {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.container-conteudo-solucao {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.banner-solucao {
+  height: 100%;
+  width: 60%;
+  background-image: url(../images/banner-solucao.png);
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.cards-solucao {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-solucao {
+  width: 100%;
+  height: 32%;
+}
+
+.title-solucao-card {
+  font-size: 28px;
+  font-weight: 600;
+  border-bottom: 2px solid #E48800;
+  width: 30%;
+}
+
+#button-solucao {
+  height: 40px;
+  width: 30%;
+  background: linear-gradient(45deg, #FFDD00, #D04900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 430px) {
+
+  .container-solucao {
+    width: 100vw;
+    height: 1000px;
+    justify-content: space-evenly;
+  }
+
+
+  .container-conteudo-solucao {
+    flex-direction: column;
+    gap: 6%;
+  }
+
+  .banner-solucao {
+    height: 30%;
+    width: 90%;
+    background-image: url(../images/banner-solucao.png);
+    background-size: cover;
+    border-radius: 10px;
+  }
+
+  .cards-solucao {
+    height: 80%;
+    width: 90%;
+  }
+
+  .card-solucao {
+    width: 100%;
+    height: 28%;
+  }
+
+  .title-solucao-card {
+    font-size: 28px;
+    font-weight: 600;
+    border-bottom: 2px solid #E48800;
+    width: 30%;
+  }
+
+  #button-solucao {
+    height: 40px;
+    width: 40%;
+  }
 
 }
