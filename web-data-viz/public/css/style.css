@@ -10,14 +10,12 @@ body {
   flex-direction: column;
 }
 
-
 /* Seção inicial */
 .container-banner {
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(120deg, #1b1b5e, #2b2bb2, #3a8bdb);
 }
-
 
 header {
   width: 100%;
@@ -29,29 +27,22 @@ header {
 .navbar {
   width: 90%;
   max-width: 1100px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 12px 24px;
-
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50px;
-
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-
   color: #fff;
 }
-
 
 .logo img {
   width: 20px;
   margin-right: 8px;
 }
-
 
 .menu-desktop ul {
   list-style: none;
@@ -129,7 +120,6 @@ button:hover {
 }
 
 /* Seção da empresa */
-
 .container-empresa {
   width: 100%;
   height: 500px;
@@ -137,7 +127,25 @@ button:hover {
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
+}
 
+.title-empresa {
+  position: relative;
+  text-align: center;
+  margin: 40px 0;
+  color: #000f3f;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.title-empresa::after {
+  content: "";
+  display: block;
+  width: 180px;
+  height: 3px;
+  background: linear-gradient(90deg, #0800ff, #9aceff);
+  margin: 12px auto 0;
+  border-radius: 2px;
 }
 
 .container-empresa .title-empresa {
@@ -152,6 +160,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 5%;
+  margin-bottom: 30px;
 }
 
 .conteudo-card {
@@ -170,7 +179,9 @@ button:hover {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 5%;
+  gap: 50px;
+  margin-top: 250px;
+  margin-bottom: 200px;
 }
 
 .coluna-card {
@@ -180,29 +191,10 @@ button:hover {
   border-radius: 10px 0 0 10px;
 }
 
-@media screen and (max-width: 430px) {
-
-  .container-empresa {
-    height: 1200px;
-  }
-
-  .container-cards {
-    height: 1000px;
-    flex-direction: column;
-  }
-
-  .card-empresa {
-    height: 700px;
-    width: 80%;
-  }
-
-}
-
 /* Seção de valores */
-
 .container-valores {
   width: 100%;
-  height: 600px;
+  height: 400px;
 }
 
 .coluna-fotos {
@@ -213,7 +205,6 @@ button:hover {
 }
 
 /* Imagens */
-
 .img-1 {
   background-image: url(../images/foto-impacto.png);
   background-size: cover;
@@ -288,152 +279,121 @@ button:hover {
   font-style: normal;
 }
 
-@media screen and (max-width: 430px) {
-
-.container-valores {
-  width: 99vw;
-  height: 300px;
-}
-
-.coluna-fotos {
-  height: 50%;
-  width: 100%;
-  display: flex;
-}
-
-/* Imagens */
-
-.img-1 {
-  font-size: 15px;
-}
-
-.img-2 {
-  font-size: 15px;
-}
-
-.img-3 {
-  font-size: 23px;
-}
-
-.img-4 {
-  font-size: 23px;
-}
-
-.img-5 {
-  font-size: 15px;
-}
-
-.img-6 {
-  font-size: 15px;
-}
-}
-
-/* Seção da solução */
-
+/* Seção da solução refatorada */
 .container-solucao {
   width: 100%;
-  height: 600px;
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
   flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  gap: 40px;
 }
 
 .container-solucao .title-solucao {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  color: #000f3f;
+}
+
+.container-solucao .title-solucao::after {
+  content: "";
+  display: block;
+  width: 180px;
+  height: 3px;
+  background: linear-gradient(90deg, #fff700, #ffda9a);
+  margin: 12px auto 0;
+  border-radius: 2px;
 }
 
 .container-conteudo-solucao {
-  height: 80%;
-  width: 100%;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .banner-solucao {
-  height: 100%;
-  width: 60%;
+  flex: 1 1 55%;
+  height: 400px;
   background-image: url(../images/banner-solucao.png);
   background-size: cover;
-  border-radius: 10px;
+  background-position: center;
+  border-radius: 15px;
+  min-width: 300px;
+  position: relative; 
+  margin-top: 70px;
 }
 
 .cards-solucao {
-  height: 100%;
-  width: 30%;
+  flex: 1 1 40%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 20px;
+  min-width: 280px;
 }
 
 .card-solucao {
-  width: 100%;
-  height: 32%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-solucao:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
 .title-solucao-card {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
+  color: #E48800;
   border-bottom: 2px solid #E48800;
-  width: 30%;
+  padding-bottom: 5px;
+  width: fit-content;
+}
+
+.card-solucao p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
 }
 
 #button-solucao {
-  height: 40px;
-  width: 30%;
+  align-self: flex-start;
+  padding: 12px 24px;
   background: linear-gradient(45deg, #FFDD00, #D04900);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #fff;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.3s, opacity 0.3s;
 }
 
-@media screen and (max-width: 430px) {
+#button-solucao:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
 
-  .container-solucao {
-    width: 100vw;
-    height: 1000px;
-    justify-content: space-evenly;
-  }
-
-
+/* Responsividade */
+@media screen and (max-width: 768px) {
   .container-conteudo-solucao {
     flex-direction: column;
-    gap: 6%;
+    align-items: center;
   }
 
-  .banner-solucao {
-    height: 30%;
-    width: 90%;
-    background-image: url(../images/banner-solucao.png);
-    background-size: cover;
-    border-radius: 10px;
+  .banner-solucao, .cards-solucao {
+    flex: 1 1 100%;
+    max-width: 600px;
   }
-
-  .cards-solucao {
-    height: 80%;
-    width: 90%;
-  }
-
-  .card-solucao {
-    width: 100%;
-    height: 28%;
-  }
-
-  .title-solucao-card {
-    font-size: 28px;
-    font-weight: 600;
-    border-bottom: 2px solid #E48800;
-    width: 30%;
-  }
-
-  #button-solucao {
-    height: 40px;
-    width: 40%;
-  }
-
 }
