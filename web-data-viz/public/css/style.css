@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -7,10 +6,16 @@
 }
 
 body {
-  min-height: 100vh;
-  background: linear-gradient(120deg, #1b1b5e, #2b2bb2, #3a8bdb);
   display: flex;
   flex-direction: column;
+}
+
+
+/* Seção inicial */
+.container-banner {
+  width: 99vw;
+  min-height: 100vh;
+  background: linear-gradient(120deg, #1b1b5e, #2b2bb2, #3a8bdb);
 }
 
 
@@ -42,8 +47,8 @@ header {
 }
 
 
-.logo img { 
-  width: 20px;   
+.logo img {
+  width: 20px;
   margin-right: 8px;
 }
 
@@ -85,10 +90,10 @@ header {
 .hero {
   height: calc(100vh - 100px);
   display: flex;
-  flex-direction: column;     
-  justify-content: center;      
-  align-items: center;          
-  text-align: center;           
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   color: #fff;
   padding: 20px;
 }
@@ -106,10 +111,10 @@ header {
 }
 
 button {
-  padding: 20px 30px; 
+  padding: 20px 30px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 70px;
-  color: white;  
+  color: white;
   font-size: 20px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -121,4 +126,206 @@ button {
 button:hover {
   opacity: 0.85;
   transform: scale(1.05);
+}
+
+/* Seção da empresa */
+
+.container-empresa {
+  width: 99vw;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+}
+
+.container-empresa .title-empresa {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.container-cards {
+  width: 100%;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.conteudo-card {
+  height: 100%;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.card-empresa {
+  height: 100%;
+  width: 28%;
+  background-color: #eaeaea;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5%;
+}
+
+.coluna-card {
+  height: 100%;
+  width: 10%;
+  background: linear-gradient(45deg, #1500B7, #6F3BFF);
+  border-radius: 10px 0 0 10px;
+}
+
+@media screen and (max-width: 430px) {
+
+  .container-empresa {
+    height: 1200px;
+  }
+
+  .container-cards {
+    height: 1000px;
+    flex-direction: column;
+  }
+
+  .card-empresa {
+    height: 700px;
+    width: 80%;
+  }
+
+}
+
+/* Seção de valores */
+
+.container-valores {
+  width: 99vw;
+  height: 600px;
+}
+
+.coluna-fotos {
+  height: 50%;
+  width: 100%;
+  background-color: #1500B7;
+  display: flex;
+}
+
+/* Imagens */
+
+.img-1 {
+  background-image: url(../images/foto-impacto.png);
+  background-size: cover;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.img-2 {
+  background-image: url(../images/foto-informação.png);
+  background-size: cover;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.img-3 {
+  background-image: url(../images/foto-inovacao.png);
+  background-size: cover;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.img-4 {
+  background-image: url(../images/foto-segurança.png);
+  background-size: cover;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.img-5 {
+  background-image: url(../images/foto-tecnologia.png);
+  background-size: cover;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.img-6 {
+  background-image: url(../images/foto-foco-cliente.png);
+  background-size: cover;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.img-25 {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-50 {
+  height: 100%;
+  width: 50%;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#bold {
+  font-weight: 600;
+  font-style: normal;
+}
+
+@media screen and (max-width: 430px) {
+
+.container-valores {
+  width: 99vw;
+  height: 300px;
+}
+
+.coluna-fotos {
+  height: 50%;
+  width: 100%;
+  display: flex;
+}
+
+/* Imagens */
+
+.img-1 {
+  font-size: 15px;
+}
+
+.img-2 {
+  font-size: 15px;
+}
+
+.img-3 {
+  font-size: 23px;
+}
+
+.img-4 {
+  font-size: 23px;
+}
+
+.img-5 {
+  font-size: 15px;
+}
+
+.img-6 {
+  font-size: 15px;
+}
+
+
 }

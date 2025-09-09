@@ -11,52 +11,95 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <header>
-    <div class="navbar">
-      <div class="logo">
-        <img src="./images/logo-prevcrime.svg">
+  <div class="container-banner">
+    <header>
+      <div class="navbar">
+        <div class="logo">
+          <img src="./images/logo-prevcrime.svg">
+        </div>
+
+        <nav class="menu-desktop">
+          <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Empresa</a></li>
+            <li><a href="#">Valores</a></li>
+            <li><a href="#">Solução</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </nav>
+
+        <div class="btn-contato">
+          <button onclick="redirecionar()">Vigilante</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Segurança que protege,</h1>
+      <p>
+        <i>inovação que transforma.</i>
+      </p>
+      <button>Saiba mais</button>
+    </section>
+  </div>
+
+  <div class="container-empresa">
+    <p class="title-empresa">Empresa</p>
+    <!-- Cards da empresa -->
+    <div class="container-cards">
+      <!-- Card 1 -->
+      <div class="card-empresa">
+        <div class="coluna-card"></div>
+        <div class="conteudo-card">
+          <h2>Título</h2>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="card-empresa">
+        <div class="coluna-card"></div>
+        <div class="conteudo-card">
+          <h2>Título</h2>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="card-empresa">
+        <div class="coluna-card"></div>
+        <div class="conteudo-card">
+          <h2>Título</h2>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+        </div>
       </div>
 
-      <nav class="menu-desktop">
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#">Empresa</a></li>
-          <li><a href="#">Valores</a></li>
-          <li><a href="#">Solução</a></li>
-          <li><a href="#">Contato</a></li>
-        </ul>
-      </nav>
-
-      <div class="btn-contato">
-        <button onclick="redirecionar()">Vigilante</button>
-      </div>
     </div>
-  </header>
+  </div>
 
-  <section class="hero">
-  <h1>Segurança que protege,</h1>
-  <p>
-     <i>inovação que transforma.</i>
-  </p>
+  <div class="container-valores">
+    <div class="coluna-fotos">
+      <div class="img-1 img-25"><p>Foco no <br>impacto</p></div>
+      <div class="img-2 img-25"><p>infor <br><span id="bold">mação</span></p></div>
+      <div class="img-3 img-50"><p>Inovação</p></div>
+    </div>
+     <div class="coluna-fotos">
+      <div class="img-4 img-50"><p>Segurança</p></div>
+      <div class="img-5 img-25"><p>tech <br><span id="bold">nologia</span></p></div>
+      <div class="img-6 img-25"><p>Foco no <br> cliente</p></div>
+    </div>
+  </div>
 
 
-
-    <button>Saiba mais</button>
-
-</section>
 </body>
 
 </html>
 
 <script>
-  function redirecionar(){
+  function redirecionar() {
     window.location.href = "login-cadastro-vigilante/login.html"
   }
 </script>
