@@ -40,8 +40,9 @@ header {
 }
 
 .logo img {
-  width: 20px;
+  width: 150px;
   margin-right: 8px;
+  margin-top: 10px;
 }
 
 .menu-desktop ul {
@@ -511,5 +512,61 @@ button:hover {
     text-align: center;
     padding: 10px 0;
     font-size: 16px;
+  }
+}
+
+/* BOTÃO MENU MOBILE */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
+  z-index: 1001; /* fica por cima */
+}
+
+/* MENU MOBILE */
+.menu-mobile {
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 25px;
+  background: rgba(0,0,0,0.9);
+  padding: 20px;
+  border-radius: 12px;
+  flex-direction: row;
+  gap: 16px;
+  z-index: 1000;
+}
+
+.menu-mobile ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.menu-mobile ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.menu-mobile ul li a:hover {
+  color: #9fc3ff;
+}
+
+.menu-mobile.active {
+  display: flex;
+}
+
+/* MOBILE */
+@media screen and (max-width: 430px) {
+  .navbar, .logo {
+    display: none; 
+  }
+
+  .menu-toggle {
+    display: block; 
   }
 }
