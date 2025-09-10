@@ -25,11 +25,9 @@
 
         <nav class="menu-desktop">
           <ul>
-            <li><a href="#">Início</a></li>
-            <li><a href="#">Empresa</a></li>
-            <li><a href="#">Valores</a></li>
-            <li><a href="#">Solução</a></li>
-            <li><a href="#">Contato</a></li>
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./solucao.html">Solução</a></li>
+            <li><a href="#contato">Contato</a></li>
           </ul>
         </nav>
 
@@ -37,19 +35,17 @@
           <button onclick="redirecionar()">Vigilante</button>
         </div>
       </div>
-          <!-- BOTÃO MENU MOBILE -->
-  <div class="menu-toggle" id="menu-toggle">☰</div>
+      <!-- BOTÃO MENU MOBILE -->
+      <div class="menu-toggle" id="menu-toggle">☰</div>
 
-  <!-- MENU MOBILE -->
-  <nav class="menu-mobile" id="menu-mobile">
-    <ul>
-      <li><a href="#">Início</a></li>
-      <li><a href="#empresa">Empresa</a></li>
-      <li><a href="#valores">Valores</a></li>
-      <li><a href="#solucao">Solução</a></li>
-      <li><a href="#">Contato</a></li>
-    </ul>
-  </nav>
+      <!-- MENU MOBILE -->
+      <nav class="menu-mobile" id="menu-mobile">
+        <ul>
+          <li><a href="./index.html">Início</a></li>
+          <li><a href="./solucao.html">Solução</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
     </header>
 
     <section class="hero">
@@ -57,7 +53,9 @@
       <p>
         <i>inovação que transforma.</i>
       </p>
-      <button>Saiba mais</button>
+      <section id="sobre">
+       <a href="#sobre">Saiba Mais  <span class="seta">↓</span></a>
+      </section>
     </section>
   </div>
 
@@ -71,7 +69,9 @@
         <div class="coluna-card"></div>
         <div class="conteudo-card">
           <h2>Segurança</h2>
-          <p>Nós prezamos pela integridade de nossos dados e filtramos de maneira extensiva quem podem acessa-los. Nossos produtos provem de camadas de segurança que garantem aos nossos clientes confiança nas informações providenciadas, prometendo o rigor do fluxo completo de dados. </p>
+          <p>Nós prezamos pela integridade de nossos dados e filtramos de maneira extensiva quem podem acessa-los.
+            Nossos produtos provem de camadas de segurança que garantem aos nossos clientes confiança nas informações
+            providenciadas, prometendo o rigor do fluxo completo de dados. </p>
         </div>
       </div>
       <!-- Card 3 -->
@@ -79,7 +79,9 @@
         <div class="coluna-card"></div>
         <div class="conteudo-card">
           <h2>Tecnologia</h2>
-          <p>A nossa empresa se preocupa integralmente com os avanços tecnológicos, utilizando desses para criar uma experiência dinâmica e completa para nossos clientes. Entre nossas tecnologias de uso há o uso extensivo de Node e Java.</p>
+          <p>A nossa empresa se preocupa integralmente com os avanços tecnológicos, utilizando desses para criar uma
+            experiência dinâmica e completa para nossos clientes. Entre nossas tecnologias de uso há o uso extensivo de
+            Node e Java.</p>
         </div>
       </div>
       <!-- Card 2 -->
@@ -87,7 +89,9 @@
         <div class="coluna-card"></div>
         <div class="conteudo-card">
           <h2>Inovação</h2>
-          <p>Nossas soluções são pensadas para superarem as expectativas de nossos clientes. A nossa cultura valoriza o senso crítico de cada funcionário visando a construção de soluções inovadoras e que potencializem nosso papel no mercado.</p>
+          <p>Nossas soluções são pensadas para superarem as expectativas de nossos clientes. A nossa cultura valoriza o
+            senso crítico de cada funcionário visando a construção de soluções inovadoras e que potencializem nosso
+            papel no mercado.</p>
         </div>
       </div>
 
@@ -132,24 +136,49 @@
         <div class="card-solucao">
           <!-- Card -->
           <div class="title-solucao-card">Nossas Soluções</div>
-          <p>Nossas soluções são baseadas em dados concretos com o objetivo de trazer lucro ao negócio</p>
+          <p>Criamos soluções que refletem nossos valores de integridade, inovação e excelência, contribuindo para o sucesso do seu negócio.</p>
         </div>
         <!-- Card -->
         <div class="card-solucao">
           <div class="title-solucao-card">Sobre o Vigilante</div>
-          <p>O maior projeto produzido pelo produto foi a plataforma Vigilante, criada para fornecer informações valiosas sobre a segurança da Baixada Santista para as empresas.</p>
+          <p>O maior projeto produzido pelo produto foi a plataforma Vigilante, criada para fornecer informações
+            valiosas sobre a segurança da Baixada Santista para as empresas.</p>
         </div>
         <!-- Card -->
         <div class="card-solucao">
           <div class="title-solucao-card">Entre em contato!</div>
           <p>Nossa equipe se dispõe a responder quaisquer dúvidas referente aos nossos projetos</p><br>
-          <p>Email: prevcrime@corp.com</p> 
-          <p>Número: (55)119454-9591</p>
+          <p>Email: prevcrime@corp.com</p>
         </div>
         <div id="button-solucao" onclick="redirecionarTelaSolucao()">Saiba mais</div>
       </div>
     </div>
   </div>
+
+  <footer>
+  <div class="footer-container">
+    <div class="footer-logo">
+      <p>PrevCrime | Inteligência em Segurança</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Links Rápidos</h4>
+      <ul>
+        <li><a href="./index.html">Início</a></li>
+        <li><a href="./solucao.html">Solução</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contato" id="#contato">
+      <h4>Contato</h4>
+      <p>Email: prevcrime@corp.com</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 PrevCrime. Todos os direitos reservados.</p>
+  </div>
+</footer>
 
 </body>
 
