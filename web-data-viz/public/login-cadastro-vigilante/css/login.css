@@ -30,13 +30,6 @@ body {
     background-size: cover;
 }
 
-@media screen and (max-width: 800px) {
-    .banner .logo_vigilante {
-        width: 200px;
-        height: 75px;
-    }
-}
-
 .container_forms {
     width: 50%;
     min-height: 100vh;
@@ -87,7 +80,7 @@ body {
     align-items: center;
 }
 
-.container_button p{
+.container_button p {
     font-size: 12px;
 }
 
@@ -96,7 +89,7 @@ body {
     cursor: pointer;
 }
 
-.container_button button{
+.container_button button {
     width: 40%;
     height: 40px;
     border: none;
@@ -105,4 +98,19 @@ body {
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+    .banner .logo_vigilante {
+        width: 200px;
+        height: 75px;
+    }
+
+    .container_button {
+        flex-direction: column;
+    }
+
+    .container_button button {
+        width: 100%;
+    }
 }
