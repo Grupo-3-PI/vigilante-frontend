@@ -1,12 +1,12 @@
-var express = require("express");
-var router = express.Router();
+  var express = require("express");
+  var router = express.Router();
 
-var agenciaController = require("../controllers/agenciaController");
+  var agenciaController = require("../controllers/agenciaController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
+  //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 
-router.get("/listar", function (req, res) {
-  agenciaController.listar(req, res);
-});
+  router.get("/listar", function (req, res) {
+    agenciaController.listar(req, res);
+  });
 
-module.exports = router;
+  module.exports = router;
