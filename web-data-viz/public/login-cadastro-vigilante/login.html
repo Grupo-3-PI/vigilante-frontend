@@ -22,14 +22,18 @@
 
         <div class="container_forms">
             <div class="forms">
+                <a href="../solucao.html" class="setaVoltar">
+                    <img src="../images/setaVoltar.png" alt="Voltar" class="seta_svg">
+                    Voltar
+                </a>
                 <p class="title"> Login</p>
                 <div class="container_inputs">
-                    <input type="text" placeholder="E-mail">
-                    <input type="text" placeholder="Senha">
+                    <input type="text" id="email_login" placeholder="E-mail">
+                    <input type="password" id="senha_login" placeholder="Senha">
                 </div>
                 <div class="container_button">
                     <p>Ainda não é cadastrado? <br><span onclick="redirecionar()" class="cadastrar">cadastre-se</span></p>
-                    <button id="botao">Entrar</button>
+                    <button id="botao" onclick="entrar()">Entrar</button>
                 </div>
             </div>
         </div>
@@ -43,5 +47,6 @@
     function redirecionar() {
         window.location.href = "cadastro.html";
     }
-
 </script>
+
+<script src="js/login.js"></script>
