@@ -16,7 +16,7 @@ body {
     width: 50%;
     min-height: 100vh;
     display: flex;
-    background-image: url(../img/banner.png);
+    background-image: url(../images/banner.png);
     background-size: cover;
     justify-content: center;
     align-items: center;
@@ -26,10 +26,9 @@ body {
 .banner .logo_vigilante {
     width: 350px;
     height: 125px;
-    background-image: url(../img/logo_vigilante.png);
+    background-image: url(./imgages/logo_vigilante.png);
     background-size: cover;
 }
-
 
 .container_forms {
     width: 50%;
@@ -57,27 +56,21 @@ body {
 
 .container_inputs {
     width: 100%;
-    height: 55%;
+    height: 25%;
     display: flex;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 4%;
+    gap: 8%;
 }
 
 .container_inputs input {
     height: 40px;
-    width: 98%;
+    width: 97%;
     border: none;
     border-radius: 5px;
     background-color: #F1F1F1;
     padding-left: 10px;
-    outline: none;
-}
-
-.erro {
-    font-size: 12px;
-    display: none;
-    color: red;
 }
 
 .container_button {
@@ -113,21 +106,11 @@ body {
         height: 75px;
     }
 
-    .container_forms .forms .title {
-    font-size: 25px;
-}
+    .container_button {
+        flex-direction: column;
+    }
 
-    
-.container_button {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-}
-
-.container_button button {
-    width: 100%;
-}
-
+    .container_button button {
+        width: 100%;
+    }
 }
