@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction:column ;
+
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #bbb;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+  font-weight: normal;
+}
+
+.user {
+  font-size: 14px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/*Da navbar para baixo*/
+
+.banner {
+  margin-top: 50px;
+  width: 1000px;
+  height: 600px;
+  border-radius: 80px;
+  border-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+   border: 2px solid black; 
+}
+
+.imagem_perfil {
+  /*Deixa o user alinhado com o "editar foto"*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /*Configurações da foto*/
+  img {
+    width: 200px;
+  }
+  a {
+    font-size: 10px;
+  }
+}
+
+.conteudo {
+  /*Centraliza o conteúdo*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  p {
+    font-size: 15px;
+  
+  }
+
+  button {
+  font-size: 20px;
+  background-color: none; 
+  padding: 10px 20px;
+  border-radius: 10px;
+  border-color:#aaa ;
+}
+}
