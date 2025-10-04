@@ -100,7 +100,31 @@ body {
     cursor: pointer;
 }
 
+.setaVoltar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    color: #333;
+    text-decoration: underline;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.seta_svg {
+    width: 30px;
+    height: 30px;
+}
+
 @media screen and (max-width: 800px) {
+    .banner {
+        display: none;
+    }
+
+    .container_forms {
+        width: 100%;
+    }
+
     .banner .logo_vigilante {
         width: 200px;
         height: 75px;
@@ -112,5 +136,10 @@ body {
 
     .container_button button {
         width: 100%;
+    }
+
+    .container_forms .forms {
+        height: auto;
+        padding: 50px 0;
     }
 }
