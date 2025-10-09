@@ -17,7 +17,9 @@
     <div class="container">
         <div class="banner">
             <!-- Imagem do bannner -->
-             <a href="../solucao.html"><div class="logo_vigilante"></div></a>
+            <a href="../solucao.html">
+                <div class="logo_vigilante"></div>
+            </a>
         </div>
 
         <div class="container_forms">
@@ -28,13 +30,17 @@
                 </a>
                 <p class="title"> Login</p>
                 <div class="container_inputs">
-                    <input type="text" id="email_login" placeholder="E-mail">
-                    <input type="password" id="senha_login" placeholder="Senha">
+                    <input type="text" id="email_login" placeholder="E-mail" class="inputs required"
+                        oninput="validarEmail()">
+                    <input type="password" id="senha_login" placeholder="Senha" class="inputs required"
+                        oninput="validarSenha()">
                 </div>
                 <div class="container_button">
-                    <p>Ainda não é cadastrado? <br><span onclick="redirecionar()" class="cadastrar">Cadastre-se</span></p>
+                    <p>Ainda não é cadastrado? <br><span onclick="redirecionar()" class="cadastrar">Cadastre-se</span>
+                    </p>
                     <button id="botao" onclick="entrar()">Entrar</button>
                 </div>
+                <span id="avisoErro" class="erro"></span>
             </div>
         </div>
     </div>
@@ -47,6 +53,8 @@
     function redirecionar() {
         window.location.href = "./cadastro.html";
     }
+    
 </script>
 
 <script src="./js/login.js"></script>
+<script src="./js/validacao-login.js"></script>

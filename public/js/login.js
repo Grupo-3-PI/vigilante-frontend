@@ -1,11 +1,53 @@
-function entrar() {
-    var emailVar = email_login.value;
-    var senhaVar = senha_login.value;
+input = document.querySelectorAll('.required')
+spanErro = document.querySelectorAll('.erro')
 
-    if(emailVar == "" || senhaVar == "") {
-        alert("Preencha todos os campos para prosseguir");
+emailValidado = false
+senhaValidada = false
+
+//Função de erro, caso o campo esteja incorreto
+function erro(indice) {
+    input[indice].style.border = '2px solid #e63636'
+    spanErro[indice].style.display = 'block'
+}
+
+//Função de erro, caso o campo esteja correto
+function acerto(indice) {
+    input[indice].style.border = '0px'
+}
+
+function validarEmail() {
+    if (input[0].value.length <= 0) {
+        erro(0)
+        emailValidado = false
+    } else {
+        acerto(0)
+        emailValidado = true;
+    }
+}
+
+function validarSenha() {
+    if (input[1].value.length <= 0) {
+        erro(1)
+        senhaValidada = false
+    }
+    else {
+        acerto(1)
+        senhaValidada = true;
+    }
+}
+
+// Função para fazer login
+function entrar() {
+
+    if (!emailValidado && !senhaValidada) {
+        document.getElementById("avisoErro").innerHTML = "Preencha todos os campos corretamente!"
         return false;
     }
+
+    document.getElementById("avisoErro").innerHTML = ""
+
+    var emailVar = email_login.value;
+    var senhaVar = senha_login.value;
 
     console.log("E-MAIL: ", emailVar);
     console.log("SENHA: ", senhaVar);
@@ -20,33 +62,34 @@ function entrar() {
             senhaServer: senhaVar
         })
     })
-    .then(function(resposta) {
-        console.log("resposta: ", resposta);
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
 
-        if(resposta.ok) {
-            console.log(resposta);
+            if (resposta.ok) {
+                console.log(resposta);
 
-            resposta.json().then(json => {
-                console.log(json);
-                console.log(JSON.stringify(json));
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
 
-                sessionStorage.EMAIL_USUARIO = json.email;
-                sessionStorage.NOME_USUARIO = json.nome;
-                sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
 
-                setTimeout(function() {
-                    window.location = "../dashboard/dashboard.html";
-                }, 1000);
-            });
-        } else {
-            console.log("Houve um erro ao fazer o login!");
-            resposta.text().then(texto => {
-                console.error(texto);
-            });
-        }
-    })
-    .catch(function(erro) {
-        console.log(erro);
-    });
+                    setTimeout(function () {
+                        window.location = "../dashboard/dashboard.html";
+                    }, 1000);
+                });
+            } else {
+                console.log("Houve um erro ao fazer o login!");
+                document.getElementById("avisoErro").innerHTML = "Não foi possível realizar login! Revise suas credênciais"
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+        });
     return false;
 }
