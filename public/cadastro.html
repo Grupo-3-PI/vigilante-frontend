@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>login - Vigilante</title>
+</head>
+
+<body onload="listar()">
+    <div class="container">
+        <div class="container_forms">
+            <div class="forms">
+                <a href="./login.html" class="setaVoltar">
+                    <img src="../images/setaVoltar.png" alt="Voltar" class="seta_svg">
+                    Voltar
+                </a>
+                <p class="title">Cadastre-se</p>
+                <div class="container_inputs">
+                    <input type="text" id="nome_value" placeholder="Nome" class="inputs required" oninput="validarNome()">
+                    <span class="erro">nome deve ter 3 caracteres</span>
+                    <input type="text" id="email_value" placeholder="E-mail" class="inputs required" oninput="validarEmail()">
+                    <span class="erro">Email é inválido</span>
+                    <input type="password" id="senha_value" placeholder="Senha" class="inputs required" oninput="validarSenha()">
+                    <span class="erro">Senha deve ter 8 caracteres</span>
+                    <input type="password" id="conf_senha_value" placeholder="Confirmar senha" class="inputs required" oninput="validarConfSenha()">
+                    <span class="erro">Senha incorreta</span>
+                    <input type="text" id="agencia_value" placeholder="Código da empresa" class="inputs required">
+                </div>
+                <div class="container_button">
+                    <p>Já é cadastrado? <br><span onclick="redirecionar()" class="cadastrar">conecte-se</span></p>
+                    <button id="botao" onclick="cadastrar()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="banner">
+            <!-- Imagem do bannner -->
+            <a href="../solucao.html"><div class="logo_vigilante"></div></a>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    //Redirecionando para outra página
+    function redirecionar() {
+        window.location.href = "./login.html";
+    }
+</script>
+
+<script src="js/validacao.js"></script>
+<script src="js/cadastro.js"></script>
