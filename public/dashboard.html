@@ -26,18 +26,31 @@
             <div class="tituloDashboard"><img src="./images/dashboard-icon.png" class="imgDashboard">Dashboard</div>
 
             <div class="caixa-municipios">
-                <div onclick="exibirMunicipios()" class="botao-municipios" id="botao-municipio"><img
-                        src="./images/map-icon.png" class="imgMap">Municípios ▴</div>
+                <div onclick="exibirMunicipios()" class="botao-municipios" id="botao-municipio">
+                    <div class="divImgMap"><img src="./images/map-icon.png" class="imgMap">Municípios</div>▴
+                </div>
                 <div id="opcoes-municipio" class="opcoes-municipio">
-                    <p class="opcao-municipio">Bertioga</p>
-                    <p class="opcao-municipio">Cubatão</p>
-                    <p class="opcao-municipio">Guarujá</p>
-                    <p class="opcao-municipio">Itanhaém</p>
-                    <p class="opcao-municipio">Mongaguá</p>
-                    <p class="opcao-municipio">Peruíbe</p>
-                    <p class="opcao-municipio">Praia Grande</p>
-                    <p class="opcao-municipio">Santos</p>
-                    <p class="opcao-municipio">São Vicente</p>
+                    <p class="opcao-municipio" id="opcao-municipio1" onclick="selecionarMunicipio(1)">Bertioga</p>
+                    <p class="opcao-municipio" id="opcao-municipio2" onclick="selecionarMunicipio(2)">Cubatão</p>
+                    <p class="opcao-municipio" id="opcao-municipio3" onclick="selecionarMunicipio(3)">Guarujá</p>
+                    <p class="opcao-municipio" id="opcao-municipio4" onclick="selecionarMunicipio(4)">Itanhaém</p>
+                    <p class="opcao-municipio" id="opcao-municipio5" onclick="selecionarMunicipio(5)">Mongaguá</p>
+                    <p class="opcao-municipio" id="opcao-municipio6" onclick="selecionarMunicipio(6)">Peruíbe</p>
+                    <p class="opcao-municipio" id="opcao-municipio7" onclick="selecionarMunicipio(7)">Praia Grande</p>
+                    <p class="opcao-municipio" id="opcao-municipio8" onclick="selecionarMunicipio(8)">Santos</p>
+                    <p class="opcao-municipio" id="opcao-municipio9" onclick="selecionarMunicipio(9)">São Vicente</p>
+                </div>
+            </div>
+
+            <div class="caixa-anos">
+                <div onclick="exibirAnos()" class="botao-anos" id="botao-anos">
+                    <div class="divImgAno"><img src="./images/ano-icon.png" class="imgAno">Ano</div>
+                    ▴
+                </div>
+                <div id="opcoes-anos" class="opcoes-anos">
+                    <p class="opcao-ano" id="opcao-ano1" onclick="selecionarAno(1)">2025</p>
+                    <p class="opcao-ano" id="opcao-ano2" onclick="selecionarAno(2)">2024</p>
+                    <p class="opcao-ano" id="opcao-ano3" onclick="selecionarAno(3)">2023</p>
                 </div>
             </div>
 
@@ -78,6 +91,38 @@
             document.getElementById("botao-municipio").style.backgroundColor = "#fff";
             document.getElementById("botao-municipio").innerHTML = document.getElementById("botao-municipio").innerHTML.replace("▾", "▴");
         }
+
+    }
+
+    function selecionarMunicipio(municipio) {
+        for (var i = 1; i <= 9; i++) {
+            document.getElementById("opcao-municipio" + i).style.color = "black"
+            document.getElementById("opcao-municipio" + i).style.fontWeight = "normal"
+        }
+        document.getElementById("opcao-municipio" + municipio).style.color = "#fea40b"
+        document.getElementById("opcao-municipio" + municipio).style.fontWeight = "bolder"
+    }
+
+    function exibirAnos() {
+        if (document.getElementById("opcoes-anos").style.display == "") {
+            document.getElementById("opcoes-anos").style.display = "flex";
+            document.getElementById("botao-anos").style.backgroundColor = "#f0f0f0";
+            document.getElementById("botao-anos").innerHTML = document.getElementById("botao-anos").innerHTML.replace("▴", "▾");
+
+        } else {
+            document.getElementById("opcoes-anos").style.display = "";
+            document.getElementById("botao-anos").style.backgroundColor = "#fff";
+            document.getElementById("botao-anos").innerHTML = document.getElementById("botao-anos").innerHTML.replace("▾", "▴");
+        }
+    }
+
+    function selecionarAno(ano) {
+        for (var i = 1; i <= 3; i++) {
+            document.getElementById("opcao-ano" + i).style.color = "black"
+            document.getElementById("opcao-ano" + i).style.fontWeight = "normal"
+        }
+        document.getElementById("opcao-ano" + ano).style.color = "#fea40b"
+        document.getElementById("opcao-ano" + ano).style.fontWeight = "bolder"
     }
 
 </script>

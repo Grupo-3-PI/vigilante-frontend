@@ -17,28 +17,26 @@ body {
 /* Nav */
 .navbar {
   background-color: white;
-  width: 20%;
+  width: 17%;
   box-shadow: 2px 0 3px rgba(0, 0, 0, 0.05);
   z-index: 1;
 }
 
 .logo {
-  width: 80%;
+  width: 90%;
   height: 15%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .imgLogo {
   width: 150px;
-  margin-right: 14px;
   margin-top: 15px;
 }
 
 .imgHamburguer {
   width: 20px;
-  margin-left: 14px;
 }
 
 .menu-nav {
@@ -53,13 +51,15 @@ body {
 .tituloDashboard {
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: start;
   margin: 15px;
+  padding-left: 20px;
+  color: #b7b7b7;
 }
 
 .imgDashboard {
   width: 20px;
-  margin-right: 10px;
+  margin-right: 25px;
 }
 
 .caixa-municipios {
@@ -70,20 +70,32 @@ body {
   text-align: center;
 }
 
-.imgMap {
-  margin-right: 10px;
-}
-
 .botao-municipios {
   user-select: none;
   cursor: pointer;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
   background-color: #fff;
   border-radius: 10px;
-  height: 7vh;
+  height: 5vh;
   margin: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #363062;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.divImgMap {
+  display: flex;
+  align-items: center;
+}
+
+.imgMap {
+  margin-right: 25px;
+  width: 25px;
+  margin-bottom: 5px;
 }
 
 .opcoes-municipio {
@@ -92,8 +104,56 @@ body {
 }
 
 .opcao-municipio {
-  margin-top: 8px;
-  font-size: 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.caixa-anos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.divImgAno {
+  display: flex;
+  align-items: center;
+}
+
+.imgAno {
+  margin-right: 25px;
+  width: 25px;
+  margin-bottom: 5px;
+}
+
+.botao-anos {
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  height: 5vh;
+  margin: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #363062;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.opcoes-anos {
+  display: none;
+  flex-direction: column;
+}
+
+.opcao-ano {
+  margin-bottom: 8px;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .menu-nav li {
@@ -115,7 +175,7 @@ body {
 
 /* Conteúdo */
 .conteudo {
-  width: 80%;
+  width: 83%;
   height: 100vh;
 }
 
