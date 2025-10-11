@@ -17,13 +17,29 @@
 
     <div class="navbar">
         <div class="logo">
-            <a href="./index.html"><img src="./images/VigilanteLogo.png"></a>
+            <a href="./index.html"><img src="./images/vigilante-logo.png" class="imgLogo"></a>
+            <img src="./images/hamburguer-icon.png" class="imgHamburguer">
         </div>
 
         <div class="menu-nav">
 
-            <li>Relatório</li>
-            <li>Municípios:</li>
+            <div class="tituloDashboard"><img src="./images/dashboard-icon.png" class="imgDashboard">Dashboard</div>
+
+            <div class="caixa-municipios">
+                <div onclick="exibirMunicipios()" class="botao-municipios" id="botao-municipio"><img
+                        src="./images/map-icon.png" class="imgMap">Municípios ▴</div>
+                <div id="opcoes-municipio" class="opcoes-municipio">
+                    <p class="opcao-municipio">Bertioga</p>
+                    <p class="opcao-municipio">Cubatão</p>
+                    <p class="opcao-municipio">Guarujá</p>
+                    <p class="opcao-municipio">Itanhaém</p>
+                    <p class="opcao-municipio">Mongaguá</p>
+                    <p class="opcao-municipio">Peruíbe</p>
+                    <p class="opcao-municipio">Praia Grande</p>
+                    <p class="opcao-municipio">Santos</p>
+                    <p class="opcao-municipio">São Vicente</p>
+                </div>
+            </div>
 
         </div>
         <div class="sair">
@@ -31,7 +47,7 @@
         </div>
     </div>
     <div class="conteudo">
-        
+
         <div class="titulo">
             <div class="municipio">
                 Dashboard - Município
@@ -41,43 +57,27 @@
             </div>
         </div>
         <div class="dados">
-            <div class="indicadores">
-                <div class="filtros">
-                    <div class="filtro">
-                        Filtro mensal
-                    </div>
-                    <div class="filtro">
-                        Gerar relatório
-                    </div>
-                </div>
-                <div class="indicador">
-                    Total de Roubos
-                </div>
-                <div class="indicador">
-                    Crime mais frequente
-                </div>
-                <div class="indicador">
-                    Total de ocorrencias
-                </div>
-            </div>
-            <div class="graficos">
 
-                <div class="grafico1">
-                    Top 5 crimes mais incidentes (Ranking)
-                </div>
-
-                <div class="grafico2">
-                    Comparativo Roubos X Furtos
-                </div>
-
-                <div class="grafico3">
-                    Crimes menos frequentes
-                </div>
-
-            </div>
         </div>
     </div>
 
 </body>
 
 </html>
+
+<script>
+
+    function exibirMunicipios() {
+        if (document.getElementById("opcoes-municipio").style.display == "") {
+            document.getElementById("opcoes-municipio").style.display = "flex";
+            document.getElementById("botao-municipio").style.backgroundColor = "#f0f0f0";
+            document.getElementById("botao-municipio").innerHTML = document.getElementById("botao-municipio").innerHTML.replace("▴", "▾");
+
+        } else {
+            document.getElementById("opcoes-municipio").style.display = "";
+            document.getElementById("botao-municipio").style.backgroundColor = "#fff";
+            document.getElementById("botao-municipio").innerHTML = document.getElementById("botao-municipio").innerHTML.replace("▾", "▴");
+        }
+    }
+
+</script>
