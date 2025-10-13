@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body onload="carregarTabela()">
 
     <div class="navbar">
         <div class="logo">
@@ -82,7 +82,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    
+
                                 </th>
                                 <th>
                                     Município
@@ -118,11 +118,13 @@
     const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mangaguá", "Peruíbe", "Praia Grande", "Santos", "São Vincente"];
 
 
+    // Provisório!!!
     function carregarTabela() {
+
+        var valores_municipio = []
 
         municipios.forEach((municipio) => {
 
-            // Provisório
             var score = (Math.random() * 6 + 4).toFixed(1)
             var crimes = (Math.random() * 400 + 1000).toFixed()
             var status
@@ -137,12 +139,12 @@
                 status = "<span style='color:red'>Inseguro</red>"
                 seta = "<img src='./images/seta-down.png' class='imgSeta'/>"
             }
-            document.getElementById("corpo-tabela").innerHTML += `<tr class="linha-tabela"><td>${seta}</td><td>${municipio}</td><td>${score}</td><td>${crimes}</td><td>${status}</td></tr>`
+            valores_municipio.push([`<tr class="linha-tabela"><td>${seta}</td><td>${municipio}</td><td>${score}</td><td>${crimes}</td><td>${status}</td></tr>`, score])
+            // document.getElementById("corpo-tabela").innerHTML += `<tr class="linha-tabela"><td>${seta}</td><td>${municipio}</td><td>${score}</td><td>${crimes}</td><td>${status}</td></tr>`
 
         })
+        valores_municipio.sort((a, b) => b[1] - a[1]).forEach((municipio) => document.getElementById("corpo-tabela").innerHTML += municipio[0])
     }
-
-    window.onload(carregarTabela())
 
     function exibirMunicipios() {
         if (document.getElementById("opcoes-municipio").style.display == "") {
@@ -160,11 +162,9 @@
 
     function selecionarMunicipio(municipio) {
         for (var i = 1; i <= 9; i++) {
-            document.getElementById("opcao-municipio" + i).style.color = "black"
-            document.getElementById("opcao-municipio" + i).style.fontWeight = "normal"
+            document.getElementById("opcao-municipio" + i).classList.remove("opcao-municipio-selecionado")
         }
-        document.getElementById("opcao-municipio" + municipio).style.color = "#fea40b"
-        document.getElementById("opcao-municipio" + municipio).style.fontWeight = "bolder"
+        document.getElementById("opcao-municipio" + municipio).classList.add("opcao-municipio-selecionado")
     }
 
     function exibirAnos() {
@@ -182,11 +182,9 @@
 
     function selecionarAno(ano) {
         for (var i = 1; i <= 3; i++) {
-            document.getElementById("opcao-ano" + i).style.color = "black"
-            document.getElementById("opcao-ano" + i).style.fontWeight = "normal"
+            document.getElementById("opcao-ano" + i).classList.remove("opcao-ano-selecionado")
         }
-        document.getElementById("opcao-ano" + ano).style.color = "#fea40b"
-        document.getElementById("opcao-ano" + ano).style.fontWeight = "bolder"
+        document.getElementById("opcao-ano" + ano).classList.add("opcao-ano-selecionado")
     }
 
 </script>

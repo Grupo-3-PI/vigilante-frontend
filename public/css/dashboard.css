@@ -109,6 +109,15 @@ body {
   cursor: pointer;
 }
 
+.opcao-municipio:hover {
+  color: #525252;
+}
+
+.opcao-municipio-selecionado {
+  color: #fea40b;
+  font-weight: bold;
+}
+
 .caixa-anos {
   display: flex;
   flex-direction: column;
@@ -146,8 +155,18 @@ body {
 }
 
 .opcoes-anos {
+  color: black;
   display: none;
   flex-direction: column;
+}
+
+.opcao-ano:hover {
+  color: #525252 !important;
+}
+
+.opcao-ano-selecionado {
+  color: #fea40b;
+  font-weight: bold;
 }
 
 .opcao-ano {
@@ -193,7 +212,7 @@ body {
 }
 
 .dados {
-  padding-top: 4%;
+  padding-top: 2%;
   width: 100%;
   height: 90%;
   display: flex;
@@ -241,7 +260,7 @@ body {
 
 .area-graficos {
 
-  width: 60%;
+  width: 57%;
   height: 100%;
   background-color: red;
 }
@@ -252,12 +271,13 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 40%;
+  width: 43%;
   height: 100%;
-  
+
 }
 
 .tabela {
+  user-select: none;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -270,16 +290,21 @@ body {
 
 .titulo-tabela {
 
+  display: flex;
+  align-items: center;
+  padding: 30px;
+  font-weight: 500;
+  font-size: 15px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: 7%;
+  height: 10%;
   width: 95%;
   background-color: white;
 }
 
 .dados-tabela {
   width: 95%;
-  height: 93%;
+  height: 90%;
 }
 
 .tabela .linha-tabela:hover {
