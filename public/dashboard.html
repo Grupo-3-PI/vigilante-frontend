@@ -48,9 +48,9 @@
                     ▴
                 </div>
                 <div id="opcoes-anos" class="opcoes-anos">
-                    <p class="opcao-ano" id="opcao-ano1" onclick="selecionarAno(1)">2025</p>
-                    <p class="opcao-ano" id="opcao-ano2" onclick="selecionarAno(2)">2024</p>
-                    <p class="opcao-ano" id="opcao-ano3" onclick="selecionarAno(3)">2023</p>
+                    <p class="opcao-ano opcao-ano-selecionado" id="opcao-ano1" onclick="selecionarAno(1), atividade_policial.update()">2025</p>
+                    <p class="opcao-ano" id="opcao-ano2" onclick="selecionarAno(2), atividade_policial.update()">2024</p>
+                    <p class="opcao-ano" id="opcao-ano3" onclick="selecionarAno(3), atividade_policial.update()">2023</p>
                 </div>
             </div>
 
@@ -72,9 +72,24 @@
 
         <div class="dados">
 
+
             <div class="area-graficos">
 
+                <div class="kpis">
+
+                </div>
+                <div class="graficos">
+
+                </div>
+                <div class="area-grafico-produtividade">
+
+                    <canvas id="atividade-policial" width="490" height="155" class="atividade-policial"></canvas>
+
+                </div>
+
             </div>
+
+
             <div class="area-tabela">
                 <div class="titulo-tabela">Ranking de Segurança dos Municípios</div>
                 <div class="dados-tabela">
@@ -113,11 +128,15 @@
 
 </html>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
     const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mangaguá", "Peruíbe", "Praia Grande", "Santos", "São Vincente"];
+    var ano_selecionado = 2025
 
 
+
+    // Tabela
     // Provisório!!!
     function carregarTabela() {
 
@@ -185,6 +204,70 @@
             document.getElementById("opcao-ano" + i).classList.remove("opcao-ano-selecionado")
         }
         document.getElementById("opcao-ano" + ano).classList.add("opcao-ano-selecionado")
+        ano_selecionado = document.getElementById("opcao-ano" + ano).innerHTML
     }
 
+    // Gráfico de Atividade Policial
+    const ctx = document.getElementById('atividade-policial').getContext('2d');
+
+    const atividade_policial = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'], // Eixo X
+            datasets: [{
+                label: 'Atividade Policial',
+                borderWidth: 2,
+                data: [356, 1205, 987, 430, 1342, 780, 1150, 610, 1388, 920, 250, 1107],
+                borderColor: 'blue',
+                backgroundColor: 'transparent',
+                tension: 0.3
+            },
+            {
+                label: 'Crimes',
+                borderWidth: 2,
+                data: [312, 875, 1040, 420, 1335, 605, 1210, 790, 1398, 910, 275, 1175],
+                borderColor: 'orange',
+                backgroundColor: 'transparent',
+                tension: 0.3
+            }]
+        },
+        plugins: [{
+            id: 'tituloEsquerda',
+            beforeDraw(chart) {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.font = '16px Poppins';
+                ctx.textAlign = 'left';
+                ctx.fillText(`Crimes por Produtividade Policial - ${ano_selecionado}`, chart.chartArea.left - 15, chart.chartArea.top - 40);
+                ctx.restore();
+            }
+        }],
+        options: {
+            layout: {
+                padding: {
+                    top: 30,
+                    bottom: 10,
+                    left: 10,
+                    right: 10
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'end',
+                    labels: {
+                        padding: 10
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+
+        }
+    });
 </script>
