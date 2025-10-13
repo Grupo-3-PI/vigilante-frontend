@@ -69,7 +69,42 @@
                 Nome do Usuario
             </div>
         </div>
+
         <div class="dados">
+
+            <div class="area-graficos">
+
+            </div>
+            <div class="area-tabela">
+                <div class="titulo-tabela">Ranking de Segurança dos Municípios</div>
+                <div class="dados-tabela">
+                    <table class="tabela" id="tabela">
+                        <thead>
+                            <tr>
+                                <th>
+                                    
+                                </th>
+                                <th>
+                                    Município
+                                </th>
+                                <th>
+                                    Score
+                                </th>
+                                <th>
+                                    Crimes
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
 
         </div>
     </div>
@@ -79,6 +114,35 @@
 </html>
 
 <script>
+
+    const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mangaguá", "Peruíbe", "Praia Grande", "Santos", "São Vincente"];
+
+
+    function carregarTabela() {
+
+        municipios.forEach((municipio) => {
+
+            // Provisório
+            var score = (Math.random() * 6 + 4).toFixed(1)
+            var crimes = (Math.random() * 400 + 1000).toFixed()
+            var status
+            var seta
+            if (score >= 7) {
+                status = "<span style='color:lime'>Seguro</span>"
+                seta = "<img src='./images/seta-up.png' class='imgSeta'/>"
+            } else if (score >= 5) {
+                status = "<span style='color:yellow'>Moderado</span>"
+                seta = "<img src='./images/seta-mid.png' class='imgSeta'/>"
+            } else {
+                status = "<span style='color:red'>Inseguro</red>"
+                seta = "<img src='./images/seta-down.png' class='imgSeta'/>"
+            }
+            document.getElementById("corpo-tabela").innerHTML += `<tr class="linha-tabela"><td>${seta}</td><td>${municipio}</td><td>${score}</td><td>${crimes}</td><td>${status}</td></tr>`
+
+        })
+    }
+
+    window.onload(carregarTabela())
 
     function exibirMunicipios() {
         if (document.getElementById("opcoes-municipio").style.display == "") {
