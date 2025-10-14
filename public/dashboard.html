@@ -30,15 +30,24 @@
                     <div class="divImgMap"><img src="./images/map-icon.png" class="imgMap">Municípios</div>▴
                 </div>
                 <div id="opcoes-municipio" class="opcoes-municipio">
-                    <p class="opcao-municipio" id="opcao-municipio1" onclick="selecionarMunicipio(1)">Bertioga</p>
-                    <p class="opcao-municipio" id="opcao-municipio2" onclick="selecionarMunicipio(2)">Cubatão</p>
-                    <p class="opcao-municipio" id="opcao-municipio3" onclick="selecionarMunicipio(3)">Guarujá</p>
-                    <p class="opcao-municipio" id="opcao-municipio4" onclick="selecionarMunicipio(4)">Itanhaém</p>
-                    <p class="opcao-municipio" id="opcao-municipio5" onclick="selecionarMunicipio(5)">Mongaguá</p>
-                    <p class="opcao-municipio" id="opcao-municipio6" onclick="selecionarMunicipio(6)">Peruíbe</p>
-                    <p class="opcao-municipio" id="opcao-municipio7" onclick="selecionarMunicipio(7)">Praia Grande</p>
-                    <p class="opcao-municipio" id="opcao-municipio8" onclick="selecionarMunicipio(8)">Santos</p>
-                    <p class="opcao-municipio" id="opcao-municipio9" onclick="selecionarMunicipio(9)">São Vicente</p>
+                    <p class="opcao-municipio opcao-municipio-selecionado" id="opcao-municipio1"
+                        onclick="selecionarMunicipio(1), atualizarAtividadePoilicial()">Bertioga</p>
+                    <p class="opcao-municipio" id="opcao-municipio2"
+                        onclick="selecionarMunicipio(2), atualizarAtividadePoilicial()">Cubatão</p>
+                    <p class="opcao-municipio" id="opcao-municipio3"
+                        onclick="selecionarMunicipio(3), atualizarAtividadePoilicial()">Guarujá</p>
+                    <p class="opcao-municipio" id="opcao-municipio4"
+                        onclick="selecionarMunicipio(4), atualizarAtividadePoilicial()">Itanhaém</p>
+                    <p class="opcao-municipio" id="opcao-municipio5"
+                        onclick="selecionarMunicipio(5), atualizarAtividadePoilicial()">Mongaguá</p>
+                    <p class="opcao-municipio" id="opcao-municipio6"
+                        onclick="selecionarMunicipio(6), atualizarAtividadePoilicial()">Peruíbe</p>
+                    <p class="opcao-municipio" id="opcao-municipio7"
+                        onclick="selecionarMunicipio(7), atualizarAtividadePoilicial()">Praia Grande</p>
+                    <p class="opcao-municipio" id="opcao-municipio8"
+                        onclick="selecionarMunicipio(8), atualizarAtividadePoilicial()">Santos</p>
+                    <p class="opcao-municipio" id="opcao-municipio9"
+                        onclick="selecionarMunicipio(9), atualizarAtividadePoilicial()">São Vicente</p>
                 </div>
             </div>
 
@@ -48,9 +57,12 @@
                     ▴
                 </div>
                 <div id="opcoes-anos" class="opcoes-anos">
-                    <p class="opcao-ano opcao-ano-selecionado" id="opcao-ano1" onclick="selecionarAno(1), atividade_policial.update()">2025</p>
-                    <p class="opcao-ano" id="opcao-ano2" onclick="selecionarAno(2), atividade_policial.update()">2024</p>
-                    <p class="opcao-ano" id="opcao-ano3" onclick="selecionarAno(3), atividade_policial.update()">2023</p>
+                    <p class="opcao-ano opcao-ano-selecionado" id="opcao-ano1"
+                        onclick="selecionarAno(1), atualizarAtividadePoilicial()">2025</p>
+                    <p class="opcao-ano" id="opcao-ano2" onclick="selecionarAno(2), atualizarAtividadePoilicial()">2024
+                    </p>
+                    <p class="opcao-ano" id="opcao-ano3" onclick="selecionarAno(3), atualizarAtividadePoilicial()">2023
+                    </p>
                 </div>
             </div>
 
@@ -83,7 +95,8 @@
                 </div>
                 <div class="area-grafico-produtividade">
 
-                    <canvas id="atividade-policial" width="490" height="155" class="atividade-policial"></canvas>
+                    <div class="atividade-policial"><canvas id="atividade-policial" width="490" height="145"></canvas>
+                    </div>
 
                 </div>
 
@@ -133,6 +146,7 @@
 
     const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mangaguá", "Peruíbe", "Praia Grande", "Santos", "São Vincente"];
     var ano_selecionado = 2025
+    var municipio_selecionado = "Bertioga"
 
 
 
@@ -184,6 +198,7 @@
             document.getElementById("opcao-municipio" + i).classList.remove("opcao-municipio-selecionado")
         }
         document.getElementById("opcao-municipio" + municipio).classList.add("opcao-municipio-selecionado")
+        municipio_selecionado = document.getElementById("opcao-municipio" + municipio).innerHTML
     }
 
     function exibirAnos() {
@@ -213,11 +228,11 @@
     const atividade_policial = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'], // Eixo X
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [{
                 label: 'Atividade Policial',
                 borderWidth: 2,
-                data: [356, 1205, 987, 430, 1342, 780, 1150, 610, 1388, 920, 250, 1107],
+                data: [(Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed()],
                 borderColor: 'blue',
                 backgroundColor: 'transparent',
                 tension: 0.3
@@ -238,7 +253,7 @@
                 ctx.save();
                 ctx.font = '16px Poppins';
                 ctx.textAlign = 'left';
-                ctx.fillText(`Crimes por Produtividade Policial - ${ano_selecionado}`, chart.chartArea.left - 15, chart.chartArea.top - 40);
+                ctx.fillText(`Crimes por Produtividade Policial em ${municipio_selecionado} - ${ano_selecionado}`, chart.chartArea.left - 15, chart.chartArea.top - 40);
                 ctx.restore();
             }
         }],
@@ -267,7 +282,13 @@
                     beginAtZero: true
                 }
             }
-
         }
     });
+
+    function atualizarAtividadePoilicial() {
+        atividade_policial.data.datasets[0].data = [(Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed()]
+        atividade_policial.data.datasets[1].data = [(Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed()]
+
+        atividade_policial.update()
+    }
 </script>
