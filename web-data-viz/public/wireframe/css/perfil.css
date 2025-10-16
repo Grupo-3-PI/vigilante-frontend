@@ -1,90 +1,565 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction:column ;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8e3c7, #ffffff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 header {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.navbar {
+  width: 90%;
+  max-width: 1100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #bbb;
-  padding: 10px 20px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(194, 192, 192, 0.619);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  position: fixed;
 }
 
-.logo {
-  font-weight: bold;
+.logo img {
+  width: 150px;
+  margin-right: 8px;
+  margin-top: 10px;
 }
 
-nav {
+.menu-desktop ul {
+  list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 32px;
 }
 
-nav a {
+.menu-desktop ul li a {
   text-decoration: none;
-  color: black;
-  font-weight: normal;
+  color: #fff;
+  font-weight: 400;
+  transition: 0.3s;
 }
+
+.menu-desktop ul li a:hover {
+  color: #ffd19f;
+}
+
+.btn-contato button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ffb700, #ff8d3b);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-contato button:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 160px; 
+}
+
+
+.banner {
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  gap: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+
+.imagem_perfil {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.imagem_perfil img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffb13b;
+  transition: transform 0.3s ease;
+}
+
+.imagem_perfil img:hover {
+  transform: scale(1.05);
+}
+
+.imagem_perfil a {
+  font-size: 14px;
+  color: #ffb13b;
+  text-decoration: none;
+  margin-top: 8px;
+  transition: 0.3s;
+}
+
+.imagem_perfil a:hover {
+  text-decoration: underline;
+}
+
+
+.conteudo {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.conteudo p {
+  font-size: 16px;
+  color: #333;
+  background: #f7f7ff;
+  border-radius: 8px;
+  padding: 10px 15px;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.conteudo p:hover {
+  background: #ffae2c32;
+}
+
+
+.conteudo button {
+  align-self: center;
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ffb700, #ff8d3b);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.conteudo button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
 
 .user {
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: 100px;
+  right: 50px;
+  font-size: 15px;
+  color: #333;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  background: url('../images/perfil_logo.png') center/cover no-repeat;
+  border-radius: 50%;
+}
+
+.menu-mobile {
+  display: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8e3c7, #ffffff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.navbar {
+  width: 90%;
+  max-width: 1100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(194, 192, 192, 0.619);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  position: fixed;
+}
+
+.logo img {
+  width: 150px;
+  margin-right: 8px;
+  margin-top: 10px;
+}
+
+.menu-desktop ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+}
+
+.menu-desktop ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  transition: 0.3s;
+}
+
+.menu-desktop ul li a:hover {
+  color: #ffd19f;
+}
+
+.btn-contato button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ffb700, #ff8d3b);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-contato button:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
 }
 
 .container {
+  width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  padding-top: 160px; 
 }
-/*Da navbar para baixo*/
 
 .banner {
-  margin-top: 50px;
-  width: 1000px;
-  height: 600px;
-  border-radius: 80px;
-  border-color: black;
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-   border: 2px solid black; 
+  justify-content: space-between;
+  padding: 40px;
+  gap: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
 }
 
 .imagem_perfil {
-  /*Deixa o user alinhado com o "editar foto"*/
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  /*Configurações da foto*/
-  img {
-    width: 200px;
-  }
-  a {
-    font-size: 10px;
-  }
+  gap: 10px;
+}
+
+.imagem_perfil img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffb13b;
+  transition: transform 0.3s ease;
+}
+
+.imagem_perfil img:hover {
+  transform: scale(1.05);
+}
+
+.imagem_perfil a {
+  font-size: 14px;
+  color: #ffb13b;
+  text-decoration: none;
+  margin-top: 8px;
+  transition: 0.3s;
+}
+
+.imagem_perfil a:hover {
+  text-decoration: underline;
 }
 
 .conteudo {
-  /*Centraliza o conteúdo*/
+  flex: 2;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+}
+
+.conteudo p {
+  font-size: 16px;
+  color: #333;
+  background: #f7f7ff;
+  border-radius: 8px;
+  padding: 10px 15px;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.conteudo p:hover {
+  background: #ffae2c32;
+}
+
+.conteudo button {
+  align-self: center;
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ffb700, #ff8d3b);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.conteudo button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.user {
+  display: flex;
   align-items: center;
-  
-  p {
-    font-size: 15px;
-  
+  gap: 10px;
+  position: absolute;
+  top: 100px;
+  right: 50px;
+  font-size: 15px;
+  color: #333;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  background: url('../images/perfil_logo.png') center/cover no-repeat;
+  border-radius: 50%;
+}
+
+.menu-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
   }
 
-  button {
-  font-size: 20px;
-  background-color: none; 
-  padding: 10px 20px;
-  border-radius: 10px;
-  border-color:#aaa ;
+  .imagem_perfil img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .conteudo p {
+    font-size: 14px;
+  }
+
+  .conteudo button {
+    font-size: 14px;
+    padding: 10px 24px;
+  }
+
+  .user {
+    position: static;
+    justify-content: center;
+    margin-top: 100px;
+  }
 }
+
+/* responsividade 430px */
+@media (max-width: 430px) {
+
+  body {
+    background: linear-gradient(160deg, #fff6ea, #ffe3b3);
+  }
+
+  .navbar {
+    width: 95%;
+    padding: 8px 12px;
+    border-radius: 15px;
+  }
+
+  .logo img {
+    width: 110px;
+    margin-top: 4px;
+  }
+
+  .btn-contato button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 25px 15px;
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .imagem_perfil img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .imagem_perfil a {
+    font-size: 12px;
+  }
+
+  .conteudo {
+    width: 100%;
+    align-items: center;
+  }
+
+  .conteudo p {
+    width: 90%;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .conteudo button {
+    font-size: 13px;
+    padding: 8px 20px;
+    border-radius: 30px;
+  }
+
+  .user {
+    position: static;
+    margin-top: 80px;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .user-icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+
+/* BOTÃO MENU MOBILE */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #000000;
+  z-index: 1001; /* fica por cima */
+}
+
+/* MENU MOBILE */
+.menu-mobile {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 125px;
+  background: rgba(0,0,0,0.9);
+  padding: 20px;
+  border-radius: 12px;
+  flex-direction: row;
+  gap: 16px;
+  z-index: 1000;
+}
+
+.menu-mobile ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.menu-mobile ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.menu-mobile ul li a:hover {
+  color: #ffc400;
+}
+
+.menu-mobile.active {
+  display: flex;
+}
+
+/* MOBILE */
+@media screen and (max-width: 430px) {
+  .navbar, .logo {
+    display: none; 
+  }
+
+  .menu-toggle {
+    display: block; 
+  }
 }
