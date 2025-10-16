@@ -17,13 +17,13 @@ body {
 /* Nav */
 .navbar {
   background-color: white;
-  width: 17%;
+  width: 12%;
   box-shadow: 2px 0 3px rgba(0, 0, 0, 0.05);
   z-index: 1;
 }
 
 .logo {
-  width: 90%;
+  width: 100%;
   height: 15%;
   display: flex;
   align-items: center;
@@ -33,10 +33,6 @@ body {
 .imgLogo {
   width: 80%;
   margin-top: 15px;
-}
-
-.imgHamburguer {
-  width: 10%;
 }
 
 .menu-nav {
@@ -58,8 +54,8 @@ body {
 }
 
 .imgDashboard {
-  width: 10%;
-  margin-right: 25px;
+  width: 12%;
+  margin-right: 8%;
 }
 
 .caixa-municipios {
@@ -93,8 +89,8 @@ body {
 }
 
 .imgMap {
-  margin-right: 25px;
-  width: 25px;
+  margin-right: 5%;
+  width: 15%;
   margin-bottom: 5px;
 }
 
@@ -132,8 +128,8 @@ body {
 }
 
 .imgAno {
-  margin-right: 25px;
-  width: 25px;
+  margin-right: 5%;
+  width: 15%;
   margin-bottom: 5px;
 }
 
@@ -161,7 +157,7 @@ body {
 }
 
 .opcao-ano:hover {
-  color: #525252 !important;
+  color: #525252;
 }
 
 .opcao-ano-selecionado {
@@ -173,6 +169,34 @@ body {
   margin-bottom: 8px;
   font-size: 13px;
   cursor: pointer;
+}
+
+.caminho {
+  margin-top: 2%;
+}
+
+.usuario {
+  margin-top: 2%;
+  display: flex;
+  justify-content: end;
+}
+
+.foto-usuario {
+  width: 10%;
+  margin-right: 3%;
+}
+
+.nome-usuario {
+  margin-top: 5%;
+}
+
+.funcao-usuario {
+  font-weight: 500;
+}
+
+.caminho-tela {
+  text-decoration: none;
+  color: black;
 }
 
 .menu-nav li {
@@ -194,7 +218,7 @@ body {
 
 /* Conteúdo */
 .conteudo {
-  width: 83%;
+  width: 88%;
   height: 100vh;
 }
 
@@ -264,7 +288,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 57%;
+  width: 64%;
   height: 100%;
   margin-left: 10px;
 
@@ -273,7 +297,42 @@ body {
 .kpis {
   width: 100%;
   height: 23%;
-  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.kpi {
+
+  background-color: blue;
+  width: 32%;
+  height: 100%;
+  border-radius: 10px;
+
+}
+
+.kpi1 {
+
+  background-image: url(../images/kpi1-card.svg);
+  background-size: 150% 150%;
+  background-position: center;
+
+}
+
+.kpi2 {
+
+  background-image: url(../images/kpi2-card.svg);
+  background-size: 150% 150%;
+  background-position: center;
+
+}
+
+.kpi3 {
+
+  background-image: url(../images/kpi3-card.svg);
+  background-size: 150% 150%;
+  background-position: center;
 
 }
 
@@ -306,7 +365,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 43%;
+  width: 36%;
   height: 100%;
 }
 
@@ -342,7 +401,11 @@ body {
 
 .dados-tabela {
   width: 95%;
-  height: 90%;
+  height: 100%;
+}
+
+.valor-tabela {
+  font-weight: bold;
 }
 
 .tabela .linha-tabela:hover {
@@ -356,9 +419,11 @@ body {
 }
 
 .tabela th {
-  font-weight: bolder;
-  font-size: 17px;
+  font-size: 15px;
+}
 
+.tabela td {
+  font-weight: 500;
 }
 
 .tabela td,
@@ -367,7 +432,6 @@ th {
   /* border: 2px #000 solid; */
   width: 7vw;
   height: 7vh;
-  font-weight: bold;
   font-size: 15px;
 
 }

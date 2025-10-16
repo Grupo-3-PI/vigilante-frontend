@@ -17,13 +17,12 @@
 
     <div class="navbar">
         <div class="logo">
-            <a href="./index.html"><img src="./images/vigilante-logo.png" class="imgLogo"></a>
-            <img src="./images/hamburguer-icon.png" class="imgHamburguer">
+            <a href="./index.html"><img src="./images/vigilante-logo.svg" class="imgLogo"></a>
         </div>
 
         <div class="menu-nav">
 
-            <div class="tituloDashboard"><img src="./images/dashboard-icon.png" class="imgDashboard">Dashboard</div>
+            <div class="tituloDashboard"><img src="./images/dashboard-icon.svg" class="imgDashboard">Dashboard</div>
 
             <div class="caixa-municipios">
                 <div onclick="exibirMunicipios()" class="botao-municipios" id="botao-municipio">
@@ -74,11 +73,15 @@
     <div class="conteudo">
 
         <div class="titulo">
-            <div class="municipio">
-                Dashboard - Município
+            <div class="caminho">
+                <a href="" class="caminho-tela">Tela Inicial</a> → <a href="" class="caminho-tela">Dashboard</a>
             </div>
             <div class="usuario">
-                Nome do Usuario
+                <img src="./images/foto-usuario.png" alt="" class="foto-usuario">
+                <div>
+                    <h5 class="nome-usuario">Nome do Usuario</h5>
+                    <h6 class="funcao-usuario">Função</h6>
+                </div>
             </div>
         </div>
 
@@ -88,14 +91,22 @@
             <div class="area-graficos">
 
                 <div class="kpis">
+                    <div class="kpi1 kpi">
+                        
+                    </div>
+                    <div class="kpi2 kpi">
 
+                    </div>
+                    <div class="kpi3 kpi">
+
+                    </div>
                 </div>
                 <div class="graficos">
 
                 </div>
                 <div class="area-grafico-produtividade">
 
-                    <div class="atividade-policial"><canvas id="atividade-policial" width="490" height="145"></canvas>
+                    <div class="atividade-policial"><canvas id="atividade-policial" width="490" height="125"></canvas>
                     </div>
 
                 </div>
@@ -112,16 +123,16 @@
                                 <th>
 
                                 </th>
-                                <th>
+                                <th style="padding-left: 15px;">
                                     Município
                                 </th>
-                                <th>
+                                <th style="padding-left: 10px;">
                                     Score
                                 </th>
-                                <th>
+                                <th style="padding-right: 5px;">
                                     Crimes
                                 </th>
-                                <th>
+                                <th style="padding-right: 10px;">
                                     Status
                                 </th>
                             </tr>
@@ -172,7 +183,7 @@
                 status = "<span style='color:red'>Inseguro</red>"
                 seta = "<img src='./images/seta-down.png' class='imgSeta'/>"
             }
-            valores_municipio.push([`<tr class="linha-tabela"><td>${seta}</td><td>${municipio}</td><td>${score}</td><td>${crimes}</td><td>${status}</td></tr>`, score])
+            valores_municipio.push([`<tr class="linha-tabela"><td class="valor-tabela">${seta}</td><td class="valor-tabela">${municipio}</td><td class="valor-tabela">${score}</td><td class="valor-tabela">${crimes}</td><td class="valor-tabela">${status}</td></tr>`, score])
             // document.getElementById("corpo-tabela").innerHTML += `<tr class="linha-tabela"><td>${seta}</td><td>${municipio}</td><td>${score}</td><td>${crimes}</td><td>${status}</td></tr>`
 
         })
@@ -231,15 +242,15 @@
             labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [{
                 label: 'Atividade Policial',
-                borderWidth: 2,
+                borderWidth: 1.3,
                 data: [(Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed()],
                 borderColor: 'blue',
                 backgroundColor: 'transparent',
-                tension: 0.3
+                tension: 0.3,
             },
             {
                 label: 'Crimes',
-                borderWidth: 2,
+                borderWidth: 1.3,
                 data: [312, 875, 1040, 420, 1335, 605, 1210, 790, 1398, 910, 275, 1175],
                 borderColor: 'orange',
                 backgroundColor: 'transparent',
