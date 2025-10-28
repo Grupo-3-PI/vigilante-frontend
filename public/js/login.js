@@ -40,11 +40,11 @@ function validarSenha() {
 function entrar() {
 
     if (!emailValidado && !senhaValidada) {
-        document.getElementById("avisoErro").innerHTML = "Preencha todos os campos corretamente!"
+        document.getElementById("aviso").innerHTML = "Preencha todos os campos corretamente!"
         return false;
     }
 
-    document.getElementById("avisoErro").innerHTML = ""
+    document.getElementById("aviso").innerHTML = ""
 
     var emailVar = email_login.value;
     var senhaVar = senha_login.value;
@@ -76,16 +76,23 @@ function entrar() {
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.idUsuario;
 
+                    document.getElementById("botao").style.opacity = (0.8);
+                    document.getElementById("botao").style.cursor = ("default");
+                    document.getElementById("aviso").style.display = ("flex");
+                    document.getElementById("aviso").style.color = ("#49c427ff");
+                    aviso.innerHTML = "Login realizado com sucesso!";
+
                     setTimeout(function () {
                         window.location = "../dashboard/dashboard.html";
                     }, 1000);
                 });
             } else {
-                console.log("Houve um erro ao fazer o login!");
-                document.getElementById("avisoErro").innerHTML = "Não foi possível realizar login! Revise suas credênciais"
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                    });
+                document.getElementById("aviso").style.display = ("flex");
+                document.getElementById("aviso").style.color = ("red");
+                aviso.innerHTML = "Erro ao realizar login! Verifique suas credenciais";
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
             }
         })
         .catch(function (erro) {

@@ -36,7 +36,7 @@ function cadastrar() {
             } else {
                 document.getElementById("div_mensagem").style.display = ("flex");
                 document.getElementById("div_mensagem").style.color = ("red");
-                div_mensagem.innerHTML = "Erro ao realizar login! Verifique suas credenciais";
+                div_mensagem.innerHTML = "Erro ao realizar cadastro! Verifique suas credenciais";
                 throw "Houve um erro ao tentar realizar o cadastro!";
             }
         })
