@@ -92,10 +92,12 @@
 
                 <div class="kpis">
                     <div class="kpi1 kpi">
-                        
+                        <h3 class="kpi-titulo">Total de Crimes em <span id="nomeMunicipioKPI">Bertioga</span></h3>
+                        <p class="kpi-valor1" id="valorTotalCrimes">1.233</p>
                     </div>
                     <div class="kpi2 kpi">
-
+                        <h3 class="kpi-titulo">Percentual de Alteração no Índice de Criminalidade (Último Mês)</h3>
+                        <p class="kpi-valor2" id="percentualAlteracao" style="color: lime;">+3.5%</p>
                     </div>
                     <div class="kpi3 kpi">
 
@@ -105,10 +107,10 @@
                 <div class="graficos">
 
                     <div class="grafico1 grafico">
-
+                        <canvas id="graficoCrimes"></canvas>
                     </div>
                     <div class="grafico2 grafico">
-
+                        <canvas id="graficoPercentualMunicipios"></canvas>
                     </div>
 
                 </div>
@@ -186,7 +188,7 @@
                 status = "<span style='color:lime'>Seguro</span>"
                 seta = "<img src='./images/seta-up.png' class='imgSeta'/>"
             } else if (score >= 5) {
-                status = "<span style='color:yellow'>Moderado</span>"
+                status = "<span style='color:rgb(225, 225, 5)'>Moderado</span>"
                 seta = "<img src='./images/seta-mid.png' class='imgSeta'/>"
             } else {
                 status = "<span style='color:red'>Inseguro</red>"
@@ -219,6 +221,10 @@
         }
         document.getElementById("opcao-municipio" + municipio).classList.add("opcao-municipio-selecionado")
         municipio_selecionado = document.getElementById("opcao-municipio" + municipio).innerHTML
+
+        graficoTotalCrimes.options.plugins.title.text = `Distribuição dos Crimes por Tipo em ${municipio_selecionado} (2025)`
+        graficoTotalCrimes.update()
+        atualizarKPIs()
     }
 
     function exibirAnos() {
@@ -240,12 +246,237 @@
         }
         document.getElementById("opcao-ano" + ano).classList.add("opcao-ano-selecionado")
         ano_selecionado = document.getElementById("opcao-ano" + ano).innerHTML
+
+        graficoTotalCrimes.options.plugins.title.text = `Distribuição dos Crimes por Tipo em ${municipio_selecionado} (2025)`
+        atualizarKPIs()
+
     }
 
-    // Gráfico de Atividade Policial
-    const ctx = document.getElementById('atividade-policial').getContext('2d');
+    // Atualizar KPI's
+    function atualizarKPIs() {
+        var alteracao = (Math.random() * 10 - 5).toFixed(1);
 
-    const atividade_policial = new Chart(ctx, {
+        document.getElementById("nomeMunicipioKPI").textContent = municipio_selecionado;
+        document.getElementById("valorTotalCrimes").textContent = (Math.random() * 400 + 1000).toFixed()
+        document.getElementById("percentualAlteracao").textContent = `${alteracao > 0 ? '+' : ''}${alteracao}%`
+
+        document.getElementById("percentualAlteracao").style.color =
+            alteracao >= 0 ? 'lime' : 'red';
+    }
+
+    //Gráfico de total de crimes
+    const graficoTotalCrimes = new Chart(document.getElementById('graficoCrimes'), {
+        type: 'bar',
+        data: {
+            labels: [
+                'Contra a Vida',
+                'Agressões Físicas',
+                'Sexuais',
+                'Contra o Patrimônio',
+                'Outros'
+            ],
+            datasets: [{
+                label: 'Número de Ocorrências',
+                data: [180, 250, 90, 320, 70],
+                backgroundColor: [
+                    '#e15759',
+                    '#f28e2b',
+                    '#76b7b2',
+                    '#4e79a7',
+                    '#edc948'
+                ],
+                borderColor: '#fff',
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#eee'
+                    },
+
+                },
+                y: {
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: `Distribuição dos Crimes por Tipo em ${municipio_selecionado} (${ano_selecionado})`,
+                    color: 'black',
+                    font: {
+                        size: 14,
+                        family: 'poppins',
+                        weight: 450,
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return ` ${context.parsed.x} casos`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Gráfico de percentual de criminalidade por município
+    const ctxPercentual = document.getElementById('graficoPercentualMunicipios').getContext('2d');
+    const graficoPercentualMunicipios = new Chart(ctxPercentual, {
+        type: 'bar',
+        data: {
+            labels: [''],
+            datasets: [
+                {
+                    label: 'Bertioga',
+                    data: [5.8],
+                    backgroundColor: '#4e79a7',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Cubatão',
+                    data: [7.2],
+                    backgroundColor: '#f28e2b',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Guarujá',
+                    data: [10.5],
+                    backgroundColor: '#e15759',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Itanhaém',
+                    data: [6.4],
+                    backgroundColor: '#76b7b2',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Mangaguá',
+                    data: [5.2],
+                    backgroundColor: '#59a14f',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Peruíbe',
+                    data: [6.9],
+                    backgroundColor: '#edc948',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Praia Grande',
+                    data: [13.8],
+                    backgroundColor: '#b07aa1',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Santos',
+                    data: [28.4],
+                    backgroundColor: '#ff9da7',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'São Vicente',
+                    data: [15.8],
+                    backgroundColor: '#9c755f',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function (value) {
+                            return value + '%';
+                        },
+                        font: {
+                            family: 'Poppins'
+                        }
+                    },
+                    grid: {
+                        color: '#eee'
+                    }
+                },
+                y: {
+                    stacked: true,
+                    grid: { display: false },
+                    ticks: {
+                        font: {
+                            family: 'Poppins'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Participação Percentual dos Crimes por Município (2025)',
+                    color: '#000',
+                    font: {
+                        family: 'Poppins',
+                        size: 14,
+                        weight: 500
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: 'Poppins',
+                            size: 11
+                        },
+                        padding: 10
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return `${context.dataset.label}: ${context.raw}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+
+    // Gráfico de Atividade Policial
+    const atividade_policial = new Chart(document.getElementById('atividade-policial').getContext('2d'), {
         type: 'line',
         data: {
             labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
@@ -312,5 +543,3 @@
         atividade_policial.update()
     }
 </script>
-
-<!-- filtro por mês -->
