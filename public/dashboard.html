@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body onload="carregarTabela()">
@@ -29,8 +30,102 @@
             <!--Inicio Área de relatorios-->
             <div id="fundo">
                 <section id="relatorios">
-                    <h1>Relatórios</h1>
+                    <h1 id="close-icon">X</h1>
+                    <h1 class="titulo-relatorio">Relatórios</h1>
+                    
                     <div id="relatorio">
+                        <div class="relatorio-card">
+                            <div class="relatorio-info">
+                                <div class="relatorio-item">
+                                    <h3>nome do relatório</h3>
+                                    <p>01/05/2025 - 12:00:00</p>
+                                </div>
+
+
+                            </div>
+
+                            <div class="relatorio-acoes">
+                                <button class="acao editar">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="acao excluir">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                                <button class="acao download">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="relatorio-card">
+                            <div class="relatorio-info">
+                                <div class="relatorio-item">
+                                    <h3>nome do relatório</h3>
+                                    <p>01/04/2025 - 12:00:00</p>
+                                </div>
+
+
+                            </div>
+
+                            <div class="relatorio-acoes">
+                                <button class="acao editar">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="acao excluir">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                                <button class="acao download">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="relatorio-card">
+                            <div class="relatorio-info">
+                                <div class="relatorio-item">
+                                    <h3>nome do relatório</h3>
+                                    <p>01/03/2025 - 12:00:00</p>
+                                </div>
+
+
+                            </div>
+
+                            <div class="relatorio-acoes">
+                                <button class="acao editar">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="acao excluir">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                                <button class="acao download">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="relatorio-card">
+                            <div class="relatorio-info">
+                                <div class="relatorio-item">
+                                    <h3>nome do relatório</h3>
+                                    <p>01/02/2025 - 12:00:00</p>
+                                </div>
+
+
+                            </div>
+
+                            <div class="relatorio-acoes">
+                                <button class="acao editar">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="acao excluir">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                                <button class="acao download">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
                         <div class="relatorio-card">
                             <div class="relatorio-info">
                                 <div class="relatorio-item">
@@ -52,8 +147,8 @@
                                     <i class="fa fa-download"></i>
                                 </button>
                             </div>
-
                         </div>
+                    </div>
                 </section>
             </div>
 
@@ -242,8 +337,8 @@
         document.getElementById("relatorios").style.display = "block";
     }
 
-    document.getElementById("fundo").addEventListener("click", function () {
-        this.style.display = "none";
+    document.getElementById("close-icon").addEventListener("click", function () {
+        document.getElementById("fundo").style.display = "none";
     });
 
 
