@@ -231,7 +231,7 @@
                     </div>
                     <div class="kpi3 kpi">
                         <h3 class="kpi-titulo">Percentual de Alteração no Índice de Criminalidade (Último Mês)</h3>
-                        <p class="kpi-valor2" id="percentualAlteracao" style="color: lime;">+3.5%</p>
+                        <p class="kpi-valor2" id="percentualAlteracao">+3.5%</p>
                     </div>
                 </div>
 
@@ -297,7 +297,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
-    const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mangaguá", "Peruíbe", "Praia Grande", "Santos", "São Vincente"];
+    const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mangaguá", "Peruíbe", "Praia Grande", "Santos", "São Vicente"];
     var ano_selecionado = 2025
     var municipio_selecionado = "Bertioga"
 
@@ -316,7 +316,7 @@
             var status
             var seta
             if (score >= 7) {
-                status = "<span style='color:lime'>Seguro</span>"
+                status = "<span style='color:rgb(0,128,0)'>Seguro</span>"
                 seta = "<img src='./images/seta-up.png' class='imgSeta'/>"
             } else if (score >= 5) {
                 status = "<span style='color:rgb(225, 225, 5)'>Moderado</span>"
@@ -401,8 +401,6 @@
         document.getElementById("valorTotalCrimes").textContent = (Math.random() * 400 + 1000).toFixed()
         document.getElementById("percentualAlteracao").textContent = `${alteracao > 0 ? '+' : ''}${alteracao}%`
 
-        document.getElementById("percentualAlteracao").style.color =
-            alteracao >= 0 ? 'lime' : 'red';
     }
 
     //Gráfico de total de crimes
@@ -513,7 +511,7 @@
                     borderColor: '#fff',
                 },
                 {
-                    label: 'Mangaguá',
+                    label: 'Mongaguá',
                     data: [5.2],
                     backgroundColor: '#59a14f',
                     borderWidth: 1.5,

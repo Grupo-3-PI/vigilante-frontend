@@ -559,12 +559,16 @@ nav a {
   font-size: 45px;
   font-weight: 600;
   color: white;
+  position: fixed;
+  margin-top: 60px;
 }
 
 .kpi-valor2 {
-  font-size: 35px;
+  font-size: 45px;
   font-weight: 600;
   color: white;
+  position: fixed;
+  margin-top: 60px;
 }
 
 .graficos {
