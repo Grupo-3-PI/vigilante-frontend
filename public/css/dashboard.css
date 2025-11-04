@@ -58,6 +58,11 @@ body {
   margin-right: 8%;
 }
 
+.imgRelatorio {
+  width: 12%;
+  margin-right: 4%;
+}
+
 .link-relatorios {
   cursor: pointer;
 }
@@ -208,6 +213,11 @@ nav a {
   display: flex;
   gap: 10px;
 }
+
+.relatorio-acoes i {
+    color: orange;
+}
+
 
 .acao {
   border: none;
