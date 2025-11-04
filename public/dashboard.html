@@ -24,6 +24,41 @@
 
             <div class="tituloDashboard"><img src="./images/dashboard-icon.svg" class="imgDashboard">Dashboard</div>
 
+            <div class="link-relatorios" onclick="exibirRelatorios()">Relatórios</div>
+
+            <!--Inicio Área de relatorios-->
+            <div id="fundo">
+                <section id="relatorios">
+                    <h1>Relatórios</h1>
+                    <div id="relatorio">
+                        <div class="relatorio-card">
+                            <div class="relatorio-info">
+                                <div class="relatorio-item">
+                                    <h3>nome do relatório</h3>
+                                    <p>01/01/2025 - 12:00:00</p>
+                                </div>
+
+
+                            </div>
+
+                            <div class="relatorio-acoes">
+                                <button class="acao editar">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="acao excluir">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                                <button class="acao download">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                </section>
+            </div>
+
+            <!--Fim Área de relatorios-->
+
             <div class="caixa-municipios">
                 <div onclick="exibirMunicipios()" class="botao-municipios" id="botao-municipio">
                     <div class="divImgMap"><img src="./images/map-icon.png" class="imgMap">Municípios</div>▴
@@ -202,6 +237,16 @@
         valores_municipio.sort((a, b) => b[1] - a[1]).forEach((municipio) => document.getElementById("corpo-tabela").innerHTML += municipio[0])
     }
 
+    function exibirRelatorios() {
+        document.getElementById("fundo").style.display = "flex";
+        document.getElementById("relatorios").style.display = "block";
+    }
+
+    document.getElementById("fundo").addEventListener("click", function () {
+        this.style.display = "none";
+    });
+
+
     function exibirMunicipios() {
         if (document.getElementById("opcoes-municipio").style.display == "") {
             document.getElementById("opcoes-municipio").style.display = "flex";
@@ -280,10 +325,10 @@
                 label: 'Número de Ocorrências',
                 data: [180, 250, 90, 320, 70],
                 backgroundColor: [
-                    '#FFD8A8', 
-                    '#FFC078', 
-                    '#FFA94D', 
-                    '#FF922B', 
+                    '#FFD8A8',
+                    '#FFC078',
+                    '#FFA94D',
+                    '#FF922B',
                     '#E8590C'
                 ],
                 borderColor: '#fff',
