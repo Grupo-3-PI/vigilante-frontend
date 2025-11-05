@@ -40,7 +40,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var codigoEmpresa = req.body.codigoEmpresaServer;
+    var codigo_empresa = req.body.codigoEmpresaServer;
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -48,14 +48,14 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (codigoEmpresa == undefined) {
+    } else if (codigo_empresa == undefined) {
         res.status(400).send("O código da empresa está undefined!");
     } else {
-        agenciaModel.buscarPorCodigo(codigoEmpresa)
+        agenciaModel.buscarPorCodigo(codigo_empresa)
             .then(resultadoAgencia => {
                 if (resultadoAgencia.length > 0) {
-                    const fkAgencia = resultadoAgencia[0].idAgencia;
-                    usuarioModel.cadastrar(nome, email, senha, fkAgencia)
+                    const fk_agencia = resultadoAgencia[0].id;
+                    usuarioModel.cadastrar(nome, email, senha, fk_agencia)
                         .then(resultadoCadastro => {
                             res.json(resultadoCadastro);
                         })
