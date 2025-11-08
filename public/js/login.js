@@ -35,7 +35,7 @@ function entrar() {
                 sessionStorage.ID_USUARIO = json.idUsuario;
 
                 setTimeout(function() {
-                    window.location = "../dashboard/dashboard.html";
+                    window.location = "dashboard.html";
                 }, 1000);
             });
         } else {
