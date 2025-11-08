@@ -11,16 +11,24 @@ CREATE TABLE Agencia (
     codigo_empresa VARCHAR(45)
 );
 
+INSERT INTO Agencia (nome, email, senha, dt_cadastro, status_assinatura, codigo_empresa)
+VALUES ('Agência Alpha', 'contato@alpha.com', 'senha123', NOW(), 'Ativa', 'EMP001');
+
 CREATE TABLE Usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL,
     email VARCHAR(50) NOT NULL,
     senha VARCHAR(20) NOT NULL,
-    dt_cadastro DATETIME NOT NULL,
+    dt_cadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cargo_agencia VARCHAR(45),
     fk_agencia INT,
     FOREIGN KEY (fk_agencia) REFERENCES Agencia(id)
 );
+
+INSERT INTO Usuario (nome, email, senha, cargo_agencia, fk_agencia)
+VALUES ('João Silva', 'joao@alpha.com', '123456', 'Gerente', 1);
+
+SELECT * FROM usuario;
 
 CREATE TABLE Municipio (
     id INT AUTO_INCREMENT PRIMARY KEY,
