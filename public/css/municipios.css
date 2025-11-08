@@ -1,3 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+header {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.navbar {
+  width: 90%;
+  max-width: 1100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(194, 192, 192, 0.619);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  position: fixed;
+}
+
+.logo img {
+  width: 150px;
+  margin-right: 8px;
+  margin-top: 10px;
+}
+
+
+.menu-desktop ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+}
+
+.menu-desktop ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  transition: 0.3s;
+}
+
+.menu-desktop ul li a:hover {
+  color: #9fc3ff;
+}
+
+.btn-contato button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #1500B7, #6F3BFF);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-contato button:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
 .carousel {
     width: 100%;
     overflow-x: auto;
@@ -35,7 +115,7 @@
 .carousel::scroll-button(right), .carousel::scroll-button(left) {
     content: '>';
     border: none;
-    background-color: purple;
+    background-color: orange;
     font-family: Consolas;
     font-size: 3rem;
     color: white;

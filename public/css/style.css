@@ -363,6 +363,8 @@ button:hover {
   height: 600px;
   border-radius: 30px;
   overflow: hidden;
+  flex: 1 1 50%;
+  min-width: 300px;
 }
 
 .banner-solucao img {
