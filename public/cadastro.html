@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="css/cadastro.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <title>login - Vigilante</title>
 </head>
 
@@ -21,15 +23,20 @@
                 </a>
                 <p class="title">Cadastre-se</p>
                 <div class="container_inputs">
-                    <input type="text" id="nome_value" placeholder="Nome" class="inputs required" oninput="validarNome()">
+                    <input type="text" id="nome_value" placeholder="Nome" class="inputs required"
+                        oninput="validarNome()">
                     <span class="erro">nome deve ter 3 caracteres</span>
-                    <input type="text" id="email_value" placeholder="E-mail" class="inputs required" oninput="validarEmail()">
+                    <input type="text" id="email_value" placeholder="E-mail" class="inputs required"
+                        oninput="validarEmail()">
                     <span class="erro">Email é inválido</span>
-                    <input type="password" id="senha_value" placeholder="Senha" class="inputs required" oninput="validarSenha()">
+                    <input type="password" id="senha_value" placeholder="Senha" class="inputs required"
+                        oninput="validarSenha()">
                     <span class="erro">Senha deve ter 8 caracteres</span>
-                    <input type="password" id="conf_senha_value" placeholder="Confirmar senha" class="inputs required" oninput="validarConfSenha()">
+                    <input type="password" id="conf_senha_value" placeholder="Confirmar senha" class="inputs required"
+                        oninput="validarConfSenha()">
                     <span class="erro">Senha incorreta</span>
-                    <input type="text" id="agencia_value" placeholder="Código da empresa" class="inputs required">
+                    <input type="text" id="agencia_value" placeholder="Função na empresa" class="inputs required">
+                    <input type="text" id="cargo_agencia_value" placeholder="Código da empresa" class="inputs required">
                 </div>
                 <div class="container_button">
                     <p>Já é cadastrado? <br><span onclick="redirecionar()" class="cadastrar">conecte-se</span></p>
@@ -40,7 +47,9 @@
 
         <div class="banner">
             <!-- Imagem do bannner -->
-            <a href="../solucao.html"><div class="logo_vigilante"></div></a>
+            <a href="../solucao.html">
+                <div class="logo_vigilante"></div>
+            </a>
         </div>
     </div>
 </body>

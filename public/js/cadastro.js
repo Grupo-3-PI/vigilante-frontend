@@ -6,6 +6,7 @@ function cadastrar() {
     let nome = nome_value.value;
     let email = email_value.value;
     let senha = senha_value.value;
+    let cargo_agencia = cargo_agencia_value.value;
     let codigoEmpresa = agencia_value.value;
 
     fetch("/usuarios/cadastrar", {
@@ -17,6 +18,7 @@ function cadastrar() {
             nomeServer: nome,
             emailServer: email,
             senhaServer: senha,
+            cargo_agenciaServer: cargo_agencia,
             codigoEmpresaServer: codigoEmpresa
         }),
     })
