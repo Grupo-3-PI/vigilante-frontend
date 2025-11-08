@@ -36,7 +36,7 @@ function entrar() {
                 sessionStorage.CARGO_AGENCIA_USUARIO = json.cargo_agencia;
 
                 setTimeout(function() {
-                    window.location = "dashboard.html";
+                    window.location = "municipio.html";
                 }, 1000);
             });
         } else {
