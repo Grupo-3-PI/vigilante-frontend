@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <script src="./js/sessao.js"></script>
 </head>
 
-<body onload="carregarTabela()">
+<body onload="validarSessao(); carregarTabela()">
 
     <div class="navbar">
         <div class="logo">
@@ -207,10 +209,10 @@
                 <a href="" class="caminho-tela">Tela Inicial</a> → <a href="" class="caminho-tela">Dashboard</a>
             </div>
             <div class="usuario">
-                <img src="./images/foto-usuario.png" alt="" class="foto-usuario">
+                <img src="./images/foto-usuario.png" alt="Foto do Usuário" class="foto-usuario">
                 <div>
-                    <h5 class="nome-usuario"><span id="b_usuario">Nome do Usuario</span></h5>
-                    <h6 class="funcao-usuario"><span id="b_cargo_usuario">Função</span></h6>
+                    <h5 class="nome-usuario"><a href="perfil.html"><span id="b_usuario">Nome do Usuario</a></span></h5>
+                    <h6 class="funcao-usuario"><span id="b_cargo_agencia">Função</span></h6>
                 </div>
             </div>
         </div>
@@ -300,8 +302,11 @@
     const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mongaguá", "Peruíbe", "Praia Grande", "Santos", "São Vicente"];
     var ano_selecionado = 2025;
     var municipio_selecionado = "Bertioga";
+    
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-        var idUsuario = Number(sessionStorage.ID_USUARIO);
+    var idUsuario = Number(sessionStorage.ID_USUARIO);
+    b_cargo_agencia.innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
+
 
 
 

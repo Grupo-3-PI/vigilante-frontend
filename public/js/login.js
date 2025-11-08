@@ -33,6 +33,7 @@ function entrar() {
                 sessionStorage.EMAIL_USUARIO = json.email;
                 sessionStorage.NOME_USUARIO = json.nome;
                 sessionStorage.ID_USUARIO = json.idUsuario;
+                sessionStorage.CARGO_AGENCIA_USUARIO = json.cargo_agencia;
 
                 setTimeout(function() {
                     window.location = "dashboard.html";
