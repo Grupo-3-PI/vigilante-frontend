@@ -4,76 +4,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vigilante | Municípios</title>
     <link rel="stylesheet" href="css/municipios.css">
     <script src="./js/sessao.js"></script>
 
 </head>
 
 <body onload="validarSessao()">
+    <!-- <div class="carousel">
+        <img class="card" alt="Santos" src="./images/imagemSantos.jpg">
+        <img class="card" alt="Guarujá" src="./images/imagemGuaruja.jpg">
+        <img class="card" alt="São Vicente" src="./images/imagemSaoVicente.jpg">
+        <img class="card" alt="Mongaguá" src="./images/imagemMongagua.jpg">
+        <img class="card" alt="Cubatão" src="./images/imagemCubatao.jpg">
+        <img class="card" alt="Itanhaém" src="./images/imagemItanhaem.jpg">
+        <img class="card" alt="Praia Grande" src="./images/imagemPraiaGrande.jpg">
+        <img class="card" alt="Bertioga" src="./images/imagemBertioga.jpg">
+        <img class="card" alt="Peruíbe" src="./images/imagemPeruibe.jpg">
+    </div> -->
 
     <header>
-        <div class="navbar">
-            <div class="logo">
-                <a href="./index.html"><img src="./images/icone.png"></a>
-            </div>
-
-            <nav class="menu-desktop">
-                <ul>
-                    <li><a href="./index.html">Início</a></li>
-                    <li><a href="./solucao.html">Solução</a></li>
-                </ul>
-            </nav>
-
-            <div class="btn-contato">
-                <p>Bem vindo, </p><span id="b_usuario">Nome do Usuario</span>
-            </div>
+      <div class="navbar">
+        <div class="logo">
+          <a href="./index.html"><img src="./images/icone.png"></a>
         </div>
+
+        <nav class="menu-desktop">
+          <ul>
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./solucao.html">Solução</a></li>
+  
+          </ul>
+        </nav>
+
+        <div class="btn-contato">
+          <p id="b_usuario"></p>
+        </div>
+      </div>
     </header>
 
-    <h2 class="titulo-municipios">MUNICÍPIOS</h2>
-    
-    <div class="carousel">
-        <div class="card">
-            <img src="./images/imagemSantos.jpg" alt="Santos">
-            <span class="municipio-nome">Santos</span>
+    <div><h3>
+        MUNICÍPIOS
+    </h3></div>
+
+    <div class="carousel-container">
+      <div class="carousel-wrapper">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-item center" data-index="0">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">Santos</div>
+            <div class="item-description"></div>
+          </div>
+          <div class="carousel-item right" data-index="1">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">Guarujá</div>
+            <div class="item-description"></div>
+          </div>
+          <div class="carousel-item hidden" data-index="2">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">Mongaguá</div>
+            <div class="item-description"></div>
+          </div>
+          <div class="carousel-item hidden" data-index="3">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">Peruíbe</div>
+            <div class="item-description"></div>
+          </div>
+          <div class="carousel-item hidden" data-index="4">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">Itanhaém</div>
+            <div class="item-description"></div>
+          </div>
+          <div class="carousel-item left" data-index="5">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">Praia Grande</div>
+            <div class="item-description"></div>
+          </div>
+          <div class="carousel-item left" data-index="5">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">Cubatão</div>
+            <div class="item-description"></div>
+          </div>
+          <div class="carousel-item left" data-index="5">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">São Vicente</div>
+            <div class="item-description"></div>
+          </div>
+          <div class="carousel-item left" data-index="5">
+            <div class="item-number"><a href="dashboard.html">Dashboard</a></div>
+            <div class="item-title">Bertioga</div>
+            <div class="item-description"></div>
+          </div>
         </div>
-        <div class="card">
-            <img src="./images/imagemSaoVicente.jpg" alt="São Vicente">
-            <span class="municipio-nome">São Vicente</span>
-        </div>
-        <div class="card">
-            <img src="./images/imagemMongagua.jpg" alt="Mongaguá">
-            <span class="municipio-nome">Mongaguá</span>
-        </div>
-        <div class="card">
-            <img src="./images/imagemPraiaGrande.jpg" alt="Praia Grande">
-            <span class="municipio-nome">Praia Grande</span>
-        </div>
-        <div class="card">
-            <img src="./images/imagemGuaruja.jpg" alt="Guarujá">
-            <span class="municipio-nome">Guarujá</span>
-        </div>
-        <div class="card">
-            <img src="./images/imagemCubatao.jpg" alt="Cubatão">
-            <span class="municipio-nome">Cubatão</span>
-        </div>
-        <div class="card">
-            <img src="./images/imagemBertioga.jpg" alt="Bertioga">
-            <span class="municipio-nome">Bertioga</span>
-        </div>
-        <div class="card">
-            <img src="./images/imagemItanhaem.jpg" alt="Itanhaém">
-            <span class="municipio-nome">Itanhaém</span>
-        </div>
-        <div class="card">
-            <img src="./images/imagemPeruibe.jpg" alt="Peruíbe">
-            <span class="municipio-nome">Peruíbe</span>
-        </div>
+      </div>
+
+      <!-- Controles de navegação -->
+      <div class="carousel-controls">
+        <button class="control-btn" id="prevBtn">‹</button>
+        <button class="control-btn" id="nextBtn">›</button>
+      </div>
+      <!-- Indicadores -->
+      <div class="carousel-indicators" id="indicators">
+        <div class="indicator active" data-index="0"></div>
+        <div class="indicator" data-index="1"></div>
+        <div class="indicator" data-index="2"></div>
+        <div class="indicator" data-index="3"></div>
+        <div class="indicator" data-index="4"></div>
+        <div class="indicator" data-index="5"></div>
+        <div class="indicator" data-index="6"></div>
+        <div class="indicator" data-index="7"></div>
+        <div class="indicator" data-index="8"></div>
+      </div>
     </div>
 </body>
 
 </html>
+
+<script src="js/municipio.js"></script>
 
 <script>
 
