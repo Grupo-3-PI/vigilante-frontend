@@ -1,11 +1,9 @@
-// Em: public/js/login.js
-
 function entrar() {
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
+    var emailVar = email_login.value; 
+    var senhaVar = senha_login.value;
 
     if (emailVar == "" || senhaVar == "") {
-        // Exibe um alerta de erro
+        // Exibe um alerta de erro (requer SweetAlert2)
         Swal.fire({
             icon: 'error',
             title: 'Erro...',
@@ -47,16 +45,16 @@ function entrar() {
                 console.log(json);
                 console.log(JSON.stringify(json));
 
-                // --- ESTA É A PARTE MAIS IMPORTANTE ---
                 // Salva os dados do usuário na sessionStorage
-                // (Baseado nas chaves do seu usuarioController.js)
+                // Usando setItem() e as chaves corretas
                 
-                // Usamos setItem para garantir a gravação
+                // Chaves que o seu usuarioController.js retorna
                 sessionStorage.setItem("EMAIL_USUARIO", json.email);
                 sessionStorage.setItem("NOME_USUARIO", json.nome);
-                sessionStorage.setItem("ID_USUARIO", json.idAgencia);
+                sessionStorage.setItem("ID_USUARIO", json.idAgencia); 
                 sessionStorage.setItem("CNPJ_USUARIO", json.cnpj);
-                // --- FIM DA MUDANÇA ---
+                
+                sessionStorage.setItem("CARGO_AGENCIA_USUARIO", json.cargo_agencia);
 
                 // Fecha o alerta de carregamento
                 Swal.close();
@@ -66,6 +64,7 @@ function entrar() {
                     icon: 'success',
                     title: 'Login realizado com sucesso!',
                     showConfirmButton: false,
+                    timer: 1500 // 1.5 segundos
                 });
                 
                 setTimeout(function () {
