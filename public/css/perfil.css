@@ -1,151 +1,236 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
     margin: 0;
     padding: 0;
-    font-family: "poppins", sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
-.container {
-    width: 98vw;
+html {
+    scroll-behavior: smooth;
+}
+
+body {
     min-height: 100vh;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.banner {
-    width: 46%;
-    min-height: 96vh;
-    display: flex;
-    background-image: url(../images/banner_perfil.jpg);
-    background-size: cover;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2%;
-    background-position: center 40%;
-}
-
-.banner .logo_vigilante {
-    width: 350px;
-    height: 125px;
-    background-image: url(./imgages/logo_vigilante.png);
-    background-size: cover;
-}
-
-.container_forms {
-    width: 50%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container_forms .forms {
-    width: 60%;
-    height: 65vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    background-color: #f4f7fa;
+    overflow: hidden; 
 }
 
-.container_forms .forms .title {
+header {
     width: 100%;
-    font-size: 35px;
-    font-weight: 500;
-    margin: 0;
-    padding-left: 5px;
-}
-
-.container_inputs {
-    width: 100%;
-    height: 60%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 4%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.container_inputs input {
-    height: 50px;
-    width: 97%;
-    border: none;
-    border-radius: 5px;
-    background-color: #FFFFFF;
-    padding-left: 10px;
-    border: 1px solid #898989;
-}
-
-.container_button {
-    width: 100%;
+.navbar {
+    width: 90%;
+    max-width: 1100px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 6px 16px;
+    color: #000; 
 }
 
-.container_button p {
-    font-size: 12px;
+.logo img {
+    width: 150px;
+    margin-right: 8px;
+    margin-top: 10px;
 }
 
-.cadastrar {
-    color: #F77500;
-    cursor: pointer;
+.menu-desktop ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
 }
 
-.container_button button {
-    width: 40%;
-    height: 40px;
+.menu-desktop ul li a {
+    text-decoration: none;
+    color: #333; 
+    font-weight: 500;
+    transition: 0.3s;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+}
+
+.menu-desktop ul li a:hover {
+    color: #1500B7; 
+}
+
+.menu-desktop ul li a.active {
+    color: #1500B7;
+    font-weight: 600;
+    border-bottom: 2px solid #1500B7;
+}
+
+.btn-contato {
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+}
+
+.btn-contato button {
+    padding: 10px 24px;
     border: none;
+    border-radius: 50px;
     color: #fff;
-    background-image: linear-gradient(to right, #FFB834, #FF7700);
-    border-radius: 5px;
-    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
+    transition: 0.3s;
 }
 
-.setaVoltar {
+.btn-perfil {
+    background: linear-gradient(135deg, #1500B7, #6F3BFF); 
+}
+
+.btn-sair {
+    background: #555; 
+}
+
+.btn-contato button:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 20px 60px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.perfil-title {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    color: #000f3f; 
+    margin-bottom: 10px;
+}
+
+.perfil-title::after {
+    content: "";
+    display: block;
+    width: 180px;
+    height: 3px;
+    background: linear-gradient(90deg, #0800ff, #9aceff); 
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+.perfil-subtitle {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.perfil-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.card-perfil {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-perfil h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #000f3f;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f0f2f5;
+    padding-bottom: 10px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group input:read-only {
+    background-color: #eee;
+    color: #777;
+    cursor: not-allowed;
+}
+
+/* Botões do Formulário */
+.card-perfil button {
+    text-decoration: none;
+    text-align: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.btn-editar {
+    background: #f0ad4e;
+}
+
+.btn-salvar {
+    background: linear-gradient(135deg, #1500B7, #6F3BFF);
+}
+
+.card-perfil button:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.user-greeting {
     display: flex;
     align-items: center;
-    gap: 5px;
-    width: 100%;
-    color: #333;
-    text-decoration: underline;
     font-size: 16px;
     font-weight: 500;
-}
-
-.seta_svg {
-    width: 30px;
-    height: 30px;
-}
-
-@media screen and (max-width: 800px) {
-    .banner {
-        display: none;
-    }
-
-    .container_forms {
-        width: 100%;
-    }
-
-    .banner .logo_vigilante {
-        width: 200px;
-        height: 75px;
-    }
-
-    .container_button {
-        flex-direction: column;
-    }
-
-    .container_button button {
-        width: 100%;
-    }
-
-    .container_forms .forms {
-        height: auto;
-        padding: 50px 0;
-    }
+    color: #333;
+    margin-right: 15px; 
+    white-space: nowrap; 
 }

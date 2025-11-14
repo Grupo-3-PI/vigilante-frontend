@@ -1,39 +1,44 @@
-// sessão
 function validarSessao() {
-    var email = sessionStorage.EMAIL_USUARIO;
-    var nome = sessionStorage.NOME_USUARIO;
-    var cargo_agencia = sessionStorage.CARGO_AGENCIA_USUARIO;
+    // Recupera os dados da sessionStorage usando getItem
+    var email = sessionStorage.getItem("EMAIL_USUARIO");
+    var nome = sessionStorage.getItem("NOME_USUARIO");
 
-    var b_cargo_agencia = document.getElementById("b_cargo_agencia");
+    // Encontra o elemento <span> no header
     var b_usuario = document.getElementById("b_usuario");
 
-    if (email != null && nome != null && cargo_agencia != null) {
-        b_usuario.innerHTML = nome;
-        b_cargo_agencia.innerHTML = cargo_agencia;
+    // Validação:
+    // Se o email ou o nome não existirem (forem nulos),
+    // significa que o usuário não está logado.
+    if (email == null || nome == null) {
+        
+        // Limpa qualquer lixo que possa ter ficado
+        sessionStorage.clear();
+        
+        // Avisa o usuário e o expulsa para a tela de login
+        alert("Sua sessão expirou ou você não está logado. Por favor, faça login novamente.");
+        window.location = "login.html"; 
+    
     } else {
-        window.location = "../login.html";
+        
+        // Se o usuário está logado:
+        if (b_usuario != null) {
+            // Se existir, preenche com a saudação
+            b_usuario.innerHTML = "Olá, " + nome;
+        }
     }
 }
 
-function limparSessao() {
-    sessionStorage.clear();
-    window.location = "../login.html";
+// Função para limpar a sessão (botão "Sair")
+function sair() {
+    alert("Fazendo logout...");
+    
+    // Limpa todos os dados da sessionStorage
+    sessionStorage.clear(); 
+    
+    // Redireciona para a página inicial (index.html)
+    window.location = "index.html"; 
 }
 
-// carregamento (loading)
-function aguardar() {
-    var divAguardar = document.getElementById("div_aguardar");
-    divAguardar.style.display = "flex";
-}
-
-function finalizarAguardar(texto) {
-    var divAguardar = document.getElementById("div_aguardar");
-    divAguardar.style.display = "none";
-
-    var divErrosLogin = document.getElementById("div_erros_login");
-    if (texto) {
-        divErrosLogin.style.display = "flex";
-        divErrosLogin.innerHTML = texto;
-    }
-}
-
+document.addEventListener("DOMContentLoaded", function () {
+    validarSessao();
+});

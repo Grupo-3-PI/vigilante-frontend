@@ -1,53 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilante | Meu Perfil</title>
+
     <link rel="stylesheet" href="./css/perfil.css">
+    <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <title>login - Vigilante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="./js/sessao.js"></script>
 </head>
-
 <body>
-    <div class="container">
-        <div class="banner">
-            <!-- Imagem do bannner -->
-             <a href="../solucao.html"><div class="logo_vigilante"></div></a>
-        </div>
 
-        <div class="container_forms">
-            <div class="forms">
-                <a href="dashboard.html" class="setaVoltar">
-                    <img src="../images/setaVoltar.png" alt="Voltar" class="seta_svg">
-                    Voltar
-                </a>
-                <p class="title">Perfil</p>
-                <div class="container_inputs">
-                    <input type="text" id="email_nome" placeholder="Nome">
-                    <input type="text" id="email_login" placeholder="E-mail">
-                    <input type="password" id="senha_login" placeholder="Senha">
-                    <input type="text" id="senha_cargo" placeholder="cargo">
-                </div>
-                <div class="container_button">
-                    <button id="botao" onclick="entrar()">Entrar</button>
-                </div>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <a href="./municipio.html"><img src="./images/icone.png"></a>
+            </div>
+
+            <nav class="menu-desktop">
+                <ul>
+                    <li><a href="./municipio.html">Municípios</a></li>
+                    <li><a href="./dashboard.html">Dashboard</a></li>
+                    <li><a href="./dicas.html">Dicas</a></li>
+                    <li><a href="./perfil.html" class="active">Perfil</a></li>
+                </ul>
+            </nav>
+
+            <div class="btn-contato">
+                <span id="b_usuario" class="user-greeting"></span>
+                <button onclick="window.location.href='perfil.html'" class="btn-perfil">Meu Perfil</button>
+                <button onclick="sair()" class="btn-sair">Sair</button>
             </div>
         </div>
-    </div>
+    </header>
+
+    <main class="main-container">
+        
+        <h1 class="perfil-title">Minha Conta</h1>
+        <p class="perfil-subtitle">Gerencie os dados da sua agência e suas preferências.</p>
+
+        <div class="perfil-grid">
+
+            <div class="card-perfil">
+                <h3>Meus Dados</h3>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="input_nome">Nome da Agência:</label>
+                        <input id="input_nome" type="text" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_email">Email:</label>
+                        <input id="input_email" type="email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_cnpj">CNPJ:</label>
+                        <input id="input_cnpj" type="text" readonly>
+                    </div>
+                    <button class="btn-editar" onclick="alert('Função de editar ainda não implementada.')">Editar Dados</button>
+                </div>
+            </div>
+
+            <div class="card-perfil">
+                <h3>Alterar Senha</h3>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="input_senha_atual">Senha Atual:</label>
+                        <input id="input_senha_atual" type="password" placeholder="********">
+                    </div>
+                    <div class="form-group">
+                        <label for="input_senha_nova">Nova Senha:</label>
+                        <input id="input_senha_nova" type="password" placeholder="********">
+                    </div>
+                    <div class="form-group">
+                        <label for="input_senha_confirmar">Confirmar Nova Senha:</label>
+                        <input id="input_senha_confirmar" type="password" placeholder="********">
+                    </div>
+                    <button class="btn-salvar" onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Senha</button>
+                </div>
+            </div>
+
+        </div> </main>
+
+    <script>
+        // Esta função roda DEPOIS do sessao.js
+        document.addEventListener("DOMContentLoaded", function () {
+            // Pega os dados do sessionStorage (que já foram validados)
+            var nomeAgencia = sessionStorage.NOME_USUARIO;
+            var emailAgencia = sessionStorage.EMAIL_USUARIO;
+            var cnpjAgencia = sessionStorage.CNPJ_USUARIO;
+
+            // Preenche os campos do formulário
+            if (input_nome) input_nome.value = nomeAgencia;
+            if (input_email) input_email.value = emailAgencia;
+            if (input_cnpj) input_cnpj.value = cnpjAgencia;
+        });
+    </script>
+
 </body>
-
 </html>
-
-<script>
-    //Redirecionando para outra página
-    function redirecionar() {
-        window.location.href = "./cadastro.html";
-    }
-</script>
-
-<script src="./js/login.js"></script>
