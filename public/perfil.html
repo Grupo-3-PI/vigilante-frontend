@@ -10,80 +10,95 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <script src="./js/sessao.js"></script>
 </head>
 <body>
 
-    <header>
-        <div class="navbar">
-            <div class="logo">
-                <a href="./municipio.html"><img src="./images/icone.png"></a>
-            </div>
-
-            <nav class="menu-desktop">
-                <ul>
-                    <li><a href="./municipio.html">Municípios</a></li>
-                    <li><a href="./dashboard.html">Dashboard</a></li>
-                    <li><a href="./dicas.html">Dicas</a></li>
-                    <li><a href="./perfil.html" class="active">Perfil</a></li>
-                </ul>
-            </nav>
-
-            <div class="btn-contato">
-                <span id="b_usuario" class="user-greeting"></span>
-                <button onclick="window.location.href='perfil.html'" class="btn-perfil">Meu Perfil</button>
-                <button onclick="sair()" class="btn-sair">Sair</button>
-            </div>
+    <div class="navbar">
+        <div class="logo">
+            <a href="municipio.html"><img src="./images/vigilante-logo.svg" class="imgLogo" alt="Logo"></a>
         </div>
-    </header>
+        <nav class="menu-nav">
+            <a href="municipio.html" class="nav-link">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Municípios</span>
+            </a>
+            <a href="dashboard.html" class="nav-link">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="dicas.html" class="nav-link">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Dicas</span>
+            </a>
+            <a href="#" onclick="alert('Função Relatórios disponível apenas na Dashboard.')" class="nav-link">
+                 <i class="fa-solid fa-file-lines"></i>
+                <span>Relatórios</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="perfil.html" class="nav-link active">
+                <i class="fa-solid fa-user"></i>
+                <span>Minha conta</span>
+            </a>
+            <button onclick="sair()" class="btn-sair-vertical">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Sair</span>
+            </button>
+        </div>
+    </div>
 
-    <main class="main-container">
-        
-        <h1 class="perfil-title">Minha Conta</h1>
-        <p class="perfil-subtitle">Gerencie os dados da sua agência e suas preferências.</p>
+    <div class="conteudo">
+        <main class="main-container">
+            
+            <h1 class="perfil-title">Minha Conta</h1>
+            <p class="perfil-subtitle">Gerencie os dados da sua agência e suas preferências.</p>
 
-        <div class="perfil-grid">
+            <div class="perfil-grid">
 
-            <div class="card-perfil">
-                <h3>Meus Dados</h3>
-                <div class="form-container">
-                    <div class="form-group">
-                        <label for="input_nome">Nome da Agência:</label>
-                        <input id="input_nome" type="text" readonly>
+                <div class="card-perfil">
+                    <h3>Meus Dados</h3>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="input_nome">Nome da Agência:</label>
+                            <input id="input_nome" type="text" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="input_email">Email:</label>
+                            <input id="input_email" type="email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="input_cnpj">CNPJ:</label>
+                            <input id="input_cnpj" type="text" readonly>
+                        </div>
+                        <button class="btn-editar" onclick="alert('Função de editar ainda não implementada.')">Editar Dados</button>
                     </div>
-                    <div class="form-group">
-                        <label for="input_email">Email:</label>
-                        <input id="input_email" type="email" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="input_cnpj">CNPJ:</label>
-                        <input id="input_cnpj" type="text" readonly>
-                    </div>
-                    <button class="btn-editar" onclick="alert('Função de editar ainda não implementada.')">Editar Dados</button>
                 </div>
-            </div>
 
-            <div class="card-perfil">
-                <h3>Alterar Senha</h3>
-                <div class="form-container">
-                    <div class="form-group">
-                        <label for="input_senha_atual">Senha Atual:</label>
-                        <input id="input_senha_atual" type="password" placeholder="********">
+                <div class="card-perfil">
+                    <h3>Alterar Senha</h3>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="input_senha_atual">Senha Atual:</label>
+                            <input id="input_senha_atual" type="password" placeholder="********">
+                        </div>
+                        <div class="form-group">
+                            <label for="input_senha_nova">Nova Senha:</label>
+                            <input id="input_senha_nova" type="password" placeholder="********">
+                        </div>
+                        <div class="form-group">
+                            <label for="input_senha_confirmar">Confirmar Nova Senha:</label>
+                            <input id="input_senha_confirmar" type="password" placeholder="********">
+                        </div>
+                        <button class="btn-salvar" onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Senha</button>
                     </div>
-                    <div class="form-group">
-                        <label for="input_senha_nova">Nova Senha:</label>
-                        <input id="input_senha_nova" type="password" placeholder="********">
-                    </div>
-                    <div class="form-group">
-                        <label for="input_senha_confirmar">Confirmar Nova Senha:</label>
-                        <input id="input_senha_confirmar" type="password" placeholder="********">
-                    </div>
-                    <button class="btn-salvar" onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Senha</button>
                 </div>
-            </div>
 
-        </div> </main>
+            </div> 
+        </main>
+    </div>
 
     <script>
         // Esta função roda DEPOIS do sessao.js

@@ -11,165 +11,157 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <script src="./js/sessao.js"></script>
 </head>
 
 <body>
 
-    <header>
-        <div class="navbar">
-            <div class="logo">
-                <a href="./municipio.html"><img src="./images/icone.png"></a>
-            </div>
-
-            <nav class="menu-desktop">
-                <ul>
-                    <li><a href="./municipio.html" class="active">Municípios</a></li>
-                    <li><a href="./dashboard.html">Dashboard</a></li>
-                    <li><a href="./dicas.html">Dicas</a></li>
-                    <li><a href="./perfil.html">Perfil</a></li>
-                </ul>
-            </nav>
-
-            <div class="btn-contato">
-                <span id="b_usuario" class="user-greeting"></span>
-                <button onclick="window.location.href='perfil.html'" class="btn-perfil">Meu Perfil</button>
-                <button onclick="sair()" class="btn-sair">Sair</button>
-            </div>
+    <div class="navbar">
+        <div class="logo">
+            <a href="municipio.html"><img src="./images/vigilante-logo.svg" class="imgLogo" alt="Logo"></a>
         </div>
-    </header>
-
-    <main class="main-container">
-        
-        <h1 class="municipio-title">Análise da Baixada Santista</h1>
-        <p class_name="municipio-subtitle">Selecione um município para visualizar os dados de segurança.</p>
-
-        <div class="municipio-grid">
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemSantos.jpg" alt="Santos">
-                </div>
-                <div class="card-content">
-                    <h3>Santos</h3>
-                    <p>Principal cidade da região, concentra o maior porto e fluxo de cruzeiros.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemGuaruja.jpg" alt="Guarujá">
-                </div>
-                <div class="card-content">
-                    <h3>Guarujá</h3>
-                    <p>Famosa por suas praias, mas apresenta altos índices de violência recentes.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemSaoVicente.jpg" alt="São Vicente">
-                </div>
-                <div class="card-content">
-                    <h3>São Vicente</h3>
-                    <p>A primeira cidade do Brasil, com dados de segurança disponíveis para análise.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemPraiaGrande.jpg" alt="Praia Grande">
-                </div>
-                <div class="card-content">
-                    <h3>Praia Grande</h3>
-                    <p>Destino popular com grande fluxo de turistas e dados relevantes para agências.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemBertioga.jpg" alt="Bertioga">
-                </div>
-                <div class="card-content">
-                    <h3>Bertioga</h3>
-                    <p>Município com foco em ecoturismo. Veja os dados de segurança da região.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemCubatao.jpg" alt="Cubatão">
-                </div>
-                <div class="card-content">
-                    <h3>Cubatão</h3>
-                    <p>Conhecida pelo polo industrial, analise os dados de produtividade policial.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemMongagua.jpg" alt="Mongaguá">
-                </div>
-                <div class="card-content">
-                    <h3>Mongaguá</h3>
-                    <p>Visualize as estatísticas de segurança e planeje rotas seguras na cidade.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemItanhaem.jpg" alt="Itanhaém">
-                </div>
-                <div class="card-content">
-                    <h3>Itanhaém</h3>
-                    <p>Conhecida como a "Amazônia Paulista", veja os dados de segurança para turismo.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-            <div class="municipio-card">
-                <div class="card-image">
-                    <img src="./images/imagemPeruibe.jpg" alt="Peruíbe">
-                </div>
-                <div class="card-content">
-                    <h3>Peruíbe</h3>
-                    <p>Município com foco em natureza e praias. Analise os dados de segurança locais.</p>
-                    <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
-                </div>
-            </div>
-
-        </div> </main>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-                <p>PrevCrime | Inteligência em Segurança</p>
-            </div>
-            <div class="footer-links">
-                <h4>Links Rápidos</h4>
-                <ul>
-                    <li><a href="./municipio.html">Municípios</a></li>
-                    <li><a href="./dicas.html">Dicas</a></li>
-                    <li><a href="./perfil.html">Perfil</a></li>
-                </ul>
-            </div>
-            <div class="footer-contato" id="contato">
-                <h4>Contato</h4>
-                <p>Email: prevcrime@gmail.com</p>
-            </div>
+        <nav class="menu-nav">
+            <a href="municipio.html" class="nav-link active">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Municípios</span>
+            </a>
+            <a href="dashboard.html" class="nav-link">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="dicas.html" class="nav-link">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Dicas</span>
+            </a>
+            <a href="#" onclick="alert('Função Relatórios disponível apenas na Dashboard.')" class="nav-link">
+                 <i class="fa-solid fa-file-lines"></i>
+                <span>Relatórios</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="perfil.html" class="nav-link">
+                <i class="fa-solid fa-user"></i>
+                <span>Minha conta</span>
+            </a>
+            <button onclick="sair()" class="btn-sair-vertical">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Sair</span>
+            </button>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 PrevCrime. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    </div>
 
-    </body>
+    <div class="conteudo">
+        <main class="main-container">
+            
+            <h1 class="municipio-title">Análise da Baixada Santista</h1>
+            <p class="municipio-subtitle">Selecione um município para visualizar os dados de segurança.</p>
+
+            <div class="municipio-grid">
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemSantos.jpg" alt="Santos">
+                    </div>
+                    <div class="card-content">
+                        <h3>Santos</h3>
+                        <p>Principal cidade da região, concentra o maior porto e fluxo de cruzeiros.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemGuaruja.jpg" alt="Guarujá">
+                    </div>
+                    <div class="card-content">
+                        <h3>Guarujá</h3>
+                        <p>Famosa por suas praias, mas apresenta altos índices de violência recentes.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemSaoVicente.jpg" alt="São Vicente">
+                    </div>
+                    <div class="card-content">
+                        <h3>São Vicente</h3>
+                        <p>A primeira cidade do Brasil, com dados de segurança disponíveis para análise.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemPraiaGrande.jpg" alt="Praia Grande">
+                    </div>
+                    <div class="card-content">
+                        <h3>Praia Grande</h3>
+                        <p>Destino popular com grande fluxo de turistas e dados relevantes para agências.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemBertioga.jpg" alt="Bertioga">
+                    </div>
+                    <div class="card-content">
+                        <h3>Bertioga</h3>
+                        <p>Município com foco em ecoturismo. Veja os dados de segurança da região.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemCubatao.jpg" alt="Cubatão">
+                    </div>
+                    <div class="card-content">
+                        <h3>Cubatão</h3>
+                        <p>Conhecida pelo polo industrial, analise os dados de produtividade policial.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemMongagua.jpg" alt="Mongaguá">
+                    </div>
+                    <div class="card-content">
+                        <h3>Mongaguá</h3>
+                        <p>Visualize as estatísticas de segurança e planeje rotas seguras na cidade.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemItanhaem.jpg" alt="Itanhaém">
+                    </div>
+                    <div class="card-content">
+                        <h3>Itanhaém</h3>
+                        <p>Conhecida como a "Amazônia Paulista", veja os dados de segurança para turismo.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="municipio-card">
+                    <div class="card-image">
+                        <img src="./images/imagemPeruibe.jpg" alt="Peruíbe">
+                    </div>
+                    <div class="card-content">
+                        <h3>Peruíbe</h3>
+                        <p>Município com foco em natureza e praias. Analise os dados de segurança locais.</p>
+                        <a href="dashboard.html" class="btn-dashboard">Acessar Dashboard</a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
 </html>

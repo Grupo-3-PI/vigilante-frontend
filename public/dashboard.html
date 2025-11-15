@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="./css/dashboard.css">
     <title>Vigilante | Dashboard</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
 
     <script src="./js/sessao.js"></script>
 </head>
@@ -20,187 +20,115 @@
 
     <div class="navbar">
         <div class="logo">
-            <a href="./index.html"><img src="./images/vigilante-logo.svg" class="imgLogo"></a>
+            <a href="municipio.html"><img src="./images/vigilante-logo.svg" class="imgLogo" alt="Logo"></a>
         </div>
+        <nav class="menu-nav">
+            <a href="municipio.html" class="nav-link">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Municípios</span>
+            </a>
+            <a href="dashboard.html" class="nav-link active">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="dicas.html" class="nav-link">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Dicas</span>
+            </a>
+            <a href="#" onclick="exibirRelatorios()" class="nav-link">
+                 <i class="fa-solid fa-file-lines"></i>
+                <span>Relatórios</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="perfil.html" class="nav-link">
+                <i class="fa-solid fa-user"></i>
+                <span>Minha conta</span>
+            </a>
+            <button onclick="sair()" class="btn-sair-vertical">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Sair</span>
+            </button>
+        </div>
+    </div>
 
-        <div class="menu-nav">
-
-            <div class="tituloDashboard"><img src="./images/dashboard-icon.svg" class="imgDashboard">Dashboard</div>
-
-            <div class="link-relatorios" onclick="exibirRelatorios()"><img src="./images/relatorio-icon.png" class="imgRelatorio">Relatórios</div>
-
-            <!--Inicio Área de relatorios-->
-            <div id="fundo">
-                <section id="relatorios">
-                    <h1 id="close-icon">X</h1>
-                    <h1 class="titulo-relatorio">Relatórios</h1>
-                    
-                    <div id="relatorio">
-                        <div class="relatorio-card">
-                            <div class="relatorio-info">
-                                <div class="relatorio-item">
-                                    <h3>nome do relatório</h3>
-                                    <p>01/05/2025 - 12:00:00</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="relatorio-acoes">
-                                <button class="acao editar">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="acao excluir">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                                <button class="acao download">
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="relatorio-card">
-                            <div class="relatorio-info">
-                                <div class="relatorio-item">
-                                    <h3>nome do relatório</h3>
-                                    <p>01/04/2025 - 12:00:00</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="relatorio-acoes">
-                                <button class="acao editar">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="acao excluir">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                                <button class="acao download">
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="relatorio-card">
-                            <div class="relatorio-info">
-                                <div class="relatorio-item">
-                                    <h3>nome do relatório</h3>
-                                    <p>01/03/2025 - 12:00:00</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="relatorio-acoes">
-                                <button class="acao editar">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="acao excluir">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                                <button class="acao download">
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="relatorio-card">
-                            <div class="relatorio-info">
-                                <div class="relatorio-item">
-                                    <h3>nome do relatório</h3>
-                                    <p>01/02/2025 - 12:00:00</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="relatorio-acoes">
-                                <button class="acao editar">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="acao excluir">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                                <button class="acao download">
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="relatorio-card">
-                            <div class="relatorio-info">
-                                <div class="relatorio-item">
-                                    <h3>nome do relatório</h3>
-                                    <p>01/01/2025 - 12:00:00</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="relatorio-acoes">
-                                <button class="acao editar">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="acao excluir">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                                <button class="acao download">
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </div>
+    <div id="fundo">
+        <section id="relatorios">
+            <h1 id="close-icon">X</h1>
+            <h1 class="titulo-relatorio">Relatórios</h1>
+            
+            <div id="relatorio">
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/05/2025 - 12:00:00</p>
                         </div>
                     </div>
-                </section>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
+                
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/04/2025 - 12:00:00</p>
+                        </div>
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
+                
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/03/2025 - 12:00:00</p>
+                        </div>
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
+                
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/02/2025 - 12:00:00</p>
+                        </div>
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
+                
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/01/2025 - 12:00:00</p>
+                        </div>
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
             </div>
-
-            <!--Fim Área de relatorios-->
-
-            <div class="caixa-municipios">
-                <div onclick="exibirMunicipios()" class="botao-municipios" id="botao-municipio">
-                    <div class="divImgMap"><img src="./images/map-icon.png" class="imgMap">Municípios</div>▴
-                </div>
-                <div id="opcoes-municipio" class="opcoes-municipio">
-                    <p class="opcao-municipio opcao-municipio-selecionado" id="opcao-municipio1"
-                        onclick="selecionarMunicipio(1), atualizarAtividadePoilicial()">Bertioga</p>
-                    <p class="opcao-municipio" id="opcao-municipio2"
-                        onclick="selecionarMunicipio(2), atualizarAtividadePoilicial()">Cubatão</p>
-                    <p class="opcao-municipio" id="opcao-municipio3"
-                        onclick="selecionarMunicipio(3), atualizarAtividadePoilicial()">Guarujá</p>
-                    <p class="opcao-municipio" id="opcao-municipio4"
-                        onclick="selecionarMunicipio(4), atualizarAtividadePoilicial()">Itanhaém</p>
-                    <p class="opcao-municipio" id="opcao-municipio5"
-                        onclick="selecionarMunicipio(5), atualizarAtividadePoilicial()">Mongaguá</p>
-                    <p class="opcao-municipio" id="opcao-municipio6"
-                        onclick="selecionarMunicipio(6), atualizarAtividadePoilicial()">Peruíbe</p>
-                    <p class="opcao-municipio" id="opcao-municipio7"
-                        onclick="selecionarMunicipio(7), atualizarAtividadePoilicial()">Praia Grande</p>
-                    <p class="opcao-municipio" id="opcao-municipio8"
-                        onclick="selecionarMunicipio(8), atualizarAtividadePoilicial()">Santos</p>
-                    <p class="opcao-municipio" id="opcao-municipio9"
-                        onclick="selecionarMunicipio(9), atualizarAtividadePoilicial()">São Vicente</p>
-                </div>
-            </div>
-
-            <div class="caixa-anos">
-                <div onclick="exibirAnos()" class="botao-anos" id="botao-anos">
-                    <div class="divImgAno"><img src="./images/ano-icon.png" class="imgAno">Ano</div>
-                    ▴
-                </div>
-                <div id="opcoes-anos" class="opcoes-anos">
-                    <p class="opcao-ano opcao-ano-selecionado" id="opcao-ano1"
-                        onclick="selecionarAno(1), atualizarAtividadePoilicial()">2025</p>
-                    <p class="opcao-ano" id="opcao-ano2" onclick="selecionarAno(2), atualizarAtividadePoilicial()">2024
-                    </p>
-                    <p class="opcao-ano" id="opcao-ano3" onclick="selecionarAno(3), atualizarAtividadePoilicial()">2023
-                    </p>
-                </div>
-            </div>
-
-        </div>
-        <div class="sair">
-            <a href="">Sair</a>
-        </div>
+        </section>
     </div>
     <div class="conteudo">
 
@@ -208,18 +136,9 @@
             <div class="caminho">
                 <a href="" class="caminho-tela">Tela Inicial</a> → <a href="" class="caminho-tela">Dashboard</a>
             </div>
-            <div class="usuario">
-                <img src="./images/foto-usuario.png" alt="Foto do Usuário" class="foto-usuario">
-                <div>
-                    <h5 class="nome-usuario"><a href="perfil.html"><span id="b_usuario">Nome do Usuario</span></a></h5>
-                    <h6 class="funcao-usuario"><span id="b_cargo_agencia">Função</span></h6>
-                </div>
             </div>
-        </div>
 
         <div class="dados">
-
-
             <div class="area-graficos">
 
                 <div class="kpis">
@@ -238,21 +157,17 @@
                 </div>
 
                 <div class="graficos">
-
                     <div class="grafico1 grafico">
                         <canvas id="graficoCrimes"></canvas>
                     </div>
                     <div class="grafico2 grafico">
                         <canvas id="graficoPercentualMunicipios"></canvas>
                     </div>
-
                 </div>
 
                 <div class="area-grafico-produtividade">
-
                     <div class="atividade-policial"><canvas id="atividade-policial" width="490" height="125"></canvas>
                     </div>
-
                 </div>
 
             </div>
@@ -264,21 +179,11 @@
                     <table class="tabela" id="tabela">
                         <thead>
                             <tr>
-                                <th>
-
-                                </th>
-                                <th style="padding-left: 15px;">
-                                    Município
-                                </th>
-                                <th style="padding-left: 10px;">
-                                    Score
-                                </th>
-                                <th style="padding-right: 5px;">
-                                    Crimes
-                                </th>
-                                <th style="padding-right: 10px;">
-                                    Status
-                                </th>
+                                <th></th>
+                                <th style="padding-left: 15px;">Município</th>
+                                <th style="padding-left: 10px;">Score</th>
+                                <th style="padding-right: 5px;">Crimes</th>
+                                <th style="padding-right: 10px;">Status</th>
                             </tr>
                         </thead>
                         <tbody id="corpo-tabela">
@@ -286,9 +191,7 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
-
         </div>
     </div>
 
@@ -303,12 +206,10 @@
     var ano_selecionado = 2025;
     var municipio_selecionado = "Bertioga";
     
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    // b_usuario e b_cargo_agencia não existem mais no HTML da dashboard.
+    // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     var idUsuario = Number(sessionStorage.ID_USUARIO);
-    b_cargo_agencia.innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
-
-
-
+    // b_cargo_agencia.innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
 
     // Tabela
     // Provisório!!!
@@ -333,8 +234,6 @@
                 seta = "<img src='./images/seta-down.png' class='imgSeta'/>"
             }
             valores_municipio.push([`<tr class="linha-tabela"><td class="valor-tabela">${seta}</td><td class="valor-tabela">${municipio}</td><td class="valor-tabela">${score}</td><td class="valor-tabela">${crimes}</td><td class="valor-tabela">${status}</td></tr>`, score])
-            // document.getElementById("corpo-tabela").innerHTML += `<tr class="linha-tabela"><td>${seta}</td><td>${municipio}</td><td>${score}</td><td>${crimes}</td><td>${status}</td></tr>`
-
         })
         valores_municipio.sort((a, b) => b[1] - a[1]).forEach((municipio) => document.getElementById("corpo-tabela").innerHTML += municipio[0])
     }
@@ -348,57 +247,8 @@
         document.getElementById("fundo").style.display = "none";
     });
 
-
-    function exibirMunicipios() {
-        if (document.getElementById("opcoes-municipio").style.display == "") {
-            document.getElementById("opcoes-municipio").style.display = "flex";
-            document.getElementById("botao-municipio").style.backgroundColor = "#f0f0f0";
-            document.getElementById("botao-municipio").innerHTML = document.getElementById("botao-municipio").innerHTML.replace("▴", "▾");
-
-        } else {
-            document.getElementById("opcoes-municipio").style.display = "";
-            document.getElementById("botao-municipio").style.backgroundColor = "#fff";
-            document.getElementById("botao-municipio").innerHTML = document.getElementById("botao-municipio").innerHTML.replace("▾", "▴");
-        }
-
-    }
-
-    function selecionarMunicipio(municipio) {
-        for (var i = 1; i <= 9; i++) {
-            document.getElementById("opcao-municipio" + i).classList.remove("opcao-municipio-selecionado")
-        }
-        document.getElementById("opcao-municipio" + municipio).classList.add("opcao-municipio-selecionado")
-        municipio_selecionado = document.getElementById("opcao-municipio" + municipio).innerHTML
-
-        graficoTotalCrimes.options.plugins.title.text = `Distribuição dos Crimes por Tipo em ${municipio_selecionado} (2025)`
-        graficoTotalCrimes.update()
-        atualizarKPIs()
-    }
-
-    function exibirAnos() {
-        if (document.getElementById("opcoes-anos").style.display == "") {
-            document.getElementById("opcoes-anos").style.display = "flex";
-            document.getElementById("botao-anos").style.backgroundColor = "#f0f0f0";
-            document.getElementById("botao-anos").innerHTML = document.getElementById("botao-anos").innerHTML.replace("▴", "▾");
-
-        } else {
-            document.getElementById("opcoes-anos").style.display = "";
-            document.getElementById("botao-anos").style.backgroundColor = "#fff";
-            document.getElementById("botao-anos").innerHTML = document.getElementById("botao-anos").innerHTML.replace("▾", "▴");
-        }
-    }
-
-    function selecionarAno(ano) {
-        for (var i = 1; i <= 3; i++) {
-            document.getElementById("opcao-ano" + i).classList.remove("opcao-ano-selecionado")
-        }
-        document.getElementById("opcao-ano" + ano).classList.add("opcao-ano-selecionado")
-        ano_selecionado = document.getElementById("opcao-ano" + ano).innerHTML
-
-        graficoTotalCrimes.options.plugins.title.text = `Distribuição dos Crimes por Tipo em ${municipio_selecionado} (2025)`
-        atualizarKPIs()
-
-    }
+    // Funções de filtro (exibirMunicipios, selecionarMunicipio, etc.) removidas do script 
+    // pois os elementos não existem mais no HTML.
 
     // Atualizar KPI's
     function atualizarKPIs() {
@@ -409,6 +259,8 @@
         document.getElementById("percentualAlteracao").textContent = `${alteracao > 0 ? '+' : ''}${alteracao}%`
 
     }
+    // Carrega os KPIs iniciais
+    atualizarKPIs();
 
     //Gráfico de total de crimes
     const graficoTotalCrimes = new Chart(document.getElementById('graficoCrimes'), {

@@ -12,95 +12,111 @@ html {
 }
 
 body {
-    min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    background-color: #f4f7fa; 
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fa;
+    min-height: 100vh;
 }
 
-/* HEADER */
-header {
-    width: 100%;
+.navbar {
+    width: 260px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.navbar {
-    width: 90%;
-    max-width: 1100px; 
+.navbar .logo {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.navbar .logo img {
+    height: 45px;
+}
+
+.navbar .menu-nav {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    padding: 20px 0;
+    flex-grow: 1;
+}
+
+.navbar .nav-link {
+    display: flex;
     align-items: center;
-    padding: 6px 16px;
-    color: #000; 
-}
-
-.logo img {
-    width: 150px;
-    margin-right: 8px;
-    margin-top: 10px;
-}
-
-.menu-desktop ul {
-    list-style: none;
-    display: flex;
-    gap: 32px;
-}
-
-.menu-desktop ul li a {
+    gap: 15px;
+    padding: 12px 25px;
     text-decoration: none;
-    color: #333; 
+    color: #555;
     font-weight: 500;
-    transition: 0.3s;
-    padding-bottom: 5px;
-    border-bottom: 2px solid transparent;
+    font-size: 15px;
+    border-left: 3px solid transparent;
 }
 
-.menu-desktop ul li a:hover {
-    color: #1500B7; 
+.navbar .nav-link:hover {
+    background-color: #f9f9f9;
+    color: #1500B7;
 }
 
-.menu-desktop ul li a.active {
+.navbar .nav-link.active {
     color: #1500B7;
     font-weight: 600;
-    border-bottom: 2px solid #1500B7;
+    border-left: 3px solid #1500B7;
+    background-color: #f0f0f0;
 }
 
-.btn-contato {
+.navbar .nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+.navbar .sidebar-footer {
+    padding: 20px 25px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.navbar .sidebar-footer .btn-sair-vertical {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.btn-contato button {
-    padding: 10px 24px;
-    border: none;
-    border-radius: 50px;
-    color: #fff;
+    gap: 15px;
+    padding: 12px 0;
+    color: #555;
     font-weight: 500;
+    font-size: 15px;
+    background: none;
+    border: none;
     cursor: pointer;
-    transition: 0.3s;
+    width: 100%;
 }
 
-.btn-perfil {
-    background: linear-gradient(135deg, #1500B7, #6F3BFF); 
+.navbar .sidebar-footer .btn-sair-vertical:hover {
+    color: #d9534f;
 }
 
-.btn-sair {
-    background: #555; 
+.conteudo {
+    flex-grow: 1;
+    padding: 25px 40px;
+    margin-left: 260px;
+    width: calc(100% - 260px);
 }
 
-.btn-contato button:hover {
-    opacity: 0.85;
-    transform: scale(1.05);
+/* Esconde header e footer antigos */
+header,
+footer {
+    display: none !important;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
 }
 
 /* CONTEÚDO PRINCIPAL */
@@ -108,8 +124,9 @@ header {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 120px 20px 60px; 
-    flex-grow: 1; 
+    padding: 20px;
+    /* Padding superior ajustado */
+    flex-grow: 1;
 }
 
 .dicas-title {
@@ -117,7 +134,7 @@ header {
     font-weight: 700;
     text-align: center;
     position: relative;
-    color: #000f3f; 
+    color: #000f3f;
     margin-bottom: 10px;
 }
 
@@ -126,7 +143,7 @@ header {
     display: block;
     width: 180px;
     height: 3px;
-    background: linear-gradient(90deg, #0800ff, #9aceff); 
+    background: linear-gradient(90deg, #0800ff, #9aceff);
     margin: 12px auto 0;
     border-radius: 2px;
 }
@@ -141,7 +158,7 @@ header {
 /* Grid de Dicas */
 .dicas-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
 }
 
@@ -150,7 +167,7 @@ header {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    overflow: hidden; 
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     padding: 25px;
@@ -163,9 +180,9 @@ header {
 }
 
 .dica-icon {
-    font-size: 36px; 
+    font-size: 36px;
     font-weight: 600;
-    color: #1500B7; 
+    color: #1500B7;
     margin-bottom: 15px;
     text-align: center;
 }
@@ -173,7 +190,7 @@ header {
 .dica-content {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 .dica-content h3 {
@@ -184,7 +201,7 @@ header {
 }
 
 .dica-content ul {
-    list-style-type: none; 
+    list-style-type: none;
     padding-left: 0;
     flex-grow: 1;
 }
@@ -203,7 +220,7 @@ header {
     position: absolute;
     left: 0;
     top: 0;
-    color: #1500B7; 
+    color: #1500B7;
     font-size: 20px;
     line-height: 1;
 }
@@ -215,86 +232,15 @@ header {
     padding: 12px 24px;
     border: none;
     border-radius: 50px;
-    background: linear-gradient(135deg, #1500B7, #6F3BFF); 
+    background: linear-gradient(135deg, #1500B7, #6F3BFF);
     color: #fff;
     font-weight: 500;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 
 .dica-copy-btn:hover {
     opacity: 0.85;
     transform: scale(1.05);
-}
-
-
-/* FOOTER */
-footer {
-    background-color: #000000;
-    color: #ffffff;
-    padding: 40px 20px 20px;
-    font-family: "Poppins", sans-serif;
-    width: 100%; 
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: 30px;
-}
-
-.footer-logo p {
-    font-size: 0.95rem;
-}
-
-.footer-links h4,
-.footer-contato h4 {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-    font-weight: 600;
-}
-
-.footer-links ul {
-    list-style: none;
-}
-
-.footer-links ul li {
-    margin-bottom: 8px;
-}
-
-.footer-links ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.footer-links ul li a:hover {
-    color: #ffdd00; 
-}
-
-.footer-contato p {
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-}
-
-.footer-bottom {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 0.85rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding-top: 15px;
-}
-
-.user-greeting {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-    margin-right: 15px; 
-    white-space: nowrap; 
 }

@@ -6,65 +6,104 @@
 }
 
 body {
-  height: 100%;
   display: flex;
-  flex-direction: row;
-  background: #fff;
-  flex-wrap: wrap;
-  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f7fa;
+  min-height: 100vh;
 }
 
-/* Nav */
 .navbar {
-  background-color: white;
-  width: 12%;
-  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.05);
-  z-index: 1;
-}
-
-.logo {
-  width: 100%;
-  height: 15%;
+  width: 260px;
+  background-color: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.imgLogo {
-  width: 80%;
-  margin-top: 15px;
-}
-
-.menu-nav {
-  display: flex;
-  height: 80%;
-  width: 100%;
-  align-items: center;
   flex-direction: column;
-
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
 
-.tituloDashboard {
+.navbar .logo {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.navbar .logo img {
+  height: 45px;
+}
+
+.navbar .menu-nav {
   display: flex;
-  width: 100%;
-  justify-content: start;
-  margin: 15px;
-  padding-left: 20px;
-  color: #b7b7b7;
+  flex-direction: column;
+  padding: 20px 0;
+  flex-grow: 1;
 }
 
-.imgDashboard {
-  width: 12%;
-  margin-right: 8%;
+.navbar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 25px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  font-size: 15px;
+  border-left: 3px solid transparent;
 }
 
-.imgRelatorio {
-  width: 12%;
-  margin-right: 1%;
+.navbar .nav-link:hover {
+  background-color: #f9f9f9;
+  color: #1500B7;
 }
 
-.link-relatorios {
+.navbar .nav-link.active {
+  color: #1500B7;
+  font-weight: 600;
+  border-left: 3px solid #1500B7;
+  background-color: #f0f0f0;
+}
+
+.navbar .nav-link i {
+  width: 20px;
+  text-align: center;
+}
+
+.navbar .sidebar-footer {
+  padding: 20px 25px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.navbar .sidebar-footer .btn-sair-vertical {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 0;
+  color: #555;
+  font-weight: 500;
+  font-size: 15px;
+  background: none;
+  border: none;
   cursor: pointer;
+  width: 100%;
+}
+
+.navbar .sidebar-footer .btn-sair-vertical:hover {
+  color: #d9534f;
+}
+
+.conteudo {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  height: 100vh;
+}
+
+header,
+footer {
+  display: none !important;
 }
 
 #fundo {
@@ -83,14 +122,11 @@ body {
 
 #relatorios {
   display: none;
-  justify-content: space-between;
   flex-direction: column;
-  align-items: center;
   background-color: #e5e0e0;
   padding: 10px 20px;
   height: 80vh;
   width: 80vw;
-  margin-top: 30px;
   border-radius: 20px;
 }
 
@@ -167,17 +203,6 @@ body {
   cursor: pointer;
 }
 
-.link-relatorios {
-  display: flex;
-  align-items: center;
-  color: #363062;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 5vh;
-  font-weight: bold;
-  margin: 10px;
-}
-
 #close-icon:hover {
   color: orange;
   transition: 0.1s;
@@ -188,16 +213,6 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-
-.imgRelatorio {
-  margin-right: 5%;
-  width: 15%;
-  margin-bottom: 5px;
-}
-
-.logo {
-  font-weight: bold;
 }
 
 nav {
@@ -266,127 +281,8 @@ nav a {
   color: #000;
 }
 
-.caixa-municipios {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  text-align: center;
-}
-
-.botao-municipios {
-  user-select: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 10px;
-  height: 5vh;
-  margin: 10px;
-  font-size: 15px;
-  font-weight: bold;
-  color: #363062;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.divImgMap {
-  display: flex;
-  align-items: center;
-}
-
-.imgMap {
-  margin-right: 5%;
-  width: 15%;
-  margin-bottom: 5px;
-}
-
-.opcoes-municipio {
-  display: none;
-  flex-direction: column;
-}
-
-.opcao-municipio {
-  margin-bottom: 8px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.opcao-municipio:hover {
-  color: #525252;
-}
-
-.opcao-municipio-selecionado {
-  color: #fea40b;
-  font-weight: bold;
-}
-
-.caixa-anos {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  text-align: center;
-}
-
-.divImgAno {
-  display: flex;
-  align-items: center;
-}
-
-.imgAno {
-  margin-right: 5%;
-  width: 15%;
-  margin-bottom: 5px;
-}
-
-.botao-anos {
-  user-select: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 10px;
-  height: 5vh;
-  margin: 10px;
-  font-size: 15px;
-  font-weight: bold;
-  color: #363062;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.opcoes-anos {
-  color: black;
-  display: none;
-  flex-direction: column;
-}
-
-.opcao-ano:hover {
-  color: #525252;
-}
-
-.opcao-ano-selecionado {
-  color: #fea40b;
-  font-weight: bold;
-}
-
-.opcao-ano {
-  margin-bottom: 8px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
 .caminho {
-  margin-top: 2%;
-}
-
-.usuario {
-  margin-top: 2%;
-  display: flex;
-  justify-content: end;
+  margin-top: 0;
 }
 
 .foto-usuario {
@@ -407,27 +303,10 @@ nav a {
   color: black;
 }
 
-.menu-nav li {
-  list-style: none;
-  margin-top: 60%;
-}
-
-.sair {
-  width: 100%;
-  height: 5%;
-  margin-left: 10%;
-}
-
-.sair a {
-  text-decoration: none;
-  color: black;
-}
-
-
 /* Conteúdo */
 .conteudo {
-  width: 88%;
-  height: 100vh;
+  padding: 0;
+  background-color: #f0f0f0;
 }
 
 .titulo {
@@ -437,20 +316,19 @@ nav a {
   align-items: center;
   justify-content: space-between;
   font-size: 15px;
-  padding-left: 2%;
-  padding-right: 2%;
-  padding-bottom: 2%;
+  padding: 2% 2% 1% 2%;
   background-color: white;
+  border-bottom: 1px solid #eee;
 }
 
 .dados {
-  padding-top: 2%;
+  padding: 20px;
   width: 100%;
   height: 90%;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: #f0f0f0;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .caixa-menu {
@@ -483,23 +361,14 @@ nav a {
   color: #000;
 }
 
-.dados {
-
-  display: flex;
-  flex-direction: row;
-
-}
-
 .area-graficos {
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   width: 64%;
   height: 100%;
-  margin-left: 10px;
-
+  gap: 20px;
 }
 
 .kpis {
@@ -509,42 +378,37 @@ nav a {
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  gap: 20px;
 }
 
 .kpi {
-
   background-color: blue;
-  width: 32%;
+  width: 100%;
+  flex: 1;
   height: 100%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  position: relative;
 }
 
 .kpi1 {
-
   background-image: url(../images/kpi1-card.svg);
   background-size: 150% 150%;
   background-position: center;
-
 }
 
 .kpi2 {
-
   background-image: url(../images/kpi2-card.svg);
   background-size: 150% 150%;
   background-position: center;
-
 }
 
 .kpi3 {
-
   background-image: url(../images/kpi3-card.svg);
   background-size: 150% 150%;
   background-position: center;
-
 }
 
 .kpi-titulo {
@@ -553,22 +417,30 @@ nav a {
   margin-bottom: 8px;
   padding: 10px;
   color: white;
+  text-align: center;
+  /* Centralizado */
 }
 
 .kpi-valor1 {
   font-size: 45px;
   font-weight: 600;
   color: white;
-  position: fixed;
-  margin-top: 60px;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 0;
 }
 
 .kpi-valor2 {
   font-size: 45px;
   font-weight: 600;
   color: white;
-  position: fixed;
-  margin-top: 60px;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 0;
 }
 
 .graficos {
@@ -576,10 +448,12 @@ nav a {
   height: 34%;
   display: flex;
   justify-content: space-around;
+  gap: 20px;
 }
 
 .grafico {
-  width: 49%;
+  width: 100%;
+  flex: 1;
   height: 100%;
   background-color: white;
   border-radius: 10px;
@@ -596,18 +470,16 @@ nav a {
 
 
 .atividade-policial {
-  margin-bottom: 30px;
   background-color: white;
   border-radius: 10px;
-  width: 99%;
+  width: 100%;
+  height: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .area-tabela {
-
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   width: 36%;
   height: 100%;
@@ -619,33 +491,33 @@ nav a {
   flex-direction: column;
   background-color: white;
   width: 100%;
-  height: 95%;
+  height: auto;
+  flex-grow: 1;
   border-spacing: 0;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-
 }
 
 .titulo-tabela {
-
   display: flex;
   align-items: center;
-  padding: 30px;
+  padding: 20px;
   font-weight: 500;
   font-size: 15px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: 10%;
-  width: 95%;
+  height: auto;
+  width: 100%;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-
+  box-sizing: border-box;
 }
 
 .dados-tabela {
-  width: 95%;
+  width: 100%;
   height: 100%;
+  overflow-y: auto;
 }
 
 .valor-tabela {
@@ -660,7 +532,23 @@ nav a {
 
 .tabela tr {
   margin-bottom: 10px;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
+
+.tabela thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tabela tbody {
+  display: block;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+}
+
 
 .tabela th {
   font-size: 15px;
@@ -673,11 +561,9 @@ nav a {
 .tabela td,
 th {
   text-align: center;
-  /* border: 2px #000 solid; */
-  width: 7vw;
   height: 7vh;
   font-size: 15px;
-
+  padding: 5px;
 }
 
 .imgSeta {
