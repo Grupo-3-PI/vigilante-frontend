@@ -38,6 +38,12 @@ body {
   border-bottom: 1px solid #f0f0f0;
 }
 
+.usuario-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .navbar .logo img {
   height: 130px;
 }

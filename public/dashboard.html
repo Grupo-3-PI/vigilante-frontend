@@ -36,10 +36,14 @@
                 <span>Dicas</span>
             </a>
             <a href="#" onclick="exibirRelatorios()" class="nav-link">
-                 <i class="fa-solid fa-file-lines"></i>
+                <i class="fa-solid fa-file-lines"></i>
                 <span>Relatórios</span>
             </a>
         </nav>
+
+        <div class="usuario-info">
+            <span id="b_usuario"></span>
+        </div>
         <div class="sidebar-footer">
             <a href="perfil.html" class="nav-link">
                 <i class="fa-solid fa-user"></i>
@@ -56,7 +60,7 @@
         <section id="relatorios">
             <h1 id="close-icon">X</h1>
             <h1 class="titulo-relatorio">Relatórios</h1>
-            
+
             <div id="relatorio">
                 <div class="relatorio-card">
                     <div class="relatorio-info">
@@ -71,7 +75,7 @@
                         <button class="acao download"><i class="fa fa-download"></i></button>
                     </div>
                 </div>
-                
+
                 <div class="relatorio-card">
                     <div class="relatorio-info">
                         <div class="relatorio-item">
@@ -85,7 +89,7 @@
                         <button class="acao download"><i class="fa fa-download"></i></button>
                     </div>
                 </div>
-                
+
                 <div class="relatorio-card">
                     <div class="relatorio-info">
                         <div class="relatorio-item">
@@ -99,7 +103,7 @@
                         <button class="acao download"><i class="fa fa-download"></i></button>
                     </div>
                 </div>
-                
+
                 <div class="relatorio-card">
                     <div class="relatorio-info">
                         <div class="relatorio-item">
@@ -113,7 +117,7 @@
                         <button class="acao download"><i class="fa fa-download"></i></button>
                     </div>
                 </div>
-                
+
                 <div class="relatorio-card">
                     <div class="relatorio-info">
                         <div class="relatorio-item">
@@ -136,7 +140,7 @@
             <div class="caminho">
                 <a href="" class="caminho-tela">Tela Inicial</a> → <a href="" class="caminho-tela">Dashboard</a>
             </div>
-            </div>
+        </div>
 
         <div class="dados">
             <div class="area-graficos">
@@ -205,7 +209,7 @@
     const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mongaguá", "Peruíbe", "Praia Grande", "Santos", "São Vicente"];
     var ano_selecionado = 2025;
     var municipio_selecionado = "Bertioga";
-    
+
     // b_usuario e b_cargo_agencia não existem mais no HTML da dashboard.
     // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     var idUsuario = Number(sessionStorage.ID_USUARIO);

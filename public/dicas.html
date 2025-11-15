@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vigilante | Dicas de Segurança</title>
-    
-    <link rel="stylesheet" href="./css/dicas.css"> 
+
+    <link rel="stylesheet" href="./css/dicas.css">
     <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
+
     <script src="./js/sessao.js"></script>
 </head>
 
@@ -37,10 +38,13 @@
                 <span>Dicas</span>
             </a>
             <a href="#" onclick="alert('Função Relatórios disponível apenas na Dashboard.')" class="nav-link">
-                 <i class="fa-solid fa-file-lines"></i>
+                <i class="fa-solid fa-file-lines"></i>
                 <span>Relatórios</span>
             </a>
         </nav>
+        <div class="usuario-info">
+            <span id="b_usuario"></span>
+        </div>
         <div class="sidebar-footer">
             <a href="perfil.html" class="nav-link">
                 <i class="fa-solid fa-user"></i>
@@ -55,7 +59,7 @@
 
     <div class="conteudo">
         <main class="main-container">
-            
+
             <h1 class="dicas-title">Dicas de Segurança para Turistas</h1>
             <p class="dicas-subtitle">Material de apoio para as agências transmitirem aos seus clientes.</p>
 
@@ -69,8 +73,10 @@
                         <h3>Dicas Gerais</h3>
                         <ul>
                             <li>Evite exibir objetos de valor, como joias, câmeras e celulares, em locais públicos.</li>
-                            <li>Mantenha bolsas e mochilas sempre à frente do corpo, especialmente em locais movimentados.</li>
-                            <li>Prefira utilizar caixas eletrônicos localizados dentro de shoppings ou agências bancárias.</li>
+                            <li>Mantenha bolsas e mochilas sempre à frente do corpo, especialmente em locais
+                                movimentados.</li>
+                            <li>Prefira utilizar caixas eletrônicos localizados dentro de shoppings ou agências
+                                bancárias.</li>
                             <li>Desconfie de ofertas "imperdíveis" ou pessoas muito solícitas na rua.</li>
                             <li>Tenha o contato da sua agência e da polícia local sempre à mão.</li>
                         </ul>
@@ -85,7 +91,8 @@
                     <div class="dica-content">
                         <h3>Na Praia e Orla</h3>
                         <ul>
-                            <li>Não deixe seus pertences sozinhos na areia para ir ao mar. Peça para alguém de confiança olhar.</li>
+                            <li>Não deixe seus pertences sozinhos na areia para ir ao mar. Peça para alguém de confiança
+                                olhar.</li>
                             <li>Evite levar grandes quantias de dinheiro ou cartões desnecessários para a praia.</li>
                             <li>Cuidado com vendedores ambulantes não credenciados ou abordagens suspeitas.</li>
                             <li>Ao anoitecer, prefira caminhar em áreas bem iluminadas e movimentadas do calçadão.</li>
@@ -102,7 +109,8 @@
                         <h3>Transporte e Deslocamento</h3>
                         <ul>
                             <li>Utilize aplicativos de transporte (Uber, 99) ou táxis de pontos oficiais.</li>
-                            <li>Se for alugar um carro, não deixe objetos visíveis dentro do veículo quando estacionar.</li>
+                            <li>Se for alugar um carro, não deixe objetos visíveis dentro do veículo quando estacionar.
+                            </li>
                             <li>No transporte público, mantenha a atenção redobrada aos seus bolsos e bolsas.</li>
                             <li>Confirme a placa e o motorista do seu transporte por aplicativo antes de embarcar.</li>
                         </ul>
@@ -117,7 +125,8 @@
                     <div class="dica-content">
                         <h3>Passeios e Vida Noturna</h3>
                         <ul>
-                            <li>Informe à agência ou ao hotel o seu roteiro, especialmente se for para locais mais afastados.</li>
+                            <li>Informe à agência ou ao hotel o seu roteiro, especialmente se for para locais mais
+                                afastados.</li>
                             <li>Em bares e restaurantes, nunca deixe seu copo ou bebida sem vigilância.</li>
                             <li>Evite andar sozinho por ruas escuras ou desertas, especialmente à noite.</li>
                             <li>Contrate guias turísticos credenciados para trilhas e passeios ecológicos.</li>
@@ -126,7 +135,7 @@
                     <button class="dica-copy-btn" onclick="copiarDicas(this)">Copiar Dicas</button>
                 </div>
 
-            </div> 
+            </div>
         </main>
     </div>
 
@@ -136,9 +145,9 @@
             const card = buttonElement.closest('.dica-card');
             const titulo = card.querySelector('h3').innerText;
             const dicas = card.querySelectorAll('ul li');
-            
+
             let textoParaCopiar = `Dicas de Segurança - ${titulo}:\n\n`;
-            
+
             dicas.forEach(dica => {
                 textoParaCopiar += `• ${dica.innerText}\n`;
             });
@@ -148,12 +157,12 @@
             navigator.clipboard.writeText(textoParaCopiar).then(() => {
                 const originalText = buttonElement.innerText;
                 buttonElement.innerText = "Copiado!";
-                buttonElement.style.background = "#5cb85c"; 
-                
+                buttonElement.style.background = "#5cb85c";
+
                 setTimeout(() => {
                     buttonElement.innerText = originalText;
-                    buttonElement.style.background = "linear-gradient(135deg, #1500B7, #6F3BFF)"; 
-                }, 2000); 
+                    buttonElement.style.background = "linear-gradient(135deg, #1500B7, #6F3BFF)";
+                }, 2000);
             }).catch(err => {
                 console.error('Falha ao copiar dicas: ', err);
                 alert('Não foi possível copiar as dicas. Tente manualmente.');
@@ -162,4 +171,5 @@
     </script>
 
 </body>
+
 </html>

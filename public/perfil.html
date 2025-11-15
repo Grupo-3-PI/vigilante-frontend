@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,13 @@
     <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
+
     <script src="./js/sessao.js"></script>
 </head>
+
 <body>
 
     <div class="navbar">
@@ -34,10 +37,14 @@
                 <span>Dicas</span>
             </a>
             <a href="#" onclick="alert('Função Relatórios disponível apenas na Dashboard.')" class="nav-link">
-                 <i class="fa-solid fa-file-lines"></i>
+                <i class="fa-solid fa-file-lines"></i>
                 <span>Relatórios</span>
             </a>
         </nav>
+
+        <div class="usuario-info">
+            <span id="b_usuario"></span>
+        </div>
         <div class="sidebar-footer">
             <a href="perfil.html" class="nav-link active">
                 <i class="fa-solid fa-user"></i>
@@ -52,7 +59,7 @@
 
     <div class="conteudo">
         <main class="main-container">
-            
+
             <h1 class="perfil-title">Minha Conta</h1>
             <p class="perfil-subtitle">Gerencie os dados da sua agência e suas preferências.</p>
 
@@ -73,7 +80,8 @@
                             <label for="input_cnpj">CNPJ:</label>
                             <input id="input_cnpj" type="text" readonly>
                         </div>
-                        <button class="btn-editar" onclick="alert('Função de editar ainda não implementada.')">Editar Dados</button>
+                        <button class="btn-editar" onclick="alert('Função de editar ainda não implementada.')">Editar
+                            Dados</button>
                     </div>
                 </div>
 
@@ -92,11 +100,12 @@
                             <label for="input_senha_confirmar">Confirmar Nova Senha:</label>
                             <input id="input_senha_confirmar" type="password" placeholder="********">
                         </div>
-                        <button class="btn-salvar" onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Senha</button>
+                        <button class="btn-salvar"
+                            onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Senha</button>
                     </div>
                 </div>
 
-            </div> 
+            </div>
         </main>
     </div>
 
@@ -116,4 +125,5 @@
     </script>
 
 </body>
+
 </html>

@@ -23,7 +23,7 @@ function validarSessao() {
         // Se o usuário está logado:
         if (b_usuario != null) {
             // Se existir, preenche com a saudação
-            b_usuario.innerHTML = "Olá, " + nome;
+            b_usuario.innerHTML = nome;
         }
     }
 }
