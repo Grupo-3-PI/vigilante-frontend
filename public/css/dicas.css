@@ -33,13 +33,13 @@ body {
 }
 
 .navbar .logo {
-    padding: 20px;
-    text-align: center;
-    border-bottom: 1px solid #f0f0f0;
+  padding: 0;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .navbar .logo img {
-    height: 45px;
+  height: 130px;
 }
 
 .navbar .menu-nav {
