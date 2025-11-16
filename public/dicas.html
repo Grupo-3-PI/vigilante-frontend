@@ -14,46 +14,56 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/navbar.css">
 
     <script src="./js/sessao.js"></script>
 </head>
 
 <body>
 
-    <div class="navbar">
-        <div class="logo">
-            <a href="municipio.html"><img src="./images/vigilante-logo.svg" class="imgLogo" alt="Logo"></a>
+    <!-- Navbar -->
+    <div class="container_navbar">
+        <!-- Container cima -->
+        <div class="container_top">
+            <!-- Logo -->
+            <div class="img_logo">
+                <img src="./images/logo_vigilante.svg" alt="">
+            </div>
+            <!-- Botões da navbar -->
+            <nav class="navbar_buttons">
+                <!-- Botoes -->
+                <a href="municipio.html" class="nav_item">
+                    <i class='bx bx-home'></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav_item">
+                    <i class='bx bx-grid-alt'></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="dicas.html" class="nav_item">
+                    <i class='bx bx-bulb'></i>
+                    <span>Dicas</span>
+                </a>
+            </nav>
         </div>
-        <nav class="menu-nav">
-            <a href="municipio.html" class="nav-link">
-                <i class="fa-solid fa-map-location-dot"></i>
-                <span>Municípios</span>
-            </a>
-            <a href="dashboard.html" class="nav-link">
-                <i class="fa-solid fa-chart-pie"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="dicas.html" class="nav-link active">
-                <i class="fa-solid fa-lightbulb"></i>
-                <span>Dicas</span>
-            </a>
-            <a href="#" onclick="alert('Função Relatórios disponível apenas na Dashboard.')" class="nav-link">
-                <i class="fa-solid fa-file-lines"></i>
-                <span>Relatórios</span>
-            </a>
-        </nav>
-        <div class="usuario-info">
-            <span id="b_usuario"></span>
-        </div>
-        <div class="sidebar-footer">
-            <a href="perfil.html" class="nav-link">
-                <i class="fa-solid fa-user"></i>
-                <span>Minha conta</span>
-            </a>
-            <button onclick="sair()" class="btn-sair-vertical">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                <span>Sair</span>
-            </button>
+        <!-- Container baixo -->
+        <div class="container_bottom">
+            <div class="card_usuario">
+                <div class="user_icon">
+                    <i class='bx bx-user'></i>
+                </div>
+                <div class="user_info">
+                    <span class="perfil">Admin</span>
+                    <span class="nome">Luckinhas</span>
+                    <span class="nome" id="b_usuario"></span>
+                </div>
+                <div class="notificacao">
+                    <i class='bx bx-bell'></i>
+                </div>
+            </div>
+            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar usuários</button>
+            <p class="copyright">©2025 PrevCrime, Inc.</p>
         </div>
     </div>
 
@@ -167,6 +177,11 @@
                 console.error('Falha ao copiar dicas: ', err);
                 alert('Não foi possível copiar as dicas. Tente manualmente.');
             });
+        }
+
+        // Preenche o nome do usuário na navbar
+        if (sessionStorage.NOME_USUARIO) {
+            document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
         }
     </script>
 
