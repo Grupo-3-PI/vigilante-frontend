@@ -55,7 +55,140 @@
         </div>
     </div>
 
-    <div class="container_conteudo"></div>
+    <!-- Parte d lado da navbar -->
+    <div class="container_conteudo">
+        <div class="conteudo">
+            <h2 class="titulo_pagina">Gerenciar Usuários</h2>
+
+            <div class="cards_info">
+                <div class="card_info">
+                    <div class="coluna"></div>
+                    <span class="card_titulo">Total de Funcionários</span>
+                    <span class="card_valor">12</span>
+                </div>
+                <div class="card_info">
+                    <div class="coluna"></div>
+                    <span class="card_titulo">Funcionários Excluídos</span>
+                    <span class="card_valor">2</span>
+                </div>
+                <div class="card_info">
+                    <div class="coluna"></div>
+                    <span class="card_titulo">Funcionários Desativados</span>
+                    <span class="card_valor">4</span>
+                </div>
+            </div>
+
+            <div class="container_tabela">
+
+                <div class="tabela_header">
+                    <div>Nome</div>
+                    <div>Email</div>
+                    <div>Status</div>
+                    <div>Cargo</div>
+                    <div>Funções</div>
+                </div>
+
+                <div class="container_usuarios">
+                    <div class="tabela_row">
+                        <input class="col" type="text" value="Guilherme" disabled>
+                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col" type="text" value="Ativo" disabled>
+                        <input class="col" type="text" value="Analista" disabled>
+
+                        <div class="funcoes">
+                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="tabela_row">
+                        <input class="col"  type="text" value="Guilherme" disabled>
+                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col"  type="text" value="Ativo" disabled>
+                        <input class="col"  type="text" value="Analista" disabled>
+
+                        <div class="funcoes">
+                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="tabela_row">
+                        <input class="col"  type="text" value="Guilherme" disabled>
+                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col"  type="text" value="Ativo" disabled>
+                        <input class="col"  type="text" value="Analista" disabled>
+
+                        <div class="funcoes">
+                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="tabela_row">
+                        <input class="col"  type="text" value="Guilherme" disabled>
+                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col"  type="text" value="Ativo" disabled>
+                        <input class="col"  type="text" value="Analista" disabled>
+
+                        <div class="funcoes">
+                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="tabela_row">
+                        <input class="col"  type="text" value="Guilherme" disabled>
+                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col"  type="text" value="Ativo" disabled>
+                        <input class="col"  type="text" value="Analista" disabled>
+
+                        <div class="funcoes">
+                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="tabela_row">
+                        <input class="col"  type="text" value="Guilherme" disabled>
+                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col"  type="text" value="Ativo" disabled>
+                        <input class="col"  type="text" value="Analista" disabled>
+
+                        <div class="funcoes">
+                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
 </body>
 
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        document.querySelectorAll(".tabela_row").forEach(row => {
+
+            const editarBtn = row.querySelector(".editar");
+            const inputs = row.querySelectorAll("input");
+
+            editarBtn.addEventListener("click", () => {
+
+                const desabilitado = inputs[0].disabled;
+
+                if (desabilitado) {
+                    inputs.forEach(input => input.disabled = false);
+                    editarBtn.innerHTML = "<i class='bx bx-x'></i>";
+                } else {
+                    inputs.forEach(input => input.disabled = true);
+                    editarBtn.innerHTML = "<i class='bx bx-edit-alt'></i>";
+                }
+
+            });
+
+        });
+
+    });
+</script>
