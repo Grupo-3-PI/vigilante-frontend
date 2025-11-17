@@ -27,6 +27,8 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
+app.use("/listarTodosAgencia", usuarioRouter);
+app.use("/editarUsuarios/:id", usuarioRouter);
 app.use("/agencia", agenciaRouter);
 
 app.listen(PORTA_APP, function () {

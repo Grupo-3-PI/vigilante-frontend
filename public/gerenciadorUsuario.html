@@ -44,7 +44,7 @@
                 </div>
                 <div class="user_info">
                     <span class="perfil">Admin</span>
-                    <span class="nome">Luckinhas</span>
+                    <span id="nome" class="nome"></span>
                 </div>
                 <div class="notificacao">
                     <i class='bx bx-bell'></i>
@@ -64,7 +64,7 @@
                 <div class="card_info">
                     <div class="coluna"></div>
                     <span class="card_titulo">Total de Funcionários</span>
-                    <span class="card_valor">12</span>
+                    <span id="total_funcionarios" class="card_valor"></span>
                 </div>
                 <div class="card_info">
                     <div class="coluna"></div>
@@ -81,6 +81,7 @@
             <div class="container_tabela">
 
                 <div class="tabela_header">
+                    <div>ID</div>
                     <div>Nome</div>
                     <div>Email</div>
                     <div>Status</div>
@@ -88,7 +89,20 @@
                     <div>Funções</div>
                 </div>
 
-                <div class="container_usuarios">
+                <div id="container_usuarios" class="container_usuarios">
+
+                    <!-- <div class="tabela_row">
+                        <input class="col" type="text" value="Guilherme" disabled>
+                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col" type="text" value="Ativo" disabled>
+                        <input class="col" type="text" value="Analista" disabled>
+
+                        <div class="funcoes">
+                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+                        </div>
+                    </div>
+
                     <div class="tabela_row">
                         <input class="col" type="text" value="Guilherme" disabled>
                         <input class="col" type="email" value="guilherme@gmail.com" disabled>
@@ -101,10 +115,10 @@
                         </div>
                     </div>
                     <div class="tabela_row">
-                        <input class="col"  type="text" value="Guilherme" disabled>
-                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col"  type="text" value="Ativo" disabled>
-                        <input class="col"  type="text" value="Analista" disabled>
+                        <input class="col" type="text" value="Guilherme" disabled>
+                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col" type="text" value="Ativo" disabled>
+                        <input class="col" type="text" value="Analista" disabled>
 
                         <div class="funcoes">
                             <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
@@ -112,10 +126,10 @@
                         </div>
                     </div>
                     <div class="tabela_row">
-                        <input class="col"  type="text" value="Guilherme" disabled>
-                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col"  type="text" value="Ativo" disabled>
-                        <input class="col"  type="text" value="Analista" disabled>
+                        <input class="col" type="text" value="Guilherme" disabled>
+                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col" type="text" value="Ativo" disabled>
+                        <input class="col" type="text" value="Analista" disabled>
 
                         <div class="funcoes">
                             <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
@@ -123,10 +137,10 @@
                         </div>
                     </div>
                     <div class="tabela_row">
-                        <input class="col"  type="text" value="Guilherme" disabled>
-                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col"  type="text" value="Ativo" disabled>
-                        <input class="col"  type="text" value="Analista" disabled>
+                        <input class="col" type="text" value="Guilherme" disabled>
+                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col" type="text" value="Ativo" disabled>
+                        <input class="col" type="text" value="Analista" disabled>
 
                         <div class="funcoes">
                             <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
@@ -134,27 +148,16 @@
                         </div>
                     </div>
                     <div class="tabela_row">
-                        <input class="col"  type="text" value="Guilherme" disabled>
-                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col"  type="text" value="Ativo" disabled>
-                        <input class="col"  type="text" value="Analista" disabled>
+                        <input class="col" type="text" value="Guilherme" disabled>
+                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
+                        <input class="col" type="text" value="Ativo" disabled>
+                        <input class="col" type="text" value="Analista" disabled>
 
                         <div class="funcoes">
                             <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
                             <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
                         </div>
-                    </div>
-                    <div class="tabela_row">
-                        <input class="col"  type="text" value="Guilherme" disabled>
-                        <input class="col"  type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col"  type="text" value="Ativo" disabled>
-                        <input class="col"  type="text" value="Analista" disabled>
-
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
 
 
@@ -167,28 +170,114 @@
 </html>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
 
-        document.querySelectorAll(".tabela_row").forEach(row => {
+    document.getElementById("nome").innerHTML = sessionStorage.getItem("NOME_USUARIO")
 
-            const editarBtn = row.querySelector(".editar");
-            const inputs = row.querySelectorAll("input");
 
-            editarBtn.addEventListener("click", () => {
+    fetch("/usuarios/listarTodosAgencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkAgenciaServer: 1,
+        })
 
-                const desabilitado = inputs[0].disabled;
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO listarUsuarios()!");
 
-                if (desabilitado) {
-                    inputs.forEach(input => input.disabled = false);
-                    editarBtn.innerHTML = "<i class='bx bx-x'></i>";
-                } else {
-                    inputs.forEach(input => input.disabled = true);
-                    editarBtn.innerHTML = "<i class='bx bx-edit-alt'></i>";
+        if (resposta.ok) {
+            console.log(resposta);
+
+
+
+            resposta.json().then(json => {
+
+                document.getElementById("total_funcionarios").innerHTML = json.length
+
+                // Carrega lista de usuários
+                for (i = 0; i < json.length; i++) {
+
+                    document.getElementById("container_usuarios").innerHTML += `
+                    <div class="tabela_row">
+                        <input class="col" type="text" value="${json[i].id}" disabled>
+                        <input class="col" type="text" value="${json[i].nome}" disabled>
+                        <input class="col" type="email" value="${json[i].email}" disabled>
+                        <input class="col" type="text" value="${json[i].status}" disabled>
+                        <input class="col" type="text" value="${json[i].cargo_agencia}" disabled>
+
+                        <div class="funcoes">
+                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+                        </div>
+                    </div>`
+
                 }
 
             });
 
-        });
+
+        } else {
+            console.log("Houve um erro ao listar usuários!");
+
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+
+    document.getElementById("container_usuarios").addEventListener("click", function (event) {
+
+        const btn = event.target.closest(".editar");
+        if (!btn) return;
+
+        const row = btn.closest(".tabela_row");
+        const inputs = row.querySelectorAll("input");
+
+        const desabilitado = inputs[0].disabled;
+
+        if (desabilitado) {
+            inputs.forEach(input => input.disabled = false);
+            btn.innerHTML = "<i class='bx bx-x'></i>";
+
+        } else {
+            inputs.forEach(input => input.disabled = true);
+            btn.innerHTML = "<i class='bx bx-edit-alt'></i>";
+
+            var usuario_atualizado = []
+            inputs.forEach(input => {
+                usuario_atualizado.push(input.value)
+            });
+            console.log(usuario_atualizado);
+
+            // Atualiza o usuário
+            fetch(`/usuarios/editarUsuarios/${usuario_atualizado[0]}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: usuario_atualizado[1],
+                    emailServer: usuario_atualizado[2],
+                    statusServer: usuario_atualizado[3],
+                    cargo_agenciaServer: usuario_atualizado[4],
+                })
+            }).then(function (resposta) {
+
+                console.log(`Usuário ${usuario_atualizado[0]} atualizado!`);
+
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+        }
 
     });
+
+
+
+
+
 </script>

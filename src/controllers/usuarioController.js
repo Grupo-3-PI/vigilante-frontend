@@ -77,7 +77,71 @@ function cadastrar(req, res) {
     }
 }
 
+function listarTodosAgencia(req, res) {
+    var fk_agencia = req.body.fkAgenciaServer;
+
+    if (fk_agencia == undefined) {
+        res.status(400).send("Código de agência inválido");
+    } else {
+        usuarioModel.listarTodosAgencia(fk_agencia)
+            .then(
+                function (resultadoListarTodosAgencia) {
+                    console.log(`\nResultados encontrados: ${resultadoListarTodosAgencia.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoListarTodosAgencia)}`); // transforma JSON em String
+
+                    if (resultadoListarTodosAgencia.length >= 1) {
+                        console.log(resultadoListarTodosAgencia);
+                        res.json(resultadoListarTodosAgencia);
+                    } else if (resultadoListarTodosAgencia.length == 0) {
+                        res.status(403).send("Código de agência inválido!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao listar usuários! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+}
+
+function editarUsuarios(req, res) {
+    var id = req.params.id;
+    var nome = req.body.nomeServer;
+    var email = req.body.emailServer;
+    var status = req.body.statusServer;
+    var cargo_agencia = req.body.cargo_agenciaServer;
+
+    if (nome == undefined) {
+        res.status(400).send(`O nome do usuário de id ${id} está undefined!`);
+    } else if (email == undefined) {
+        res.status(400).send(`O email usuário de id ${id} está undefined!`);
+    } else if(cargo_agencia == undefined) {
+        res.status(400).send(`O cargo do usuário de id ${id} está undefined!`);
+    } else if(status == undefined) {
+        res.status(400).send(`O status do usuário de id ${id} está undefined!`);
+    } else {
+        usuarioModel.editarUsuarios(id, nome, email, status, cargo_agencia)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao editar: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listarTodosAgencia,
+    editarUsuarios
 }
