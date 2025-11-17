@@ -200,7 +200,7 @@
 
                     document.getElementById("container_usuarios").innerHTML += `
                     <div class="tabela_row">
-                        <input class="col" type="text" value="${json[i].id}" disabled>
+                        <span class="col">${json[i].id}</span>
                         <input class="col" type="text" value="${json[i].nome}" disabled>
                         <input class="col" type="email" value="${json[i].email}" disabled>
                         <input class="col" type="text" value="${json[i].status}" disabled>
@@ -248,8 +248,9 @@
             btn.innerHTML = "<i class='bx bx-edit-alt'></i>";
 
             var usuario_atualizado = []
+            usuario_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
             inputs.forEach(input => {
-                usuario_atualizado.push(input.value)
+                usuario_atualizado.push(input.value);
             });
             console.log(usuario_atualizado);
 
