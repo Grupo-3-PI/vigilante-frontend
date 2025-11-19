@@ -49,6 +49,10 @@ body {
   border-top-left-radius: 12px;
 }
 
+.col {
+  text-align: left;
+}
+
 .card_info {
   background: #fff;
   width: 30%;

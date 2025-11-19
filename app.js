@@ -18,6 +18,7 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var agenciaRouter = require("./src/routes/agencia");
+var dashboardRouter = require("./src/routes/dashboard");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +30,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/listarTodosAgencia", usuarioRouter);
 app.use("/editarUsuarios/:id", usuarioRouter);
+app.use("/totalCrimes", dashboardRouter);
 app.use("/agencia", agenciaRouter);
 
 app.listen(PORTA_APP, function () {

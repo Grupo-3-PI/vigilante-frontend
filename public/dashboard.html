@@ -59,7 +59,8 @@
                     <i class='bx bx-bell'></i>
                 </div>
             </div>
-            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar usuários</button>
+            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar
+                usuários</button>
             <p class="copyright">©2025 PrevCrime, Inc.</p>
         </div>
     </div>
@@ -156,7 +157,7 @@
                 <div class="kpis">
                     <div class="kpi1 kpi">
                         <h3 class="kpi-titulo">Total de Crimes</span></h3>
-                        <p class="kpi-valor1">12.359</p>
+                        <p id="total-crimes" class="kpi-valor1"></p>
                     </div>
                     <div class="kpi2 kpi">
                         <h3 class="kpi-titulo">Total de Crimes em <span id="nomeMunicipioKPI">Bertioga</span></h3>
@@ -217,6 +218,35 @@
     const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mongaguá", "Peruíbe", "Praia Grande", "Santos", "São Vicente"];
     var ano_selecionado = 2025;
     var municipio_selecionado = "Bertioga";
+
+    // Carregar total de Crimes
+    // fetch("/dashboard/totalCrimes", {
+    //     method: "GET",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // }).then(function (resposta) {
+
+    //     if (resposta.ok) {
+    //         console.log(resposta);
+
+    //         resposta.json().then(json => {
+                
+    //             document.getElementById("total-crimes").innerHTML = json
+
+    //         });
+
+
+    //     } else {
+
+    //         resposta.text().then(texto => {
+    //             console.error(texto);
+    //         });
+    //     }
+
+    // }).catch(function (erro) {
+    //     console.log(erro);
+    // });
 
     // Preenche o nome do usuário na navbar
     if (sessionStorage.NOME_USUARIO) {
