@@ -38,6 +38,7 @@ body {
 
 .cards_info {
   display: flex;
+  align-items: center;
   gap: 25px;
 }
 
@@ -150,4 +151,24 @@ body {
     outline: none;
     appearance: none;
 
+}
+
+#open{
+    width: 12%;
+    height: 7%;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #FF7A00, #FFD200);
+    color: #ffffff;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#open i{
+    font-size: 25px;
 }

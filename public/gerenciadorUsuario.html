@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/gerenciadorUsuario.css">
+    <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Gerenciar Usuários</title>
@@ -76,10 +77,10 @@
                     <span class="card_titulo">Funcionários Desativados</span>
                     <span class="card_valor">4</span>
                 </div>
+                <div id="open">Adicionar Usuário <i class='bx bx-user-plus'></i></div>
             </div>
 
             <div class="container_tabela">
-
                 <div class="tabela_header">
                     <div>ID</div>
                     <div>Nome</div>
@@ -90,89 +91,56 @@
                 </div>
 
                 <div id="container_usuarios" class="container_usuarios">
-
-                    <!-- <div class="tabela_row">
-                        <input class="col" type="text" value="Guilherme" disabled>
-                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col" type="text" value="Ativo" disabled>
-                        <input class="col" type="text" value="Analista" disabled>
-
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="tabela_row">
-                        <input class="col" type="text" value="Guilherme" disabled>
-                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col" type="text" value="Ativo" disabled>
-                        <input class="col" type="text" value="Analista" disabled>
-
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div>
-                    <div class="tabela_row">
-                        <input class="col" type="text" value="Guilherme" disabled>
-                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col" type="text" value="Ativo" disabled>
-                        <input class="col" type="text" value="Analista" disabled>
-
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div>
-                    <div class="tabela_row">
-                        <input class="col" type="text" value="Guilherme" disabled>
-                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col" type="text" value="Ativo" disabled>
-                        <input class="col" type="text" value="Analista" disabled>
-
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div>
-                    <div class="tabela_row">
-                        <input class="col" type="text" value="Guilherme" disabled>
-                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col" type="text" value="Ativo" disabled>
-                        <input class="col" type="text" value="Analista" disabled>
-
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div>
-                    <div class="tabela_row">
-                        <input class="col" type="text" value="Guilherme" disabled>
-                        <input class="col" type="email" value="guilherme@gmail.com" disabled>
-                        <input class="col" type="text" value="Ativo" disabled>
-                        <input class="col" type="text" value="Analista" disabled>
-
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div> -->
+                    <!-- Todos os usuário -->
                 </div>
-
-
             </div>
 
         </div>
     </div>
+    
+    <dialog id="modal">
+            <div class="container">
+                <div class="container_forms">
+                    <div class="forms">
+                        <a class="setaVoltar" id="close">
+                            <img src="./images/setaVoltar.png" alt="Voltar" class="seta_svg">
+                            Fechar
+                        </a>
+                        <p class="title">Cadastre-se</p>
+                        <div class="container_inputs">
+                            <input type="text" id="nome_value" placeholder="Nome" class="inputs required"
+                                oninput="validarNome()">
+                            <span class="erro">nome deve ter 3 caracteres</span>
+                            <input type="text" id="email_value" placeholder="E-mail" class="inputs required"
+                                oninput="validarEmail()">
+                            <span class="erro">Email é inválido</span>
+                            <input type="password" id="senha_value" placeholder="Senha" class="inputs required"
+                                oninput="validarSenha()">
+                            <span class="erro">Senha deve ter 8 caracteres</span>
+                            <input type="password" id="conf_senha_value" placeholder="Confirmar senha"
+                                class="inputs required" oninput="validarConfSenha()">
+                            <span class="erro">Senha incorreta</span>
+                            <input type="text" id="cargo_agencia_value" placeholder="Cargo na empresa"
+                                class="inputs required">
+                            <input type="text" id="agencia_value" placeholder="Código da empresa"
+                                class="inputs required">
+                        </div>
+                        <div class="container_button">
+                            <button id="botao" onclick="cadastrar()">Cadastrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dialog>
 </body>
 
 </html>
 
 <script>
 
-    document.getElementById("nome").innerHTML = sessionStorage.getItem("NOME_USUARIO")
-
+    const modal = document.querySelector('dialog');
+    document.getElementById("open").onclick = () => modal.showModal();
+    document.getElementById("close").onclick = () => modal.close();
 
     fetch("/usuarios/listarTodosAgencia", {
         method: "POST",
@@ -278,7 +246,6 @@
     });
 
 
-
-
-
 </script>
+
+<script src="js/cadastro.js"></script>

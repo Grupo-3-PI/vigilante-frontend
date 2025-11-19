@@ -68,35 +68,17 @@
 
     <div class="conteudo">
         <main class="main-container">
-
             <h1 class="perfil-title">Minha Conta</h1>
             <p class="perfil-subtitle">Gerencie os dados da sua agência e suas preferências.</p>
 
             <div class="perfil-grid">
-
-                <div class="card-perfil">
-                    <h3>Meus Dados</h3>
-                    <div class="form-container">
-                        <div class="form-group">
-                            <label for="input_nome">Nome da Agência:</label>
-                            <input id="input_nome" type="text" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="input_email">Email:</label>
-                            <input id="input_email" type="email" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="input_cnpj">CNPJ:</label>
-                            <input id="input_cnpj" type="text" readonly>
-                        </div>
-                        <button class="btn-editar" onclick="alert('Função de editar ainda não implementada.')">Editar
-                            Dados</button>
-                    </div>
-                </div>
-
                 <div class="card-perfil">
                     <h3>Alterar Senha</h3>
                     <div class="form-container">
+                        <div class="form-group">
+                            <label for="input_senha_atual">Novo Nome:</label>
+                            <input id="input_senha_atual" type="text" placeholder="Luckinhas">
+                        </div>
                         <div class="form-group">
                             <label for="input_senha_atual">Senha Atual:</label>
                             <input id="input_senha_atual" type="password" placeholder="********">
@@ -110,11 +92,11 @@
                             <input id="input_senha_confirmar" type="password" placeholder="********">
                         </div>
                         <button class="btn-salvar"
-                            onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Senha</button>
+                            onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Alterações </button>
                     </div>
                 </div>
-
             </div>
+
         </main>
     </div>
 
