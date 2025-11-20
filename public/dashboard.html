@@ -18,7 +18,7 @@
     <script src="./js/sessao.js"></script>
 </head>
 
-<body onload="validarSessao(); carregarTabela()">
+<body onload="carregarTabela()">
 
     <!-- Navbar -->
     <div class="container_navbar">
@@ -145,11 +145,11 @@
     </div>
     <div class="conteudo">
 
-        <div class="titulo">
+        <!-- <div class="titulo">
             <div class="caminho">
                 <a href="" class="caminho-tela">Tela Inicial</a> → <a href="" class="caminho-tela">Dashboard</a>
             </div>
-        </div>
+        </div> -->
 
         <div class="dados">
             <div class="area-graficos">
@@ -161,7 +161,7 @@
                     </div>
                     <div class="kpi2 kpi">
                         <h3 class="kpi-titulo">Total de Crimes em <span id="nomeMunicipioKPI">Bertioga</span></h3>
-                        <p class="kpi-valor1" id="valorTotalCrimes">1.233</p>
+                        <p id="total-crimes-municipio" class="kpi-valor1" id="valorTotalCrimes"></p>
                     </div>
                     <div class="kpi3 kpi">
                         <h3 class="kpi-titulo">Percentual de Alteração no Índice de Criminalidade (Último Mês)</h3>
@@ -220,33 +220,46 @@
     var municipio_selecionado = "Bertioga";
 
     // Carregar total de Crimes
-    // fetch("/dashboard/totalCrimes", {
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     }
-    // }).then(function (resposta) {
+    fetch("/dashboard/totalCrimes", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                document.getElementById("total-crimes").innerHTML = json["count(id)"]
+            });
+        } else {
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
 
-    //     if (resposta.ok) {
-    //         console.log(resposta);
 
-    //         resposta.json().then(json => {
-                
-    //             document.getElementById("total-crimes").innerHTML = json
-
-    //         });
-
-
-    //     } else {
-
-    //         resposta.text().then(texto => {
-    //             console.error(texto);
-    //         });
-    //     }
-
-    // }).catch(function (erro) {
-    //     console.log(erro);
-    // });
+    // Total de crimes no município
+    fetch(`/dashboard/totalCrimesMunicipio/${municipios.indexOf(municipio_selecionado) + 1}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+        
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                document.getElementById("total-crimes-municipio").innerHTML = json["count(id)"]
+            });
+        } else {
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
 
     // Preenche o nome do usuário na navbar
     if (sessionStorage.NOME_USUARIO) {
@@ -298,7 +311,7 @@
         var alteracao = (Math.random() * 10 - 5).toFixed(1);
 
         document.getElementById("nomeMunicipioKPI").textContent = municipio_selecionado;
-        document.getElementById("valorTotalCrimes").textContent = (Math.random() * 400 + 1000).toFixed()
+        // document.getElementById("valorTotalCrimes").textContent = (Math.random() * 400 + 1000).toFixed()
         document.getElementById("percentualAlteracao").textContent = `${alteracao > 0 ? '+' : ''}${alteracao}%`
 
     }

@@ -1,30 +1,27 @@
 var dashboardModel = require("../models/dashboardModel");
 
 function totalCrimes(req, res) {
+    dashboardModel.totalCrimes().then(function (resultadoTotalCrimes) {
+        res.json(resultadoTotalCrimes[0]);
+    });
+}
 
-    dashboardModelModel.totalCrimes()
-        .then(
-            function (resultadoTotalCrimes) {
-                console.log(`\nResultados encontrados: ${resultadoTotalCrimes.length}`);
-                console.log(`Resultados: ${JSON.stringify(resultadoTotalCrimes)}`);
+function totalCrimesMunicipio(req, res) {
+    dashboardModel.totalCrimesMunicipio().then(function (resultadoTotalCrimesMunicipio) {
+        res.json(resultadoTotalCrimesMunicipio[0]);
+    });
+}
 
-                if (resultadoTotalCrimes.length >= 1) {
-                    console.log(resultadoTotalCrimes);
-                    res.json(resultadoTotalCrimes);
-                } else if (resultadoTotalCrimes.length == 0) {
-                    res.status(403).send("Nenhuma ocorrência crime encontrada!");
-                }
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao contar total de crimes", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-
+function totalCrimesMunicipio(req, res) {
+    fkMunicipio = req.params.fkMunicipio;
+    dashboardModel.totalCrimesMunicipio(fkMunicipio).then(function (resultadoTotalCrimesMunicipio) {
+        // console.log(res.json(resultadoTotalCrimesMunicipio[0]));
+        
+        res.json(resultadoTotalCrimesMunicipio[0]);
+    });
 }
 
 module.exports = {
     totalCrimes,
+    totalCrimesMunicipio,
 }
