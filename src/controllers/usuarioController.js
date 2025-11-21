@@ -139,9 +139,33 @@ function editarUsuarios(req, res) {
     }
 }
 
+function atualizarStatusUsuario(req, res) {
+    var id = req.params.id;
+    var status = req.body.statusServer;
+
+    if(status == undefined) {
+        res.status(400).send(`O status do usuário de id ${id} está undefined!`);
+    } else {
+        usuarioModel.atualizarStatusUsuario(id, status)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao editar: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     listarTodosAgencia,
-    editarUsuarios
+    editarUsuarios,
+    atualizarStatusUsuario
 }

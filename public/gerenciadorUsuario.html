@@ -11,7 +11,7 @@
     <title>Gerenciar Usuários</title>
 </head>
 
-<body>
+<body onload="carregarUsuarios()">
     <!-- Navbar -->
     <div class="container_navbar">
         <!-- Container cima -->
@@ -97,41 +97,40 @@
 
         </div>
     </div>
-    
+
     <dialog id="modal">
-            <div class="container">
-                <div class="container_forms">
-                    <div class="forms">
-                        <a class="setaVoltar" id="close">
-                            <img src="./images/setaVoltar.png" alt="Voltar" class="seta_svg">
-                            Fechar
-                        </a>
-                        <p class="title">Cadastre-se</p>
-                        <div class="container_inputs">
-                            <input type="text" id="nome_value" placeholder="Nome" class="inputs required"
-                                oninput="validarNome()">
-                            <span class="erro">nome deve ter 3 caracteres</span>
-                            <input type="text" id="email_value" placeholder="E-mail" class="inputs required"
-                                oninput="validarEmail()">
-                            <span class="erro">Email é inválido</span>
-                            <input type="password" id="senha_value" placeholder="Senha" class="inputs required"
-                                oninput="validarSenha()">
-                            <span class="erro">Senha deve ter 8 caracteres</span>
-                            <input type="password" id="conf_senha_value" placeholder="Confirmar senha"
-                                class="inputs required" oninput="validarConfSenha()">
-                            <span class="erro">Senha incorreta</span>
-                            <input type="text" id="cargo_agencia_value" placeholder="Cargo na empresa"
-                                class="inputs required">
-                            <input type="text" id="agencia_value" placeholder="Código da empresa"
-                                class="inputs required">
-                        </div>
-                        <div class="container_button">
-                            <button id="botao" onclick="cadastrar()">Cadastrar</button>
-                        </div>
+        <div class="container">
+            <div class="container_forms">
+                <div class="forms">
+                    <a class="setaVoltar" id="close">
+                        <img src="./images/setaVoltar.png" alt="Voltar" class="seta_svg">
+                        Fechar
+                    </a>
+                    <p class="title">Cadastre-se</p>
+                    <div class="container_inputs">
+                        <input type="text" id="nome_value" placeholder="Nome" class="inputs required"
+                            oninput="validarNome()">
+                        <span class="erro">nome deve ter 3 caracteres</span>
+                        <input type="text" id="email_value" placeholder="E-mail" class="inputs required"
+                            oninput="validarEmail()">
+                        <span class="erro">Email é inválido</span>
+                        <input type="password" id="senha_value" placeholder="Senha" class="inputs required"
+                            oninput="validarSenha()">
+                        <span class="erro">Senha deve ter 8 caracteres</span>
+                        <input type="password" id="conf_senha_value" placeholder="Confirmar senha"
+                            class="inputs required" oninput="validarConfSenha()">
+                        <span class="erro">Senha incorreta</span>
+                        <input type="text" id="cargo_agencia_value" placeholder="Cargo na empresa"
+                            class="inputs required">
+                        <input type="text" id="agencia_value" placeholder="Código da empresa" class="inputs required">
+                    </div>
+                    <div class="container_button">
+                        <button id="botao" onclick="cadastrar()">Cadastrar</button>
                     </div>
                 </div>
             </div>
-        </dialog>
+        </div>
+    </dialog>
 </body>
 
 </html>
@@ -142,31 +141,35 @@
     document.getElementById("open").onclick = () => modal.showModal();
     document.getElementById("close").onclick = () => modal.close();
 
-    fetch("/usuarios/listarTodosAgencia", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fkAgenciaServer: 1,
-        })
-
-    }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO listarUsuarios()!");
-
-        if (resposta.ok) {
-            console.log(resposta);
+    function carregarUsuarios() {
 
 
 
-            resposta.json().then(json => {
+        fetch("/usuarios/listarTodosAgencia", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkAgenciaServer: 1,
+            })
 
-                document.getElementById("total_funcionarios").innerHTML = json.length
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO listarUsuarios()!");
 
-                // Carrega lista de usuários
-                for (i = 0; i < json.length; i++) {
+            if (resposta.ok) {
+                console.log(resposta);
 
-                    document.getElementById("container_usuarios").innerHTML += `
+
+
+                resposta.json().then(json => {
+
+                    document.getElementById("total_funcionarios").innerHTML = json.length
+
+                    // Carrega lista de usuários
+                    for (i = 0; i < json.length; i++) {
+
+                        document.getElementById("container_usuarios").innerHTML += `
                     <div class="tabela_row">
                         <span class="col">${json[i].id}</span>
                         <input class="col" type="text" value="${json[i].nome}" disabled>
@@ -180,23 +183,27 @@
                         </div>
                     </div>`
 
-                }
+                    }
 
-            });
+                });
 
 
-        } else {
-            console.log("Houve um erro ao listar usuários!");
+            } else {
+                console.log("Houve um erro ao listar usuários!");
 
-            resposta.text().then(texto => {
-                console.error(texto);
-            });
-        }
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
 
-    }).catch(function (erro) {
-        console.log(erro);
-    });
+        }).catch(function (erro) {
+            console.log(erro);
+        });
 
+    }
+
+
+    // Editar usuário
     document.getElementById("container_usuarios").addEventListener("click", function (event) {
 
         const btn = event.target.closest(".editar");
@@ -220,7 +227,6 @@
             inputs.forEach(input => {
                 usuario_atualizado.push(input.value);
             });
-            console.log(usuario_atualizado);
 
             // Atualiza o usuário
             fetch(`/usuarios/editarUsuarios/${usuario_atualizado[0]}`, {
@@ -245,6 +251,47 @@
 
     });
 
+    // Atualizar status do usuário
+    document.getElementById("container_usuarios").addEventListener("click", function (event) {
+
+        const btn = event.target.closest(".cancelar");
+        if (!btn) return;
+
+        const row = btn.closest(".tabela_row");
+        const inputs = row.querySelectorAll("input");
+
+        if (inputs[2].value == "Ativo") {
+            inputs[2].value = "Inativo"
+        } else {
+            inputs[2].value = "Ativo"
+        }
+
+        var usuario_atualizado = []
+        usuario_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
+        inputs.forEach(input => {
+            usuario_atualizado.push(input.value);
+        });
+
+        fetch(`/usuarios/atualizarStatusUsuario/${usuario_atualizado[0]}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: usuario_atualizado[1],
+                emailServer: usuario_atualizado[2],
+                statusServer: usuario_atualizado[3],
+                cargo_agenciaServer: usuario_atualizado[4],
+            })
+        }).then(function (resposta) {
+
+            console.log(`Usuário ${usuario_atualizado[0]} atualizado!`);
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    });
 
 </script>
 

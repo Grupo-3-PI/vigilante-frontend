@@ -39,9 +39,20 @@ function editarUsuarios(id, nome, email, status, cargo) {
     return database.executar(instrucaoSql);
 }
 
+function atualizarStatusUsuario(id, status) {
+    console.log("Atualizando status do usuários...", id);
+
+    var instrucaoSql = `
+        UPDATE Usuario SET status = '${status}' WHERE id = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     listarTodosAgencia,
-    editarUsuarios
+    editarUsuarios,
+    atualizarStatusUsuario
 };

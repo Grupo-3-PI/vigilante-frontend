@@ -26,10 +26,8 @@ function cadastrar() {
         console.log("resposta: ", resposta);
 
         if(resposta.ok) {
-            alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
-            setTimeout(() => {
-                window.location = "login.html";
-            }, "2000");
+            alert("Cadastro realizado com sucesso!");
+            carregarUsuarios()
         } else{
             throw "Houve um erro ao tentar realizar o cadastro!";
         }

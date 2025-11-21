@@ -20,5 +20,9 @@ router.put("/editarUsuarios/:id", function (req, res) {
     usuarioController.editarUsuarios(req, res);
 });
 
+router.put("/atualizarStatusUsuario/:id", function (req, res) {
+    usuarioController.atualizarStatusUsuario(req, res);
+});
+
 
 module.exports = router;
