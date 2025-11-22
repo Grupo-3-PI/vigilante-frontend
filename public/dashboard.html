@@ -49,7 +49,7 @@
         <div class="container_bottom">
             <div class="card_usuario">
                 <div class="user_icon">
-                    <i class='bx bx-user'></i>
+                    <i class='bx bx-user' id="icone_perfil_usuario" style="cursor: pointer;"></i>
                 </div>
                 <div class="user_info">
                     <span class="perfil" id="b_cargo_agencia">Admin</span>
@@ -246,7 +246,7 @@
         headers: {
             "Content-Type": "application/json"
         }
-        
+
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
@@ -597,4 +597,14 @@
 
         atividade_policial.update()
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var iconePerfil = document.getElementById("icone_perfil_usuario");
+
+        if (iconePerfil) {
+            iconePerfil.addEventListener("click", function () {
+                window.location.href = "./perfil.html";
+            });
+        }
+    });
 </script>

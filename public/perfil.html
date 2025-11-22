@@ -50,7 +50,7 @@
         <div class="container_bottom">
             <div class="card_usuario">
                 <div class="user_icon">
-                    <i class='bx bx-user'></i>
+                    <i class='bx bx-user' id="icone_perfil_usuario" style="cursor: pointer;"></i>
                 </div>
                 <div class="user_info">
                     <span class="perfil" id="b_cargo_agencia">Admin</span>
@@ -60,7 +60,8 @@
                     <i class='bx bx-bell'></i>
                 </div>
             </div>
-            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar usuários</button>
+            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar
+                usuários</button>
             <p class="copyright">©2025 PrevCrime, Inc.</p>
         </div>
     </div>
@@ -76,7 +77,7 @@
                     <div class="form-container">
                         <div class="form-group">
                             <label for="input_senha_atual">Novo Nome:</label>
-                            <input id="input_senha_atual" type="text" placeholder="Luckinhas">
+                            <input id="input_senha_atual" type="text" placeholder="Novo nome">
                         </div>
                         <div class="form-group">
                             <label for="input_senha_atual">Senha Atual:</label>
@@ -91,7 +92,8 @@
                             <input id="input_senha_confirmar" type="password" placeholder="********">
                         </div>
                         <button class="btn-salvar"
-                            onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Alterações </button>
+                            onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Alterações
+                        </button>
                     </div>
                 </div>
             </div>
@@ -100,17 +102,24 @@
     </div>
 
     <script>
-        // Esta função roda DEPOIS do sessao.js
         document.addEventListener("DOMContentLoaded", function () {
-            // Pega os dados do sessionStorage (que já foram validados)
             var nomeAgencia = sessionStorage.NOME_USUARIO;
             var emailAgencia = sessionStorage.EMAIL_USUARIO;
             var cnpjAgencia = sessionStorage.CNPJ_USUARIO;
 
-            // Preenche os campos do formulário
             if (input_nome) input_nome.value = nomeAgencia;
             if (input_email) input_email.value = emailAgencia;
             if (input_cnpj) input_cnpj.value = cnpjAgencia;
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var iconePerfil = document.getElementById("icone_perfil_usuario");
+
+            if (iconePerfil) {
+                iconePerfil.addEventListener("click", function () {
+                    window.location.href = "./perfil.html";
+                });
+            }
         });
     </script>
 
