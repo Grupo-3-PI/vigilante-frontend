@@ -48,6 +48,7 @@ CREATE TABLE Usuario (
     senha VARCHAR(100) NOT NULL,
     dt_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     cargo_agencia VARCHAR(45),
+    status VARCHAR(50) NOT NULL DEFAULT 'Ativo',
     fk_agencia INT,
     fk_notificacao_slack INT,
     FOREIGN KEY (fk_agencia) REFERENCES Agencia(id),

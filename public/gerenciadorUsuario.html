@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Gerenciar Usuários</title>
+    <script src="./js/sessao.js"></script>
 </head>
 
 <body onload="carregarUsuarios()">
@@ -44,8 +45,8 @@
                     <i class='bx bx-user'></i>
                 </div>
                 <div class="user_info">
-                    <span class="perfil">Admin</span>
-                    <span id="nome" class="nome"></span>
+                    <span class="perfil" id="b_cargo_agencia">Admin</span>
+                    <span id="b_usuario" class="nome"></span>
                 </div>
                 <div class="notificacao">
                     <i class='bx bx-bell'></i>
@@ -136,6 +137,8 @@
 </html>
 
 <script>
+
+    
 
     const modal = document.querySelector('dialog');
     document.getElementById("open").onclick = () => modal.showModal();

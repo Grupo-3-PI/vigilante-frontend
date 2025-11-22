@@ -52,7 +52,7 @@
                     <i class='bx bx-user'></i>
                 </div>
                 <div class="user_info">
-                    <span class="perfil">Admin</span>
+                    <span class="perfil" id="b_cargo_agencia">Admin</span>
                     <span class="nome" id="b_usuario"></span>
                 </div>
                 <div class="notificacao">
@@ -264,6 +264,7 @@
     // Preenche o nome do usuário na navbar
     if (sessionStorage.NOME_USUARIO) {
         document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+        document.getElementById('b_cargo_agencia').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
     }
     var idUsuario = Number(sessionStorage.ID_USUARIO);
 

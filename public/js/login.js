@@ -45,14 +45,11 @@ function entrar() {
                 console.log(json);
                 console.log(JSON.stringify(json));
 
-                // Salva os dados do usuário na sessionStorage
-                // Usando setItem() e as chaves corretas
                 
-                // Chaves que o seu usuarioController.js retorna
                 sessionStorage.setItem("EMAIL_USUARIO", json.email);
                 sessionStorage.setItem("NOME_USUARIO", json.nome);
-                sessionStorage.setItem("ID_USUARIO", json.idAgencia); 
-                sessionStorage.setItem("CNPJ_USUARIO", json.cnpj);
+                sessionStorage.setItem("ID_USUARIO", json.id); 
+                sessionStorage.setItem("CNPJ_USUARIO", json.fk_agencia);
                 
                 sessionStorage.setItem("CARGO_AGENCIA_USUARIO", json.cargo_agencia);
 

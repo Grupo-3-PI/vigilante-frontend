@@ -2,9 +2,11 @@ function validarSessao() {
     // Recupera os dados da sessionStorage usando getItem
     var email = sessionStorage.getItem("EMAIL_USUARIO");
     var nome = sessionStorage.getItem("NOME_USUARIO");
+    var cargo_agencia = sessionStorage.getItem("CARGO_AGENCIA_USUARIO");
 
     // Encontra o elemento <span> no header
     var b_usuario = document.getElementById("b_usuario");
+    var b_cargo_agencia = document.getElementById("b_cargo_agencia");
 
     // Validação:
     // Se o email ou o nome não existirem (forem nulos),
@@ -24,6 +26,7 @@ function validarSessao() {
         if (b_usuario != null) {
             // Se existir, preenche com a saudação
             b_usuario.innerHTML = nome;
+            b_cargo_agencia.innerHTML = cargo_agencia;
         }
     }
 }
