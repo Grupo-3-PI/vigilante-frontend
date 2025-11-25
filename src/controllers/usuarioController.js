@@ -162,10 +162,19 @@ function atualizarStatusUsuario(req, res) {
     }
 }
 
+function usuariosInativos(req, res) {
+    fkAgencia = req.params.fkAgencia
+
+    usuarioModel.usuariosInativos(fkAgencia).then(function (resultadoUsuariosInativos) {
+            res.json(resultadoUsuariosInativos);
+        });
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     listarTodosAgencia,
     editarUsuarios,
-    atualizarStatusUsuario
+    atualizarStatusUsuario,
+    usuariosInativos,
 }

@@ -75,7 +75,7 @@
                 <div class="card_info">
                     <div class="coluna"></div>
                     <span class="card_titulo">Funcionários Desativados</span>
-                    <span class="card_valor">4</span>
+                    <span id="funcionarios_desativados" class="card_valor">4</span>
                 </div>
                 <div id="open">Adicionar Usuário <i class='bx bx-user-plus'></i></div>
             </div>
@@ -201,6 +201,25 @@
         });
 
     }
+
+    fetch(`/usuarios/usuariosInativos/${1}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                document.getElementById("funcionarios_desativados").innerHTML = json[0]["COUNT(id)"]
+            });
+        } else {
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
 
 
     // Editar usuário

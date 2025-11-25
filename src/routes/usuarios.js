@@ -24,5 +24,9 @@ router.put("/atualizarStatusUsuario/:id", function (req, res) {
     usuarioController.atualizarStatusUsuario(req, res);
 });
 
+router.get("/usuariosInativos/:fkAgencia", function (req, res) {
+    usuarioController.usuariosInativos(req, res);
+});
+
 
 module.exports = router;
