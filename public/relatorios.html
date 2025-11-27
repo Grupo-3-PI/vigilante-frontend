@@ -37,7 +37,7 @@
                     <span class="perfil">Admin</span>
                     <span id="nome" class="nome">Guilherme</span>
                 </div>
-                <div class="notificacao">
+                <div id="open" class="notificacao">
                     <i class='bx bx-bell'></i>
                 </div>
             </div>
@@ -142,10 +142,8 @@
 <script>
 
     const modal = document.querySelector('dialog');
-    // document.getElementById("open").onclick = () => modal.showModal();
-    // document.getElementById("close").onclick = () => modal.close();
-
-    modal.showModal()
+    document.getElementById("open").onclick = () => modal.showModal();
+    document.getElementById("close").onclick = () => modal.close();
 
     fetch("/usuarios/listarTodosAgencia", {
         method: "POST",
