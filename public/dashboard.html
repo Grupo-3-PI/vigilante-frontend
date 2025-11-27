@@ -150,7 +150,7 @@
 
                 <div class="kpis">
                     <div class="kpi1 kpi">
-                        <h3 class="kpi-titulo">Total de Crimes</span></h3>
+                        <h3 class="kpi-titulo">Total de Crimes na Baixada Santista</span></h3>
                         <p id="total-crimes" class="kpi-valor1"></p>
                     </div>
                     <div class="kpi2 kpi">
@@ -222,7 +222,7 @@
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                document.getElementById("total-crimes").innerHTML = json["count(id)"]
+                document.getElementById("total-crimes").innerHTML = json["sum(qtd_ocorrencias)"]
             });
         } else {
             resposta.text().then(texto => {
@@ -244,7 +244,7 @@
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                document.getElementById("total-crimes-municipio").innerHTML = json["count(id)"]
+                document.getElementById("total-crimes-municipio").innerHTML = json["sum(qtd_ocorrencias)"]
             });
         } else {
             resposta.text().then(texto => {
@@ -271,7 +271,7 @@
                 json.forEach((municipio) => {
 
                     const nome_municipio = municipio.nome_municipio
-                    const total_crimes = municipio["count(o.id)"];
+                    const total_crimes = municipio["sum(o.qtd_ocorrencias)"];
                     const score = 10
                     var status
                     var seta
@@ -443,7 +443,7 @@
             resposta.json().then(json => {
 
                 json.forEach((municipio) => {
-                    valoresPercentualCrimes.push(municipio.porcentagem)
+                    valoresPercentualCrimes.push(parseFloat(municipio.porcentagem).toFixed(2))
                 })
                 console.log(valoresPercentualCrimes);
                 carregarPercentualCrimes();
@@ -611,20 +611,19 @@
             resposta.json().then(json => {
 
                 json.forEach((mes) => {
-                    if (mes.total_crimes == 0) {
-                        valoresCrimes.push(null)
-                    } else {
+                    if (mes.tipo_ocorrencia == "Crime") {
                         valoresCrimes.push(mes.total_crimes)
-                    }
-                    if (mes.total_atividade_policial == 0) {
-                        valoresAtividadePolicial.push(null)
-                    } else {
-                        valoresAtividadePolicial.push(mes.total_atividade_policial)
+                    } else if (mes.tipo_ocorrencia == "Produtividade Policial") {
+                        valoresAtividadePolicial.push(mes.total_crimes)
                     }
                 })
                 console.log(valoresCrimes);
                 console.log(valoresAtividadePolicial);
                 carregarGraficoAtividadePolicial()
+                console.log("aqui");
+
+                console.log(json);
+
             });
         } else {
             resposta.text().then(texto => {

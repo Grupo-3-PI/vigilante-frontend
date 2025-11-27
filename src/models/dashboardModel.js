@@ -2,19 +2,19 @@ var database = require("../database/config")
 
 
 function totalCrimes() {
-  var instrucaoSql = `SELECT count(id) FROM Ocorrencias WHERE tipo_ocorrencia = 'Crime';`;
+  var instrucaoSql = `SELECT sum(qtd_ocorrencias) FROM Ocorrencias WHERE tipo_ocorrencia = 'Crime';`;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
 function totalCrimesMunicipio(fkMunicipio) {
-  var instrucaoSql = `SELECT count(id) FROM Ocorrencias WHERE fk_municipio = ${fkMunicipio} AND tipo_ocorrencia = 'Crime';`;
+  var instrucaoSql = `SELECT sum(qtd_ocorrencias) FROM Ocorrencias WHERE fk_municipio = ${fkMunicipio} AND tipo_ocorrencia = 'Crime';`;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
 function totalCrimesTodosMunicipios() {
-  var instrucaoSql = `SELECT m.nome_municipio, count(o.id) FROM Ocorrencias o JOIN Municipio m ON m.id = o.fk_municipio WHERE o.tipo_ocorrencia = "Crime" GROUP BY o.fk_municipio;`;
+  var instrucaoSql = `SELECT m.nome_municipio, sum(o.qtd_ocorrencias) FROM Ocorrencias o JOIN Municipio m ON m.id = o.fk_municipio WHERE o.tipo_ocorrencia = "Crime" GROUP BY o.fk_municipio;`;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
@@ -55,7 +55,7 @@ function distribuicaoCrimes(fkMunicipio) {
         ELSE 'OUTROS'
     END AS categoria_crime,
     
-    COUNT(*) AS total_ocorrencias
+    SUM(qtd_ocorrencias) AS total_ocorrencias
 
 FROM Ocorrencias
 WHERE fk_municipio = ${fkMunicipio}
@@ -100,15 +100,13 @@ GROUP BY
 
 function percentualCrimes() {
   var instrucaoSql = `
-    SELECT m.nome_municipio,
-    ROUND(
-        (COUNT(o.id) * 100.0) / (SELECT COUNT(*) FROM Ocorrencias),
-        2
-    ) AS porcentagem
+ SELECT m.nome_municipio, 
+    (sum(o.qtd_ocorrencias  * 100.0)) / (SELECT sum(qtd_ocorrencias) FROM Ocorrencias WHERE tipo_ocorrencia = 'Crime')
+    AS porcentagem
     FROM Ocorrencias o
     JOIN Municipio m 
-      ON m.id = o.fk_municipio
-    GROUP BY m.nome_municipio ORDER BY porcentagem DESC;
+      ON m.id = o.fk_municipio where o.tipo_ocorrencia = 'Crime'
+    GROUP BY m.nome_municipio ORDER BY m.nome_municipio DESC;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -116,9 +114,9 @@ function percentualCrimes() {
 
 function crimesAtividadePolicial(fkMunicipio) {
   var instrucaoSql = `
-    SELECT mes,SUM(CASE WHEN tipo_ocorrencia = 'Crime' THEN 1 ELSE 0 END) AS total_crimes, SUM(CASE WHEN tipo_ocorrencia = 'Produtividade Policial' THEN 1 ELSE 0 END) AS total_atividade_policial
-	    FROM Ocorrencias WHERE fk_municipio = ${fkMunicipio}
-	    GROUP BY mes ORDER BY mes;  
+    SELECT mes, tipo_ocorrencia,
+    SUM(qtd_ocorrencias) as total_crimes
+    from Ocorrencias where fk_municipio = 1 group by tipo_ocorrencia, mes;
   `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
