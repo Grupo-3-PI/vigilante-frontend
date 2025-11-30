@@ -156,6 +156,11 @@
                 <option value="7">Santos</option>
                 <option value="8">São Vicente</option>
             </select>
+            <select id="select-ano" onchange="selecionarAno()">
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+            </select>
         </div>
         <div class="dados">
             <div class="area-graficos">
@@ -193,7 +198,7 @@
 
 
             <div class="area-tabela">
-                <div class="titulo-tabela">Ranking de Segurança dos Municípios</div>
+                <div id="titulo-tabela" class="titulo-tabela">Ranking de Segurança dos Municípios (2025)</div>
                 <div class="dados-tabela">
                     <table class="tabela" id="tabela">
                         <thead>
@@ -232,6 +237,7 @@
     carregarTabela()
 
     carregarGraficoDistribuicaoCrimesMunicipio()
+    carregarPercentualCrimes()
     carregarGraficoAtividadePolicial()
 
     // Função para trocar o valor de municipio selecionado
@@ -242,6 +248,18 @@
         carregarKpiTotalCrimesMunicipio()
         carregarGraficoDistribuicaoCrimesMunicipio()
         carregarGraficoAtividadePolicial()
+    }
+
+    // Função para trocar o valor de ano selecionado
+    function selecionarAno() {
+        var valor_ano = document.getElementById("select-ano").value
+        ano_selecionado = valor_ano
+        carregarKpiTotalCrimesMunicipio()
+        carregarTabela()
+        carregarGraficoDistribuicaoCrimesMunicipio()
+        carregarPercentualCrimes()
+        carregarGraficoAtividadePolicial()
+
     }
 
     // KPI de total de crimes em toda Baixada Santista
@@ -293,7 +311,7 @@
 
     // Tabela de crimes
     function carregarTabela() {
-        fetch(`/dashboard/totalCrimesTodosMunicipios`, {
+        fetch(`/dashboard/totalCrimesTodosMunicipios/${ano_selecionado}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -305,6 +323,7 @@
                     console.log(json[0]);
 
                     var valores_municipio = []
+                    document.getElementById("corpo-tabela").innerHTML = ""
                     json.forEach((municipio) => {
 
                         const nome_municipio = municipio.nome_municipio
@@ -324,6 +343,7 @@
                         }
                         valores_municipio.push([`<tr class="linha-tabela"><td class="valor-tabela">${seta}</td><td class="valor-tabela">${nome_municipio}</td><td class="valor-tabela">${score}</td><td class="valor-tabela">${total_crimes}</td><td class="valor-tabela">${status}</td></tr>`, score])
                     })
+                    document.getElementById("titulo-tabela").innerHTML = `Ranking de Segurança dos Municípios (${ano_selecionado})`
                     valores_municipio.sort((a, b) => b[1] - a[1]).forEach((municipio) => document.getElementById("corpo-tabela").innerHTML += municipio[0])
 
                 });
@@ -458,168 +478,173 @@
 
     // Gráfico de percentual de criminalidade por município
     var valoresPercentualCrimes = []
-    fetch(`/dashboard/percentualCrimes/`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(json => {
-
-                json.forEach((municipio) => {
-                    valoresPercentualCrimes.push(parseFloat(municipio.porcentagem).toFixed(2))
-                })
-                console.log(valoresPercentualCrimes);
-                carregarPercentualCrimes();
-
-            });
-        } else {
-            resposta.text().then(texto => {
-                console.error(texto);
-            });
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-    });
-
     function carregarPercentualCrimes() {
-        const graficoPercentualMunicipios = new Chart(document.getElementById('graficoPercentualMunicipios').getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: [''],
-                datasets: [
-                    {
-                        label: 'Bertioga',
-                        data: [valoresPercentualCrimes[0]],
-                        backgroundColor: '#4e79a7',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
-                    },
-                    {
-                        label: 'Cubatão',
-                        data: [valoresPercentualCrimes[1]],
-                        backgroundColor: '#f28e2b',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
-                    },
-                    {
-                        label: 'Guarujá',
-                        data: [valoresPercentualCrimes[2]],
-                        backgroundColor: '#e15759',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
-                    },
-                    {
-                        label: 'Itanhaém',
-                        data: [valoresPercentualCrimes[3]],
-                        backgroundColor: '#76b7b2',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
-                    },
-                    {
-                        label: 'Mongaguá',
-                        data: [valoresPercentualCrimes[4]],
-                        backgroundColor: '#59a14f',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
-                    },
-                    {
-                        label: 'Peruíbe',
-                        data: [valoresPercentualCrimes[5]],
-                        backgroundColor: '#edc948',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
-                    },
-                    {
-                        label: 'Praia Grande',
-                        data: [valoresPercentualCrimes[6]],
-                        backgroundColor: '#b07aa1',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
-                    },
-                    {
-                        label: 'Santos',
-                        data: [valoresPercentualCrimes[7]],
-                        backgroundColor: '#ff9da7',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
-                    },
-                    {
-                        label: 'São Vicente',
-                        data: [valoresPercentualCrimes[0]],
-                        backgroundColor: '#9c755f',
-                        borderWidth: 1.5,
-                        borderColor: '#fff',
+        valoresPercentualCrimes = []
+        fetch(`/dashboard/percentualCrimes/${ano_selecionado}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+
+                    json.forEach((municipio) => {
+                        valoresPercentualCrimes.push(parseFloat(municipio.porcentagem).toFixed(2))
+                    })
+                    for (let i = 0; i < 9; i++) {
+                        graficoPercentualMunicipios.data.datasets[i].data = [valoresPercentualCrimes[i]]
                     }
-                ]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                scales: {
-                    x: {
-                        stacked: true,
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            callback: function (value) {
-                                return value + '%';
-                            },
-                            font: {
-                                family: 'Poppins'
-                            }
+                    graficoPercentualMunicipios.options.plugins.title.text = `Percentual dos Crimes por Município (${ano_selecionado})`
+                    console.log("aqui");
+                    console.log(valoresPercentualCrimes);
+                    graficoPercentualMunicipios.update()
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    }
+    const graficoPercentualMunicipios = new Chart(document.getElementById('graficoPercentualMunicipios').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: [''],
+            datasets: [
+                {
+                    label: 'Bertioga',
+                    data: [valoresPercentualCrimes[0]],
+                    backgroundColor: '#4e79a7',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Cubatão',
+                    data: [valoresPercentualCrimes[1]],
+                    backgroundColor: '#f28e2b',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Guarujá',
+                    data: [valoresPercentualCrimes[2]],
+                    backgroundColor: '#e15759',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Itanhaém',
+                    data: [valoresPercentualCrimes[3]],
+                    backgroundColor: '#76b7b2',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Mongaguá',
+                    data: [valoresPercentualCrimes[4]],
+                    backgroundColor: '#59a14f',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Peruíbe',
+                    data: [valoresPercentualCrimes[5]],
+                    backgroundColor: '#edc948',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Praia Grande',
+                    data: [valoresPercentualCrimes[6]],
+                    backgroundColor: '#b07aa1',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'Santos',
+                    data: [valoresPercentualCrimes[7]],
+                    backgroundColor: '#ff9da7',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                },
+                {
+                    label: 'São Vicente',
+                    data: [valoresPercentualCrimes[0]],
+                    backgroundColor: '#9c755f',
+                    borderWidth: 1.5,
+                    borderColor: '#fff',
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function (value) {
+                            return value + '%';
                         },
-                        grid: {
-                            color: '#eee'
+                        font: {
+                            family: 'Poppins'
                         }
                     },
-                    y: {
-                        stacked: true,
-                        grid: { display: false },
-                        ticks: {
-                            font: {
-                                family: 'Poppins'
-                            }
-                        }
+                    grid: {
+                        color: '#eee'
                     }
                 },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Participação Percentual dos Crimes por Município (2025)',
-                        color: '#000',
+                y: {
+                    stacked: true,
+                    grid: { display: false },
+                    ticks: {
+                        font: {
+                            family: 'Poppins'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Percentual dos Crimes por Município (${ano_selecionado})`,
+                    color: '#000',
+                    font: {
+                        family: 'Poppins',
+                        size: 14,
+                        weight: 500
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
                         font: {
                             family: 'Poppins',
-                            size: 14,
-                            weight: 500
+                            size: 11
                         },
-                        padding: {
-                            top: 10,
-                            bottom: 30
-                        }
-                    },
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            font: {
-                                family: 'Poppins',
-                                size: 11
-                            },
-                            padding: 10
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return `${context.dataset.label}: ${context.raw}%`;
-                            }
+                        padding: 10
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return `${context.dataset.label}: ${context.raw}%`;
                         }
                     }
                 }
             }
-        });
-    }
+        }
+    });
+
 
 
     // Gráfico de Atividade Policial
@@ -629,7 +654,7 @@
     function carregarGraficoAtividadePolicial() {
         valoresCrimes = []
         valoresAtividadePolicial = []
-        fetch(`/dashboard/crimesAtividadePolicial/${municipios.indexOf(municipio_selecionado) + 1}`, {
+        fetch(`/dashboard/crimesAtividadePolicial/${municipios.indexOf(municipio_selecionado) + 1}/${ano_selecionado}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

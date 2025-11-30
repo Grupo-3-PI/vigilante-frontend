@@ -20,7 +20,8 @@ function totalCrimesMunicipio(req, res) {
 }
 
 function totalCrimesTodosMunicipios(req, res) {
-    dashboardModel.totalCrimesTodosMunicipios().then(function (resultadoTotalCrimesTodosMunicipios) {
+    ano = req.params.ano;
+    dashboardModel.totalCrimesTodosMunicipios(ano).then(function (resultadoTotalCrimesTodosMunicipios) {
         res.json(resultadoTotalCrimesTodosMunicipios);
     });
 }
@@ -33,14 +34,16 @@ function distribuicaoCrimes(req, res) {
 }
 
 function percentualCrimes(req, res) {
-    dashboardModel.percentualCrimes().then(function (resultadoPercentualCrimes) {
+    ano = req.params.ano;
+    dashboardModel.percentualCrimes(ano).then(function (resultadoPercentualCrimes) {
         res.json(resultadoPercentualCrimes);
     });
 }
 
 function crimesAtividadePolicial(req, res) {
     fkMunicipio = req.params.fkMunicipio;
-    dashboardModel.crimesAtividadePolicial(fkMunicipio).then(function (resultadoCrimesAtividadePolicial) {
+    ano = req.params.ano;
+    dashboardModel.crimesAtividadePolicial(fkMunicipio, ano).then(function (resultadoCrimesAtividadePolicial) {
         res.json(resultadoCrimesAtividadePolicial);
     });
 }

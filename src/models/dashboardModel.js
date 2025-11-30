@@ -13,8 +13,8 @@ function totalCrimesMunicipio(fkMunicipio) {
   return database.executar(instrucaoSql);
 }
 
-function totalCrimesTodosMunicipios() {
-  var instrucaoSql = `SELECT m.nome_municipio, sum(o.qtd_ocorrencias) FROM Ocorrencias o JOIN Municipio m ON m.id = o.fk_municipio WHERE o.tipo_ocorrencia = "Crime" GROUP BY o.fk_municipio;`;
+function totalCrimesTodosMunicipios(ano) {
+  var instrucaoSql = `SELECT m.nome_municipio, sum(o.qtd_ocorrencias) FROM Ocorrencias o JOIN Municipio m ON m.id = o.fk_municipio WHERE o.tipo_ocorrencia = "Crime" and ano = ${ano} GROUP BY o.fk_municipio;`;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
@@ -98,25 +98,25 @@ GROUP BY
   return database.executar(instrucaoSql);
 }
 
-function percentualCrimes() {
+function percentualCrimes(ano) {
   var instrucaoSql = `
  SELECT m.nome_municipio, 
-    (sum(o.qtd_ocorrencias  * 100.0)) / (SELECT sum(qtd_ocorrencias) FROM Ocorrencias WHERE tipo_ocorrencia = 'Crime')
+    (sum(o.qtd_ocorrencias  * 100.0)) / (SELECT sum(qtd_ocorrencias) FROM Ocorrencias WHERE tipo_ocorrencia = 'Crime' AND ano = ${ano})
     AS porcentagem
     FROM Ocorrencias o
     JOIN Municipio m 
-      ON m.id = o.fk_municipio where o.tipo_ocorrencia = 'Crime'
+      ON m.id = o.fk_municipio where o.tipo_ocorrencia = 'Crime' and ano = ${ano}
     GROUP BY m.nome_municipio ORDER BY m.nome_municipio DESC;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
-function crimesAtividadePolicial(fkMunicipio) {
+function crimesAtividadePolicial(fkMunicipio, ano) {
   var instrucaoSql = `
     SELECT mes, tipo_ocorrencia,
     SUM(qtd_ocorrencias) as total_crimes
-    from Ocorrencias where fk_municipio = ${fkMunicipio} group by tipo_ocorrencia, mes;
+    from Ocorrencias where fk_municipio = ${fkMunicipio} and ano = ${ano} group by tipo_ocorrencia, mes;
   `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
