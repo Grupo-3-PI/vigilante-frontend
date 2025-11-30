@@ -116,7 +116,7 @@ function crimesAtividadePolicial(fkMunicipio) {
   var instrucaoSql = `
     SELECT mes, tipo_ocorrencia,
     SUM(qtd_ocorrencias) as total_crimes
-    from Ocorrencias where fk_municipio = 1 group by tipo_ocorrencia, mes;
+    from Ocorrencias where fk_municipio = ${fkMunicipio} group by tipo_ocorrencia, mes;
   `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

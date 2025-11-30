@@ -243,10 +243,16 @@ nav a {
   border-bottom: 1px solid #eee;
 }
 
+.nav-filtros {
+  background-color: #dd2929;
+  width: 100%;
+  height: 8%;
+}
+
 .dados {
   padding: 20px;
   width: 100%;
-  height: 100%;
+  height: 92%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
