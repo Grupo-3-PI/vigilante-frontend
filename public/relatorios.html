@@ -4,30 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/relatorios.css">
-    <link rel="stylesheet" href="css/navbarAdmin.css">
-    <link rel="stylesheet" href="css/solicitacoesRelatorio.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <title>Vigilante | Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Gerenciar Usuários</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
+
 </head>
 
 <body>
+    <!-- Navbar -->
     <div class="container_navbar">
+        <!-- Container cima -->
         <div class="container_top">
+            <!-- Logo -->
             <div class="img_logo">
-                <img src="./images/prevcrimeLogo.svg" alt="">
+                <img src="./images/logo_vigilante.svg" alt="">
             </div>
+            <!-- Botões da navbar -->
             <nav class="navbar_buttons">
-                <a href="filtros.html" class="nav_item">
-                    <i class='bx bx-filter-alt'></i>
-                    <span>Filtros</span>
+                <!-- Botoes -->
+                <a href="municipio.html" class="nav_item">
+                    <i class='bx bx-home'></i>
+                    <span>Home</span>
                 </a>
-                <a href="relatorios.html" class="nav_item">
+                <a href="dashboard.html" class="nav_item" style="color: #34495e;">
+                    <i class='bx bx-grid-alt'></i>
+                    <span>Dashboard</span>
+                </a>
+                <span class="nav_item" onclick="exibirRelatorios()" style="color: #34495e;">
                     <i class='bx bxs-report'></i>
                     <span>Relatórios</span>
+                </span>
+                <a href="dicas.html" class="nav_item">
+                    <i class='bx bx-bulb'></i>
+                    <span>Dicas</span>
                 </a>
             </nav>
         </div>
+        <!-- Container baixo -->
         <div class="container_bottom">
             <div class="card_usuario">
                 <div class="user_icon">
@@ -35,185 +55,98 @@
                 </div>
                 <div class="user_info">
                     <span class="perfil">Admin</span>
-                    <span id="nome" class="nome">Guilherme</span>
+                    <span class="nome" id="b_usuario"></span>
                 </div>
-                <div id="open" class="notificacao">
+                <div class="notificacao">
                     <i class='bx bx-bell'></i>
                 </div>
             </div>
+            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar
+                usuários</button>
             <p class="copyright">©2025 PrevCrime, Inc.</p>
         </div>
     </div>
 
-    <div class="container_conteudo">
-        <div class="conteudo">
-            <h2 class="titulo_pagina">Filtros</h2>
+    <section id="relatorios">
 
-            <div class="cards_info">
-                <div class="card_info">
-                    <div class="coluna"></div>
-                    <span class="card_titulo">Total de Relatórios</span>
-                    <span id="total_funcionarios" class="card_valor"></span>
-                </div>
-                <div class="card_info">
-                    <div class="coluna"></div>
-                    <span class="card_titulo">Relatórios Desativados</span>
-                    <span class="card_valor">4</span>
-                </div>
+            <h1 id="close-icon">X</h1>
+
+            <div class="barra-superior">
+                <h1 class="titulo-relatorio">Relatórios</h1>
+                <img src="./images/relatorio-icon.png" class="imgSolicitarRelatorio">
             </div>
 
-            <div class="container_tabela">
-                <div class="tabela_header">
-                    <div>ID</div>
-                    <div>Nome</div>
-                    <div>Solicitante</div>
-                    <div>Status</div>
-                    <div>Agência</div>
-                    <div>Funções</div>
+            <div id="relatorio">
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/05/2025 - 12:00:00</p>
+                        </div>
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
                 </div>
 
-                <div id="container_usuarios" class="container_usuarios"></div>
-            </div>
-
-        </div>
-    </div>
-
-    <dialog id="modal">
-        <div class="container">
-            <div class="container_forms">
-                <div class="forms">
-                    <a class="setaVoltar" id="close">
-                        <img src="./images/setaVoltar.png" alt="Voltar" class="seta_svg">
-                        Fechar
-                    </a>
-                    <p class="title">Solicitações de Relatórios</p>
-                    <div class="container_solicitacoes">
-                        <div class="container_pedido">
-                            <span class="solicitante">João Silva</span>
-                            <span class="agencia">CVC</span>
-                            <span class="data">11/2025</span>
-
-                            <div class="acoes">
-                                <button class="btn_aprovar">Aprovar</button>
-                                <button class="btn_reprovar">Reprovar</button>
-                            </div>
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/04/2025 - 12:00:00</p>
                         </div>
-                        <div class="container_pedido">
-                            <span class="solicitante">João Silva</span>
-                            <span class="agencia">CVC</span>
-                            <span class="data">11/2025</span>
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
 
-                            <div class="acoes">
-                                <button class="btn_aprovar">Aprovar</button>
-                                <button class="btn_reprovar">Reprovar</button>
-                            </div>
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/03/2025 - 12:00:00</p>
                         </div>
-                        <div class="container_pedido">
-                            <span class="solicitante">João Silva</span>
-                            <span class="agencia">CVC</span>
-                            <span class="data">11/2025</span>
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
 
-                            <div class="acoes">
-                                <button class="btn_aprovar">Aprovar</button>
-                                <button class="btn_reprovar">Reprovar</button>
-                            </div>
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/02/2025 - 12:00:00</p>
                         </div>
-                        <div class="container_pedido">
-                            <span class="solicitante">João Silva</span>
-                            <span class="agencia">CVC</span>
-                            <span class="data">11/2025</span>
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
 
-                            <div class="acoes">
-                                <button class="btn_aprovar">Aprovar</button>
-                                <button class="btn_reprovar">Reprovar</button>
-                            </div>
+                <div class="relatorio-card">
+                    <div class="relatorio-info">
+                        <div class="relatorio-item">
+                            <h3>nome do relatório</h3>
+                            <p>01/01/2025 - 12:00:00</p>
                         </div>
-
+                    </div>
+                    <div class="relatorio-acoes">
+                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="acao download"><i class="fa fa-download"></i></button>
                     </div>
                 </div>
             </div>
-        </div>
-    </dialog>
+        </section>
 
 </body>
-
-</html>
-
-<script>
-
-    const modal = document.querySelector('dialog');
-    document.getElementById("open").onclick = () => modal.showModal();
-    document.getElementById("close").onclick = () => modal.close();
-
-    fetch("/usuarios/listarTodosAgencia", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fkAgenciaServer: 1 })
-    }).then(function (resposta) {
-
-        if (resposta.ok) {
-
-            resposta.json().then(json => {
-
-                document.getElementById("total_funcionarios").innerHTML = json.length
-
-                for (i = 0; i < json.length; i++) {
-
-                    document.getElementById("container_usuarios").innerHTML += `
-                    <div class="tabela_row">
-                        <span class="col">${json[i].id}</span>
-                        <input class="col" type="text" value="${json[i].nome}" disabled>
-                        <input class="col" type="text" value="${json[i].solicitante || '-'}" disabled>
-                        <input class="col" type="text" value="${json[i].status}" style="padding-left:30%" disabled>
-                        <input class="col" type="text" value="${json[i].agencia || '-'}" disabled>
-
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div>`
-                }
-
-            });
-
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-    });
-
-    document.getElementById("container_usuarios").addEventListener("click", function (event) {
-
-        const btn = event.target.closest(".editar");
-        if (!btn) return;
-
-        const row = btn.closest(".tabela_row");
-        const inputs = row.querySelectorAll("input");
-        const desabilitado = inputs[0].disabled;
-
-        if (desabilitado) {
-            inputs.forEach(input => input.disabled = false);
-            btn.innerHTML = "<i class='bx bx-x'></i>";
-        } else {
-            inputs.forEach(input => input.disabled = true);
-            btn.innerHTML = "<i class='bx bx-edit-alt'></i>";
-
-            var usuario_atualizado = []
-            usuario_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
-            inputs.forEach(input => {
-                usuario_atualizado.push(input.value);
-            });
-
-            fetch(`/usuarios/editarUsuarios/${usuario_atualizado[0]}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    nomeServer: usuario_atualizado[1],
-                    solicitanteServer: usuario_atualizado[2],
-                    statusServer: usuario_atualizado[3],
-                    agenciaServer: usuario_atualizado[4]
-                })
-            })
-        }
-    });
-
-</script>
