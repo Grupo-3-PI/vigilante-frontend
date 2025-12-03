@@ -23,7 +23,7 @@
                     <i class='bx bx-filter-alt'></i>
                     <span>Filtros</span>
                 </a>
-                <a href="relatorios.html" class="nav_item active">
+                <a href="relatoriosAdmin.html" class="nav_item active">
                     <i class='bx bxs-report'></i>
                     <span>Relatórios</span>
                 </a>
@@ -179,5 +179,50 @@
             });
         }
     });
+
+    document.getElementById("container_relatorios").addEventListener("click", function (event) {
+
+        const btn = event.target.closest(".cancelar");
+        if (!btn) return;
+
+        const row = btn.closest(".tabela_row");
+        const inputs = row.querySelectorAll("input");
+
+        const statusInput = inputs[2];
+
+        if (statusInput.value == "Ativo") {
+            statusInput.value = "Desativado";
+        } else {
+            statusInput.value = "Ativo";
+        }
+
+        var relatorio_atualizado = [];
+        relatorio_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
+
+        inputs.forEach(input => {
+            relatorio_atualizado.push(input.value);
+        });
+
+        fetch(`/relatorios/status/${relatorio_atualizado[0]}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: relatorio_atualizado[1],
+                solicitanteServer: relatorio_atualizado[2],
+                statusServer: relatorio_atualizado[3],
+                agenciaServer: relatorio_atualizado[4]
+            })
+        })
+            .then(function (resposta) {
+                console.log(`Relatório ${relatorio_atualizado[0]} atualizado!`);
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+    });
+
 
 </script>
