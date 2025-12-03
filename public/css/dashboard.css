@@ -346,6 +346,17 @@ nav a {
   background-position: center;
 }
 
+.botao_trimestre {
+  border-style: none;
+  font-size: 10px;
+  background-color: transparent;
+  /* color: white; */
+  color: rgba(255, 255, 255, 0.805);
+  font-weight: 500;
+  font-size: 1.6vh;
+  cursor: pointer;
+}
+
 .kpi2 {
   background-image: url(../images/kpi2-card.svg);
   background-size: 150% 150%;
@@ -358,6 +369,11 @@ nav a {
   background-position: center;
 }
 
+.kpi1 .kpi-titulo {
+  width: 100%;
+
+}
+
 .kpi-titulo {
   font-size: 12px;
   font-weight: 500;
@@ -365,6 +381,8 @@ nav a {
   padding: 10px;
   color: white;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
   /* Centralizado */
 }
 
