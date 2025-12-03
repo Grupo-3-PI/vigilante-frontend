@@ -14,7 +14,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
-    <link rel="stylesheet" href="css/relatorioFinal.css">
+    <link rel="stylesheet" href="css/relatoriosPedidos.css">
 
 </head>
 
@@ -68,97 +68,30 @@
         </div>
     </div>
 
-    <section id="relatorios">
-            <div class="barra-superior">
-                <h1 class="titulo-relatorio">Relatórios</h1>
-                <img src="./images/relatorio-icon.png" class="imgSolicitarRelatorio">
+    <div class="conteudo">
+        <!-- Relatórios -->
+        <div class="container_relatorios">
+            <div class="container_title">
+                <h2>Relatórios</h2>
             </div>
 
-            <div id="relatorio">
-                <div class="relatorio-card" id="relatorio-card">
-                    <div class="relatorio-info">
-                        <div class="relatorio-item">
-                            <h3>nome do relatório</h3>
-                            <p>01/05/2025 - 12:00:00</p>
-                        </div>
-                    </div>
-                    <div class="relatorio-acoes">
-                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
-                        <button class="acao download"><i class="fa fa-download"></i></button>
-                    </div>
-                </div>
-
-                <div class="relatorio-card">
-                    <div class="relatorio-info">
-                        <div class="relatorio-item">
-                            <h3>nome do relatório</h3>
-                            <p>01/04/2025 - 12:00:00</p>
-                        </div>
-                    </div>
-                    <div class="relatorio-acoes">
-                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
-                        <button class="acao download"><i class="fa fa-download"></i></button>
-                    </div>
-                </div>
-
-                <div class="relatorio-card">
-                    <div class="relatorio-info">
-                        <div class="relatorio-item">
-                            <h3>nome do relatório</h3>
-                            <p>01/03/2025 - 12:00:00</p>
-                        </div>
-                    </div>
-                    <div class="relatorio-acoes">
-                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
-                        <button class="acao download"><i class="fa fa-download"></i></button>
-                    </div>
-                </div>
-
-                <div class="relatorio-card">
-                    <div class="relatorio-info">
-                        <div class="relatorio-item">
-                            <h3>nome do relatório</h3>
-                            <p>01/02/2025 - 12:00:00</p>
-                        </div>
-                    </div>
-                    <div class="relatorio-acoes">
-                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
-                        <button class="acao download"><i class="fa fa-download"></i></button>
-                    </div>
-                </div>
-
-                <div class="relatorio-card">
-                    <div class="relatorio-info">
-                        <div class="relatorio-item">
-                            <h3>nome do relatório</h3>
-                            <p>01/01/2025 - 12:00:00</p>
-                        </div>
-                    </div>
-                    <div class="relatorio-acoes">
-                        <button class="acao editar"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="acao excluir"><i class="fa-regular fa-trash-can"></i></button>
-                        <button class="acao download"><i class="fa fa-download"></i></button>
-                    </div>
-                </div>
+            <div class="container_relatorios_agencia">
+                <div class="relatorios"></div>
             </div>
-        </section>
-
-        <div class="relatorio" id="relatorio">
-            <h1 id="close-icon">X</h1>
-            <h1>
-                Relatório geral de criminalidade na Baixada Santista
-            </h1>
         </div>
+
+        <!-- Pedidos -->
+        <div class="container_pedidos">
+            <div class="container_title">
+                <h2>Pedidos</h2>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 
 <script>
-    document.getElementById("relatorio-card").addEventListener("click", function() {
-        document.getElementById("relatorio").style.display = "block";
-    });
-    
+
+
 </script>
