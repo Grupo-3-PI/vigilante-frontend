@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="css/navbarAdmin.css">
     <link rel="stylesheet" href="css/solicitacoesRelatorio.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Gerenciar Usuários</title>
+    <title>Gerenciar Relatórios</title>
 </head>
 
 <body>
+
     <div class="container_navbar">
         <div class="container_top">
             <div class="img_logo">
@@ -22,12 +23,13 @@
                     <i class='bx bx-filter-alt'></i>
                     <span>Filtros</span>
                 </a>
-                <a href="relatorios.html" class="nav_item">
+                <a href="relatorios.html" class="nav_item active">
                     <i class='bx bxs-report'></i>
                     <span>Relatórios</span>
                 </a>
             </nav>
         </div>
+
         <div class="container_bottom">
             <div class="card_usuario">
                 <div class="user_icon">
@@ -47,18 +49,20 @@
 
     <div class="container_conteudo">
         <div class="conteudo">
-            <h2 class="titulo_pagina">Filtros</h2>
+
+            <h2 class="titulo_pagina">Relatórios</h2>
 
             <div class="cards_info">
                 <div class="card_info">
                     <div class="coluna"></div>
                     <span class="card_titulo">Total de Relatórios</span>
-                    <span id="total_funcionarios" class="card_valor"></span>
+                    <span id="total_relatorios" class="card_valor"></span>
                 </div>
+
                 <div class="card_info">
                     <div class="coluna"></div>
-                    <span class="card_titulo">Relatórios Desativados</span>
-                    <span class="card_valor">4</span>
+                    <span class="card_titulo">Relatórios Reprovados</span>
+                    <span id="relatorios_reprovados" class="card_valor"></span>
                 </div>
             </div>
 
@@ -72,7 +76,7 @@
                     <div>Funções</div>
                 </div>
 
-                <div id="container_usuarios" class="container_usuarios"></div>
+                <div id="container_relatorios" class="container_usuarios"></div>
             </div>
 
         </div>
@@ -87,47 +91,8 @@
                         Fechar
                     </a>
                     <p class="title">Solicitações de Relatórios</p>
-                    <div class="container_solicitacoes">
-                        <div class="container_pedido">
-                            <span class="solicitante">João Silva</span>
-                            <span class="agencia">CVC</span>
-                            <span class="data">11/2025</span>
 
-                            <div class="acoes">
-                                <button class="btn_aprovar">Aprovar</button>
-                                <button class="btn_reprovar">Reprovar</button>
-                            </div>
-                        </div>
-                        <div class="container_pedido">
-                            <span class="solicitante">João Silva</span>
-                            <span class="agencia">CVC</span>
-                            <span class="data">11/2025</span>
-
-                            <div class="acoes">
-                                <button class="btn_aprovar">Aprovar</button>
-                                <button class="btn_reprovar">Reprovar</button>
-                            </div>
-                        </div>
-                        <div class="container_pedido">
-                            <span class="solicitante">João Silva</span>
-                            <span class="agencia">CVC</span>
-                            <span class="data">11/2025</span>
-
-                            <div class="acoes">
-                                <button class="btn_aprovar">Aprovar</button>
-                                <button class="btn_reprovar">Reprovar</button>
-                            </div>
-                        </div>
-                        <div class="container_pedido">
-                            <span class="solicitante">João Silva</span>
-                            <span class="agencia">CVC</span>
-                            <span class="data">11/2025</span>
-
-                            <div class="acoes">
-                                <button class="btn_aprovar">Aprovar</button>
-                                <button class="btn_reprovar">Reprovar</button>
-                            </div>
-                        </div>
+                    <div class="container_solicitacoes" id="solicitacoes_container">
 
                     </div>
                 </div>
@@ -141,78 +106,77 @@
 
 <script>
 
-    const modal = document.querySelector('dialog');
+    const modal = document.querySelector("dialog");
     document.getElementById("open").onclick = () => modal.showModal();
     document.getElementById("close").onclick = () => modal.close();
 
-    fetch("/usuarios/listarTodosAgencia", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fkAgenciaServer: 1 })
-    }).then(function (resposta) {
 
-        if (resposta.ok) {
+    fetch("/relatorios/listar", {
+        method: "GET"
+    }).then(res => {
 
-            resposta.json().then(json => {
+        if (!res.ok) return;
 
-                document.getElementById("total_funcionarios").innerHTML = json.length
+        res.json().then(json => {
 
-                for (i = 0; i < json.length; i++) {
+            document.getElementById("total_relatorios").innerHTML = json.length;
+            document.getElementById("relatorios_reprovados").innerHTML =
+                json.filter(item => item.status == "Reprovado").length;
 
-                    document.getElementById("container_usuarios").innerHTML += `
+            for (let i = 0; i < json.length; i++) {
+
+                const r = json[i];
+
+                document.getElementById("container_relatorios").innerHTML += `
                     <div class="tabela_row">
-                        <span class="col">${json[i].id}</span>
-                        <input class="col" type="text" value="${json[i].nome}" disabled>
-                        <input class="col" type="text" value="${json[i].solicitante || '-'}" disabled>
-                        <input class="col" type="text" value="${json[i].status}" style="padding-left:30%" disabled>
-                        <input class="col" type="text" value="${json[i].agencia || '-'}" disabled>
+                        <span class="col">${r.id}</span>
+
+                        <input class="col" type="text" value="${r.nome}" disabled>
+                        <input class="col" type="text" value="${r.solicitante}" disabled>
+                        <input class="col" type="text" value="${r.status}" disabled style="padding-left:30%">
+                        <input class="col" type="text" value="${r.agencia}" disabled>
 
                         <div class="funcoes">
                             <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
                             <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
                         </div>
-                    </div>`
-                }
-
-            });
-
-        }
-    }).catch(function (erro) {
-        console.log(erro);
+                    </div>
+                `;
+            }
+        });
     });
 
-    document.getElementById("container_usuarios").addEventListener("click", function (event) {
+
+    document.getElementById("container_relatorios").addEventListener("click", function (event) {
 
         const btn = event.target.closest(".editar");
         if (!btn) return;
 
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
-        const desabilitado = inputs[0].disabled;
+        const disabled = inputs[0].disabled;
 
-        if (desabilitado) {
+        const idRelatorio = row.querySelector("span").innerHTML;
+
+        if (disabled) {
             inputs.forEach(input => input.disabled = false);
-            btn.innerHTML = "<i class='bx bx-x'></i>";
+            btn.innerHTML = `<i class='bx bx-x'></i>`;
         } else {
             inputs.forEach(input => input.disabled = true);
-            btn.innerHTML = "<i class='bx bx-edit-alt'></i>";
+            btn.innerHTML = `<i class='bx bx-edit-alt'></i>`;
 
-            var usuario_atualizado = []
-            usuario_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
-            inputs.forEach(input => {
-                usuario_atualizado.push(input.value);
-            });
+            const atualizado = {
+                nome: inputs[0].value,
+                solicitante: inputs[1].value,
+                status: inputs[2].value,
+                agencia: inputs[3].value
+            };
 
-            fetch(`/usuarios/editarUsuarios/${usuario_atualizado[0]}`, {
+            fetch(`/relatorios/editar/${idRelatorio}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    nomeServer: usuario_atualizado[1],
-                    solicitanteServer: usuario_atualizado[2],
-                    statusServer: usuario_atualizado[3],
-                    agenciaServer: usuario_atualizado[4]
-                })
-            })
+                body: JSON.stringify(atualizado)
+            });
         }
     });
 
