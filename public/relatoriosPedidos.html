@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <section id="relatorios">
+    <!-- <section id="relatorios">
             <div class="barra-superior">
                 <h1 class="titulo-relatorio">Relatórios</h1>
                 <img src="./images/relatorio-icon.png" class="imgSolicitarRelatorio">
@@ -145,20 +145,60 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
-        <div class="relatorio" id="relatorio">
+        <!-- <div class="relatorio" id="relatorio">
             <h1 id="close-icon">X</h1>
             <h1>
                 Relatório geral de criminalidade na Baixada Santista
             </h1>
-        </div>
+        </div> -->
+
+        <section id="criarPedido">
+            <h1 id="close-icon-pedidos">X</h1>
+
+            <h1>Criar solicitação de relatorio</h1>
+
+            <div class="inputs_criacao_pedido">
+                Nome:
+                <input type="text" id="input_nome_usuario" value="nome_usuario" disabled="true">
+                Agência
+                <input type="text" id="input_agencia_usuario" value="agência usuário" disabled="true">
+                <button onclick="criarPedidoRelatorio()">Solicitar relatório</button>
+            </div>
+        </section>
+
 
 </body>
 
 <script>
-    document.getElementById("relatorio-card").addEventListener("click", function() {
-        document.getElementById("relatorio").style.display = "block";
-    });
+    function criarPedidoRelatorio() {
+        var fk_usuario = 1;
+
+        fetch("/pedido/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fk_usuarioServer: fk_usuario,
+                fk_administradorServer: null
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Pedido cadastrado com sucesso!");
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
     
 </script>

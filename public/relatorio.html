@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilante | Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
+    <link rel="stylesheet" href="css/relatorio.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+</head>
+
+<body>
+    <div class="pagina">
+        <section class="barra-superior">
+            <button class="gerarPDF" onclick="gerarPDF()">GerarPDF</button>
+            <h1 id="close-icon">X</h1>
+        </section>
+
+        <div class="relatorio" id="relatorio">
+            <h1 class="titulo-pagina">
+                Relatório geral de criminalidade na Baixada Santista
+            </h1>
+
+            <p>O presente relatório informa os dados de criminalidade na Baixada Santista em 2025.</p>
+
+            <h2>
+                Santos
+            </h2>
+
+            <section class="dados_mensais">
+                <div class="crimes-ocorridos-mes">
+                    <span>Crimes ocorridos no mês</span>
+                    <p id="quant-crimes-mes"></p>
+                </div>
+
+                <div class="crimes-ocorridos-mes">
+                    <span>Alteração no Índice de Criminalidade (Trimestre ano anterior)</span>
+                    <p>?</p>
+                </div>
+
+                <div class="crimes-ocorridos-mes">
+                    <span>Alteração no Índice de Criminalidade (Último Mês)</span>
+                    <p>?</p>
+                </div>
+            </section>
+
+
+
+            <hr class="linha">
+
+        </div>
+    </div>
+
+    <script src="js/relatorio.js"></script>
+</body>
+
+<script>
+    async function pegarDados() {
+        let i = await carregarKpiTotalCrimesMunicipio("Santos");
+        document.getElementById("quant-crimes-mes").textContent = i;
+    }
+
+    pegarDados()
+
+
+</script>

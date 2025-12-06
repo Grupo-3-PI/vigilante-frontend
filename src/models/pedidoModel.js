@@ -1,11 +1,11 @@
 var database = require("../database/config")
 
-function cadastrar(descricao, status, fk_usuario, fk_administrador) {
+function cadastrar(status, fk_usuario, fk_administrador) {
     var instrucaoSql = `
-            INSERT INTO Pedidos(descricao, status, fk_usuario, fk_administrador) VALUES('${descricao}', '${status}', ${fk_usuario}, ${fk_administrador});
+            INSERT INTO Pedidos(status, fk_usuario, fk_administrador) VALUES('${status}', ${fk_usuario}, ${fk_administrador});
         `;
-        console.log("Executando a instrução SQL: \n" + instrucaoSql);
-        return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 function listar() {
@@ -14,10 +14,24 @@ function listar() {
         SELECT id, data_criacao, status FROM Pedidos;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-        return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function aceitar(id) {
+    var instrucaoSql = `
+        UPDATE Pedidos SET status = "Aprovado" WHERE id = ${id};
+    `
+}
+
+function recusar(id) {
+    var instrucaoSql = `
+        UPDATE Pedidos SET status = "Recusado" WHERE id = ${id};
+    `
 }
 
 module.exports = {
     cadastrar,
-    listar
+    listar,
+    aceitar,
+    recusar
 };

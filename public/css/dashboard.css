@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-}
+} 
 
 html {
   scroll-behavior: smooth;
@@ -160,7 +160,7 @@ footer {
 }
 
 #criarPedido {
-  display: none;
+  display: block;
   flex-direction: column;
   background-color: #e5e0e0;
   padding: 10px 20px;
