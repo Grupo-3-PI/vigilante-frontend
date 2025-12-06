@@ -27,4 +27,12 @@ router.get("/crimesAtividadePolicial/:fkMunicipio/:ano", function (req, res) {
     dashboardController.crimesAtividadePolicial(req, res);
 });
 
+router.get("/percentualUltimoMes/:fkMunicipio/:ano", function (req, res) {
+    dashboardController.percentualUltimoMes(req, res);
+});
+
+router.get("/percentualTrimestrePassado/:fkMunicipio/:ano", function (req, res) {
+    dashboardController.percentualTrimestrePassado(req, res);
+});
+
 module.exports = router;

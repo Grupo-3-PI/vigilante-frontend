@@ -1,4 +1,5 @@
 const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mongaguá", "Peruíbe", "Praia Grande", "Santos", "São Vicente"];
+const populacao_municipios = [64188, 112471, 287634, 112476, 61951, 68352, 365577, 418608, 329911]
 var ano_selecionado = 2025;
 var municipio_selecionado = "Bertioga";
 
@@ -38,8 +39,8 @@ function selecionarTerceiroTrimestre() {
 
 
 // Carrega todas KPI's, tabela e gráficos
-// carregarTotalCrimes()
-carregarKpiTotalCrimesMunicipio()
+carregarKpiPercentualTrimestrePassado()
+carregarKpiPercentualUltimoMes()
 
 carregarTabela()
 
@@ -52,7 +53,9 @@ function selecionarMunicipio() {
     var indice_municipio = document.getElementById("select-municipio").value
     municipio_selecionado = municipios[indice_municipio]
     document.getElementById("nomeMunicipioKPI").textContent = municipio_selecionado;
-    carregarKpiTotalCrimesMunicipio()
+    carregarKpiPercentualTrimestrePassado()
+    carregarKpiPercentualUltimoMes()
+
     carregarGraficoDistribuicaoCrimesMunicipio()
     carregarGraficoAtividadePolicial()
 }
@@ -61,7 +64,9 @@ function selecionarMunicipio() {
 function selecionarAno() {
     var valor_ano = document.getElementById("select-ano").value
     ano_selecionado = valor_ano
-    carregarKpiTotalCrimesMunicipio()
+    carregarKpiPercentualTrimestrePassado()
+    carregarKpiPercentualUltimoMes()
+
     carregarTabela()
     carregarGraficoDistribuicaoCrimesMunicipio()
     carregarPercentualCrimes()
@@ -69,42 +74,87 @@ function selecionarAno() {
 
 }
 
-// KPI de total de crimes em toda Baixada Santista
-// function carregarTotalCrimes() {
-//     // Carregar total de Crimes
-//     fetch("/dashboard/totalCrimes", {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json"
-//         }
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 document.getElementById("total-crimes").innerHTML = json["sum(qtd_ocorrencias)"]
-//             });
-//         } else {
-//             resposta.text().then(texto => {
-//                 console.error(texto);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
 
-// KPI de total de crimes do município selecionado
-function carregarKpiTotalCrimesMunicipio() {
-    // Total de crimes no município
-    fetch(`/dashboard/totalCrimesMunicipio/${municipios.indexOf(municipio_selecionado) + 1}`, {
+
+// KPI de percentual de alteração no índice de criminalidade no trimestre passado
+function carregarKpiPercentualTrimestrePassado() {
+    fetch(`/dashboard/percentualTrimestrePassado/${municipios.indexOf(municipio_selecionado) + 1}/${new Date().getFullYear()}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
         }
 
     }).then(function (resposta) {
+
+
         if (resposta.ok) {
             resposta.json().then(json => {
-                document.getElementById("total-crimes-municipio").innerHTML = json["sum(qtd_ocorrencias)"]
+
+                const mes_atual = new Date().getMonth()
+                if (mes_atual >= 1 && mes_atual <= 3) {
+
+                    if (Number.isNaN(parseFloat(json[0].primeiro).toFixed(1))) {
+                        document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = parseFloat(json[0].primeiro).toFixed(1) + "%";
+                    } else {
+                        document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = "0%"
+                    }
+
+                } else if (mes_atual >= 4 && mes_atual <= 6) {
+
+                    if (Number.isNaN(parseFloat(json[0].segundo).toFixed(1))) {
+                        document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = parseFloat(json[0].segundo).toFixed(1) + "%";
+                    } else {
+                        document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = "0%";
+                    }
+
+                } else if (mes_atual >= 7 && mes_atual <= 9) {
+                    if (Number.isNaN(parseFloat(json[0].terceiro).toFixed(1))) {
+                        document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = parseFloat(json[0].terceiro).toFixed(1) + "%";
+                    } else {
+                        document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = "0%";
+                    }
+                } else {
+                    if (Number.isNaN(parseFloat(json[0].quarto).toFixed(1))) {
+                        document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = parseFloat(json[0].quarto).toFixed(1) + "%";
+                    } else {
+                        document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = "0%";
+                    }
+                }
+
+            });
+        } else {
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+function carregarKpiPercentualUltimoMes() {
+    fetch(`/dashboard/percentualUltimoMes/${municipios.indexOf(municipio_selecionado) + 1}/${new Date().getFullYear()}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+
+    }).then(function (resposta) {
+
+
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log("aqui");
+                console.log(json[0]["porcentagem"]);
+
+                if (json[0]["atual"] > json[0]["passado"]) {
+                    document.getElementById("percentualAlteracao").innerHTML = "+" + parseFloat(json[0]["porcentagem"]).toFixed(1) + "%"
+                } else if (!Number.isNaN(parseFloat(json[0]["porcentagem"]).toFixed(1))) {
+                    document.getElementById("percentualAlteracao").innerHTML = "0%"
+                }
+                else {
+                    document.getElementById("percentualAlteracao").innerHTML = parseFloat(json[0]["porcentagem"]).toFixed(1) + "%"
+                }
             });
         } else {
             resposta.text().then(texto => {
@@ -135,7 +185,10 @@ function carregarTabela() {
 
                     const nome_municipio = municipio.nome_municipio
                     const total_crimes = municipio["sum(o.qtd_ocorrencias)"];
-                    const score = 10
+                    var score = parseFloat((total_crimes / populacao_municipios[municipio_selecionado.indexOf(municipio_selecionado)]) * 100).toFixed(1)
+                    while (score > 10) {
+                        score = parseFloat(score - 1).toFixed(1)
+                    }
                     var status
                     var seta
                     if (score >= 7) {
@@ -303,7 +356,6 @@ function carregarPercentualCrimes() {
                     graficoPercentualMunicipios.data.datasets[i].data = [valoresPercentualCrimes[i]]
                 }
                 graficoPercentualMunicipios.options.plugins.title.text = `Percentual dos Crimes por Município (${ano_selecionado})`
-                console.log("aqui");
                 console.log(valoresPercentualCrimes);
                 graficoPercentualMunicipios.update()
             });
