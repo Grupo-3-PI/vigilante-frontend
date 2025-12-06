@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/navbarAdmin.css">
+    <link rel="stylesheet" href="./css/slack.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Vigilante | Notificações</title>
+</head>
+
+<body>
+
+    <div class="container_navbar">
+        <div class="container_top">
+            <div class="img_logo">
+                <img src="./images/prevcrimeLogo.svg" alt="Logo PrevCrime">
+            </div>
+            <nav class="navbar_buttons">
+                <a href="filtros.html" class="nav_item">
+                    <i class='bx bx-filter-alt'></i>
+                    <span>Filtros</span>
+                </a>
+                <a href="relatoriosAdmin.html" class="nav_item active">
+                    <i class='bx bxs-report'></i>
+                    <span>Relatórios</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="container_bottom">
+            <div class="card_usuario">
+                <div class="user_icon">
+                    <i class='bx bx-user'></i>
+                </div>
+                <div class="user_info">
+                    <span class="perfil">Admin</span>
+                    <span id="nome" class="nome">Guilherme</span>
+                </div>
+                <div id="open" class="notificacao">
+                    <i class='bx bx-bell'></i>
+                </div>
+            </div>
+            <p class="copyright">©2025 PrevCrime, Inc.</p>
+        </div>
+    </div>
+
+    <div class="main_content">
+        <h1 class="page_title">Notificações</h1>
+
+        <div class="notification_panel">
+
+            <div class="panel_column left_col">
+                <h2 class="panel_subtitle">Opções de Notificações Slack</h2>
+
+                <div class="input_group checkbox_top">
+                    <input type="checkbox" id="ativar_notificacoes" class="large_checkbox">
+                    <label for="ativar_notificacoes">Ativar/Desativar notificações</label>
+                </div>
+
+                <div class="input_group">
+                    <label class="label_bold">Canal para Receber Notificações</label>
+                    <div class="select_wrapper">
+                        <select id="canal_slack">
+                            <option value="" disabled selected></option>
+                            <option value="geral">#geral</option>
+                            <option value="alertas">#alertas-seguranca</option>
+                            <option value="random">#random</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input_group">
+                    <label class="label_bold">Quais notificações você deseja receber?</label>
+                    <div class="checkbox_list">
+                        <div class="checkbox_item">
+                            <input type="checkbox" id="check_info" class="large_checkbox">
+                            <label for="check_info">Informações</label>
+                        </div>
+                        <div class="checkbox_item">
+                            <input type="checkbox" id="check_avisos" class="large_checkbox">
+                            <label for="check_avisos">Avisos</label>
+                        </div>
+                        <div class="checkbox_item">
+                            <input type="checkbox" id="check_erros" class="large_checkbox">
+                            <label for="check_erros">Erros</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn_salvar">Salvar</button>
+            </div>
+
+            <div class="vertical_divider"></div>
+
+            <div class="panel_column right_col">
+                <h2 class="panel_subtitle">Status Slack</h2>
+
+                <div class="status_info">
+                    <p>Notificações: <span id="status_notificacao_texto">xxxx</span></p>
+                    <p>Canal das Notificações: <span id="status_canal_texto">xxxx</span></p>
+                </div>
+
+                <div class="status_list_group">
+                    <label class="label_bold">Tipo de notificações ativas:</label>
+                    <ul class="active_types_list">
+                        <li>Informações</li>
+                        <li>Avisos</li>
+                        <li>Erros</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    const toggleAtivar = document.getElementById('ativar_notificacoes');
+    const selectCanal = document.getElementById('canal_slack');
+    const checkInfo = document.getElementById('check_info');
+    const checkAvisos = document.getElementById('check_avisos');
+    const checkErros = document.getElementById('check_erros');
+
+    const statusTexto = document.getElementById('status_notificacao_texto');
+    const canalTexto = document.getElementById('status_canal_texto');
+    const listaTipos = document.querySelector('.active_types_list');
+
+    function atualizarPreview() {
+        if (toggleAtivar.checked) {
+            statusTexto.textContent = "Ativadas";
+            statusTexto.style.color = "green";
+            statusTexto.style.fontWeight = "bold";
+        } else {
+            statusTexto.textContent = "Desativadas";
+            statusTexto.style.color = "red";
+            statusTexto.style.fontWeight = "bold";
+        }
+
+        const opcaoSelecionada = selectCanal.options[selectCanal.selectedIndex];
+        if (selectCanal.value !== "") {
+            canalTexto.textContent = opcaoSelecionada.text;
+        } else {
+            canalTexto.textContent = "Nenhum selecionado";
+        }
+
+        listaTipos.innerHTML = "";
+
+        let algumSelecionado = false;
+
+        const opcoes = [
+            { el: checkInfo, texto: "Informações" },
+            { el: checkAvisos, texto: "Avisos" },
+            { el: checkErros, texto: "Erros" }
+        ];
+
+        opcoes.forEach(opcao => {
+            if (opcao.el.checked) {
+                const li = document.createElement('li');
+                li.textContent = opcao.texto;
+                listaTipos.appendChild(li);
+                algumSelecionado = true;
+            }
+        });
+
+        if (!algumSelecionado) {
+            const li = document.createElement('li');
+            li.textContent = "-";
+            listaTipos.appendChild(li);
+        }
+    }
+    const inputs = [toggleAtivar, selectCanal, checkInfo, checkAvisos, checkErros];
+    inputs.forEach(input => {
+        input.addEventListener('change', atualizarPreview);
+    });
+
+    document.addEventListener('DOMContentLoaded', atualizarPreview);
+
+</script>
