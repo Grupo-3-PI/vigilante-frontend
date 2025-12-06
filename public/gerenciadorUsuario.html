@@ -39,12 +39,12 @@
         </div>
         <!-- Container baixo -->
         <div class="container_bottom">
-            <div class="card_usuario">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
                     <i class='bx bx-user'></i>
                 </div>
                 <div class="user_info">
-                    <span class="perfil">Admin</span>
+                    <span class="perfil" id="cargo">Admin</span>
                     <span id="nome" class="nome"></span>
                 </div>
                 <div class="notificacao">
@@ -66,11 +66,6 @@
                     <div class="coluna"></div>
                     <span class="card_titulo">Total de Funcionários</span>
                     <span id="total_funcionarios" class="card_valor"></span>
-                </div>
-                <div class="card_info">
-                    <div class="coluna"></div>
-                    <span class="card_titulo">Funcionários Excluídos</span>
-                    <span class="card_valor">2</span>
                 </div>
                 <div class="card_info">
                     <div class="coluna"></div>
@@ -131,11 +126,41 @@
             </div>
         </div>
     </dialog>
+
+    <div id="modalAcesso" class="modal-acesso">
+        <div class="modal-content">
+            <h2>Acesso Negado</h2>
+            <p>Apenas administradores podem acessar esta página.</p>
+            <button id="btnVoltar"><i class='bx bx-arrow-back'></i> Voltar</button>
+        </div>
+    </div>
+
 </body>
 
 </html>
 
 <script>
+
+    const cargo = sessionStorage.CARGO_AGENCIA_USUARIO;
+
+    if (cargo !== "admin") {
+        const modal = document.getElementById("modalAcesso");
+        const btn = document.getElementById("btnVoltar");
+
+        modal.style.display = "flex";
+
+        btn.addEventListener("click", () => {
+            window.location.href = "municipio.html";
+        });
+    }
+
+    // Preenher nome e cargo
+    if (sessionStorage.NOME_USUARIO) {
+        document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+    }
+    if (sessionStorage.CARGO_AGENCIA_USUARIO) {
+        document.getElementById('cargo').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
+    }
 
     const modal = document.querySelector('dialog');
     document.getElementById("open").onclick = () => modal.showModal();

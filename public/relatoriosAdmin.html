@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/relatorios.css">
     <link rel="stylesheet" href="css/navbarAdmin.css">
     <link rel="stylesheet" href="css/solicitacoesRelatorio.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Gerenciar Relatórios</title>
 </head>
 
@@ -91,10 +91,7 @@
                         Fechar
                     </a>
                     <p class="title">Solicitações de Relatórios</p>
-
-                    <div class="container_solicitacoes" id="solicitacoes_container">
-
-                    </div>
+                    <div class="container_solicitacoes" id="solicitacoes_container"></div>
                 </div>
             </div>
         </div>
@@ -110,21 +107,17 @@
     document.getElementById("open").onclick = () => modal.showModal();
     document.getElementById("close").onclick = () => modal.close();
 
-
     fetch("/relatorios/listar", {
         method: "GET"
     }).then(res => {
-
         if (!res.ok) return;
 
         res.json().then(json => {
-
             document.getElementById("total_relatorios").innerHTML = json.length;
             document.getElementById("relatorios_reprovados").innerHTML =
                 json.filter(item => item.status == "Reprovado").length;
 
             for (let i = 0; i < json.length; i++) {
-
                 const r = json[i];
 
                 document.getElementById("container_relatorios").innerHTML += `
@@ -133,7 +126,7 @@
 
                         <input class="col" type="text" value="${r.nome}" disabled>
                         <input class="col" type="text" value="${r.solicitante}" disabled>
-                        <input class="col" type="text" value="${r.status}" disabled style="padding-left:30%">
+                        <input class="col" type="text" value="${r.status}" disabled>
                         <input class="col" type="text" value="${r.agencia}" disabled>
 
                         <div class="funcoes">
@@ -146,7 +139,6 @@
         });
     });
 
-
     document.getElementById("container_relatorios").addEventListener("click", function (event) {
 
         const btn = event.target.closest(".editar");
@@ -155,7 +147,6 @@
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
         const disabled = inputs[0].disabled;
-
         const idRelatorio = row.querySelector("span").innerHTML;
 
         if (disabled) {
@@ -166,10 +157,7 @@
             btn.innerHTML = `<i class='bx bx-edit-alt'></i>`;
 
             const atualizado = {
-                nome: inputs[0].value,
-                solicitante: inputs[1].value,
-                status: inputs[2].value,
-                agencia: inputs[3].value
+                titulo_relatorio: inputs[0].value
             };
 
             fetch(`/relatorios/editar/${idRelatorio}`, {
@@ -187,7 +175,6 @@
 
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
-
         const statusInput = inputs[2];
 
         if (statusInput.value == "Ativo") {
@@ -196,33 +183,15 @@
             statusInput.value = "Ativo";
         }
 
-        var relatorio_atualizado = [];
-        relatorio_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
+        const id = row.querySelector("span").innerHTML;
 
-        inputs.forEach(input => {
-            relatorio_atualizado.push(input.value);
-        });
-
-        fetch(`/relatorios/status/${relatorio_atualizado[0]}`, {
+        fetch(`/relatorios/status/${id}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                nomeServer: relatorio_atualizado[1],
-                solicitanteServer: relatorio_atualizado[2],
-                statusServer: relatorio_atualizado[3],
-                agenciaServer: relatorio_atualizado[4]
+                status: statusInput.value
             })
-        })
-            .then(function (resposta) {
-                console.log(`Relatório ${relatorio_atualizado[0]} atualizado!`);
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
+        });
     });
-
 
 </script>

@@ -34,7 +34,7 @@
                     <i class='bx bx-home'></i>
                     <span>Home</span>
                 </a>
-                <a href="dashboard.html" class="nav_item" style="color: #34495e;">
+                <a href="dashboard.html" class="nav_item">
                     <i class='bx bx-grid-alt'></i>
                     <span>Dashboard</span>
                 </a>
@@ -50,12 +50,12 @@
         </div>
         <!-- Container baixo -->
         <div class="container_bottom">
-            <div class="card_usuario">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
                     <i class='bx bx-user'></i>
                 </div>
                 <div class="user_info">
-                    <span class="perfil">Admin</span>
+                    <span class="perfil" id="cargo">Admin</span>
                     <span class="nome" id="b_usuario"></span>
                 </div>
                 <div class="notificacao">
@@ -114,6 +114,14 @@
 </body>
 
 <script>
+
+    // Preenher nome e cargo
+    if (sessionStorage.NOME_USUARIO) {
+        document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+    }
+    if (sessionStorage.CARGO_AGENCIA_USUARIO) {
+        document.getElementById('cargo').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
+    }
 
 
 </script>

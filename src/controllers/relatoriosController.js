@@ -25,17 +25,16 @@ function listarTodos(req, res) {
 
 function editar(req, res) {
     var id = req.params.id;
-    var titulo = req.body.titulo;
-    var fkUsuario = req.body.fkUsuario;
-    var fkOcorrencias = req.body.fkOcorrencias;
+    var titulo_relatorio = req.body.titulo_relatorio;
 
-    relatorioModel.editar(id, titulo, fkUsuario, fkOcorrencias)
+    relatorioModel.editar(id, titulo_relatorio)
         .then(resultado => res.json(resultado))
         .catch(erro => {
             console.log("Erro ao editar relatório:", erro);
             res.status(500).json(erro);
         });
 }
+
 
 function atualizarStatus(req, res) {
     var id = req.params.id;

@@ -25,12 +25,10 @@ function listarTodos() {
     return database.executar(instrucaoSql);
 }
 
-function editar(id, titulo_relatorio, fk_Usuario, fk_Ocorrencias) {
+function editar(id, titulo_relatorio) {
     var instrucaoSql = `
         UPDATE Relatorio
-        SET titulo_relatorio = '${titulo_relatorio}',
-            fk_Usuario = ${fk_Usuario},
-            fk_Ocorrencias = ${fk_Ocorrencias}
+        SET titulo_relatorio = '${titulo_relatorio}'
         WHERE id = ${id};
     `;
     return database.executar(instrucaoSql);
