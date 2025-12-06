@@ -20,7 +20,7 @@ body {
   width: 85vw;
   padding: 0;
   background-color: #f0f0f0;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 header,
@@ -43,13 +43,14 @@ footer {
 
 
 #relatorios {
-  display: none;
+  display: block;
   flex-direction: column;
   background-color: #e5e0e0;
   padding: 10px 20px;
   height: 80vh;
   width: 80vw;
   border-radius: 20px;
+  overflow: auto;
 }
 
 .user {
@@ -114,6 +115,13 @@ footer {
   margin-top: 70px;
 }
 
+.barra-superior {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .titulo-relatorio {
   margin-left: 3%;
   margin-top: 2%;
@@ -130,11 +138,52 @@ footer {
   transition: 0.1s;
 }
 
+#close-icon-pedidos {
+  float: right;
+  cursor: pointer;
+}
+
+#close-icon-pedidos:hover {
+  color: orange;
+  transition: 0.1s;
+}
+
+.imgSolicitarRelatorio {
+  width: 3%;
+  border-radius: 100%;
+  border-color: #c71717;
+  cursor: pointer;
+  align-self: center;
+  margin-right: 7%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+#criarPedido {
+  display: none;
+  flex-direction: column;
+  background-color: #e5e0e0;
+  padding: 10px 20px;
+  height: 80vh;
+  width: 80vw;
+  border-radius: 20px;
+  overflow: auto;
+}
+
+.inputs_criacao_pedido {
+  display: flex;
+  flex-direction: column;
+}
+
 #relatorio {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.imgRelatorio {
+  width: 11%;
 }
 
 nav {
@@ -243,10 +292,36 @@ nav a {
   border-bottom: 1px solid #eee;
 }
 
-.dados {
-  padding: 20px;
+
+.nav-filtros {
   width: 100%;
-  height: 100%;
+  height: 8%;
+  padding: 12px 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-filtros select {
+  background-color: #f7f7f7;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  padding: 10px 40px 10px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+
+.nav-filtros select:hover {
+  background-color: #f0f0f0;
+  border-color: #bfbfbf;
+}
+
+.dados {
+  padding: 15px;
+  width: 100%;
+  height: 92%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -412,7 +487,7 @@ nav a {
   flex-direction: column;
   background-color: white;
   width: 100%;
-  height: auto;
+  height: 93.6%;
   flex-grow: 1;
   border-spacing: 0;
   border-bottom-left-radius: 10px;
@@ -428,7 +503,7 @@ nav a {
   font-size: 15px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: auto;
+  height: 3vh;
   width: 100%;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -438,7 +513,6 @@ nav a {
 .dados-tabela {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
 }
 
 .valor-tabela {
@@ -465,9 +539,8 @@ nav a {
 }
 
 .tabela tbody {
-  display: block;
-  height: calc(100% - 60px);
-  overflow-y: auto;
+  display: table-row-group;
+  overflow-y: hidden;
 }
 
 

@@ -18,7 +18,7 @@
     <script src="./js/sessao.js"></script>
 </head>
 
-<body onload="carregarTabela()">
+<body>
 
     <!-- Navbar -->
     <div class="container_navbar">
@@ -38,6 +38,10 @@
                 <a href="dashboard.html" class="nav_item" style="color: #34495e;">
                     <i class='bx bx-grid-alt'></i>
                     <span>Dashboard</span>
+                </a>
+                <a href="relatoriosPedidos.html" class="nav_item" style="color: #34495e;">
+                    <i class='bx bxs-report'></i>
+                    <span>Relatórios</span>
                 </a>
                 <a href="dicas.html" class="nav_item">
                     <i class='bx bx-bulb'></i>
@@ -67,8 +71,13 @@
 
     <div id="fundo">
         <section id="relatorios">
+
             <h1 id="close-icon">X</h1>
-            <h1 class="titulo-relatorio">Relatórios</h1>
+
+            <div class="barra-superior">
+                <h1 class="titulo-relatorio">Relatórios</h1>
+                <img src="./images/relatorio-icon.png" class="imgSolicitarRelatorio">
+            </div>
 
             <div id="relatorio">
                 <div class="relatorio-card">
@@ -142,21 +151,49 @@
                 </div>
             </div>
         </section>
+
+        <section id="criarPedido">
+            <h1 id="close-icon-pedidos">X</h1>
+
+            <h1>Criar solicitação de relatorio</h1>
+
+            <div class="inputs_criacao_pedido">
+                Nome:
+                <input type="text" id="input_nome_usuario" disabled="true">
+                Agência
+                <input type="text" id="input_agencia_usuario" value="agência usuário" disabled="true">
+                Descrição
+                <input type="text" id="input_descricao_relatorio" value="">
+                <button onclick="criarPedidoRelatorio()">Solicitar relatório</button>
+            </div>
+        </section>
+
     </div>
     <div class="conteudo">
-
-        <!-- <div class="titulo">
-            <div class="caminho">
-                <a href="" class="caminho-tela">Tela Inicial</a> → <a href="" class="caminho-tela">Dashboard</a>
-            </div>
-        </div> -->
-
+        <div class="nav-filtros">
+            <select id="select-municipio" onchange="selecionarMunicipio()">
+                <option value="0">Bertioga</option>
+                <option value="1">Cubatão</option>
+                <option value="2">Guarujá</option>
+                <option value="3">Itanhaém</option>
+                <option value="4">Mongaguá</option>
+                <option value="5">Peruíbe</option>
+                <option value="6">Praia Grande</option>
+                <option value="7">Santos</option>
+                <option value="8">São Vicente</option>
+            </select>
+            <select id="select-ano" onchange="selecionarAno()">
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+            </select>
+        </div>
         <div class="dados">
             <div class="area-graficos">
 
                 <div class="kpis">
                     <div class="kpi1 kpi">
-                        <h3 class="kpi-titulo">Total de Crimes</span></h3>
+                        <h3 class="kpi-titulo">Total de Crimes na Baixada Santista</span></h3>
                         <p id="total-crimes" class="kpi-valor1"></p>
                     </div>
                     <div class="kpi2 kpi">
@@ -187,7 +224,7 @@
 
 
             <div class="area-tabela">
-                <div class="titulo-tabela">Ranking de Segurança dos Municípios</div>
+                <div id="titulo-tabela" class="titulo-tabela">Ranking de Segurança dos Municípios (2025)</div>
                 <div class="dados-tabela">
                     <table class="tabela" id="tabela">
                         <thead>
@@ -219,47 +256,133 @@
     var ano_selecionado = 2025;
     var municipio_selecionado = "Bertioga";
 
-    // Carregar total de Crimes
-    fetch("/dashboard/totalCrimes", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(json => {
-                document.getElementById("total-crimes").innerHTML = json["count(id)"]
-            });
-        } else {
-            resposta.text().then(texto => {
-                console.error(texto);
-            });
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-    });
+    // Carrega todas KPI's, tabela e gráficos
+    carregarTotalCrimes()
+    carregarKpiTotalCrimesMunicipio()
 
+    carregarTabela()
 
-    // Total de crimes no município
-    fetch(`/dashboard/totalCrimesMunicipio/${municipios.indexOf(municipio_selecionado) + 1}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
+    carregarGraficoDistribuicaoCrimesMunicipio()
+    carregarPercentualCrimes()
+    carregarGraficoAtividadePolicial()
 
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(json => {
-                document.getElementById("total-crimes-municipio").innerHTML = json["count(id)"]
-            });
-        } else {
-            resposta.text().then(texto => {
-                console.error(texto);
-            });
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-    });
+    // Função para trocar o valor de municipio selecionado
+    function selecionarMunicipio() {
+        var indice_municipio = document.getElementById("select-municipio").value
+        municipio_selecionado = municipios[indice_municipio]
+        document.getElementById("nomeMunicipioKPI").textContent = municipio_selecionado;
+        carregarKpiTotalCrimesMunicipio()
+        carregarGraficoDistribuicaoCrimesMunicipio()
+        carregarGraficoAtividadePolicial()
+    }
+
+    // Função para trocar o valor de ano selecionado
+    function selecionarAno() {
+        var valor_ano = document.getElementById("select-ano").value
+        ano_selecionado = valor_ano
+        carregarKpiTotalCrimesMunicipio()
+        carregarTabela()
+        carregarGraficoDistribuicaoCrimesMunicipio()
+        carregarPercentualCrimes()
+        carregarGraficoAtividadePolicial()
+
+    }
+
+    // KPI de total de crimes em toda Baixada Santista
+    function carregarTotalCrimes() {
+        // Carregar total de Crimes
+        fetch("/dashboard/totalCrimes", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    document.getElementById("total-crimes").innerHTML = json["sum(qtd_ocorrencias)"]
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    }
+
+    // KPI de total de crimes do município selecionado
+    function carregarKpiTotalCrimesMunicipio() {
+        // Total de crimes no município
+        fetch(`/dashboard/totalCrimesMunicipio/${municipios.indexOf(municipio_selecionado) + 1}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    document.getElementById("total-crimes-municipio").innerHTML = json["sum(qtd_ocorrencias)"]
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    }
+
+    // Tabela de crimes
+    function carregarTabela() {
+        fetch(`/dashboard/totalCrimesTodosMunicipios/${ano_selecionado}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+
+                resposta.json().then(json => {
+                    console.log(json[0]);
+
+                    var valores_municipio = []
+                    document.getElementById("corpo-tabela").innerHTML = ""
+                    json.forEach((municipio) => {
+
+                        const nome_municipio = municipio.nome_municipio
+                        const total_crimes = municipio["sum(o.qtd_ocorrencias)"];
+                        const score = 10
+                        var status
+                        var seta
+                        if (score >= 7) {
+                            status = "<span style='color:rgb(0,128,0)'>Seguro</span>"
+                            seta = "<img src='./images/seta-up.png' class='imgSeta'/>"
+                        } else if (score >= 5) {
+                            status = "<span style='color:rgb(225, 225, 5)'>Moderado</span>"
+                            seta = "<img src='./images/seta-mid.png' class='imgSeta'/>"
+                        } else {
+                            status = "<span style='color:red'>Inseguro</red>"
+                            seta = "<img src='./images/seta-down.png' class='imgSeta'/>"
+                        }
+                        valores_municipio.push([`<tr class="linha-tabela"><td class="valor-tabela">${seta}</td><td class="valor-tabela">${nome_municipio}</td><td class="valor-tabela">${score}</td><td class="valor-tabela">${total_crimes}</td><td class="valor-tabela">${status}</td></tr>`, score])
+                    })
+                    document.getElementById("titulo-tabela").innerHTML = `Ranking de Segurança dos Municípios (${ano_selecionado})`
+                    valores_municipio.sort((a, b) => b[1] - a[1]).forEach((municipio) => document.getElementById("corpo-tabela").innerHTML += municipio[0])
+
+                });
+
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    }
 
     // Preenche o nome do usuário na navbar
     if (sessionStorage.NOME_USUARIO) {
@@ -268,58 +391,104 @@
     }
     var idUsuario = Number(sessionStorage.ID_USUARIO);
 
-    // Tabela
-    // Provisório!!!
-    function carregarTabela() {
-
-        var valores_municipio = []
-
-        municipios.forEach((municipio) => {
-
-            var score = (Math.random() * 6 + 4).toFixed(1)
-            var crimes = (Math.random() * 400 + 1000).toFixed()
-            var status
-            var seta
-            if (score >= 7) {
-                status = "<span style='color:rgb(0,128,0)'>Seguro</span>"
-                seta = "<img src='./images/seta-up.png' class='imgSeta'/>"
-            } else if (score >= 5) {
-                status = "<span style='color:rgb(225, 225, 5)'>Moderado</span>"
-                seta = "<img src='./images/seta-mid.png' class='imgSeta'/>"
-            } else {
-                status = "<span style='color:red'>Inseguro</red>"
-                seta = "<img src='./images/seta-down.png' class='imgSeta'/>"
-            }
-            valores_municipio.push([`<tr class="linha-tabela"><td class="valor-tabela">${seta}</td><td class="valor-tabela">${municipio}</td><td class="valor-tabela">${score}</td><td class="valor-tabela">${crimes}</td><td class="valor-tabela">${status}</td></tr>`, score])
-        })
-        valores_municipio.sort((a, b) => b[1] - a[1]).forEach((municipio) => document.getElementById("corpo-tabela").innerHTML += municipio[0])
-    }
-
+    // Funções para criação e exibição dos pedidos de relatório
     function exibirRelatorios() {
         document.getElementById("fundo").style.display = "flex";
         document.getElementById("relatorios").style.display = "block";
     }
 
+    function exibirCriacaoPedido() {
+
+    }
+
+    function criarPedidoRelatorio() {
+        var descricao = document.getElementById("input_descricao_relatorio").value;
+        var fk_usuario = 1;
+
+        fetch("/pedido/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                descricaoServer: descricao,
+                fk_usuarioServer: fk_usuario,
+                fk_administradorServer: null
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Pedido cadastrado com sucesso!");
+                    carregarUsuarios()
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    // Botões para trocar as telas
     document.getElementById("close-icon").addEventListener("click", function () {
         document.getElementById("fundo").style.display = "none";
     });
 
+    document.getElementById("close-icon").addEventListener("click", function () {
+        document.getElementById("fundo").style.display = "none";
+    });
+
+    document.getElementById("imgSolicitarRelatorio").addEventListener("click", function () {
+        document.getElementById("criarPedido").style.display = "block";
+        document.getElementById("criarPedido").style.display = "block";
+    });
+
+    document.getElementById("close-icon-pedidos").addEventListener("click", function () {
+        document.getElementById("criarPedido").style.display = "none";
+        document.getElementById("relatorios").style.display = "block";
+    });
+    
+    // Adicionando o valor nos inputs
+    document.getElementById("input_nome_usuario").value = sessionStorage.NOME_USUARIO;
+
     // Funções de filtro (exibirMunicipios, selecionarMunicipio, etc.) removidas do script 
     // pois os elementos não existem mais no HTML.
 
-    // Atualizar KPI's
-    function atualizarKPIs() {
-        var alteracao = (Math.random() * 10 - 5).toFixed(1);
 
-        document.getElementById("nomeMunicipioKPI").textContent = municipio_selecionado;
-        // document.getElementById("valorTotalCrimes").textContent = (Math.random() * 400 + 1000).toFixed()
-        document.getElementById("percentualAlteracao").textContent = `${alteracao > 0 ? '+' : ''}${alteracao}%`
-
+    //Gráfico de distribuição de crimes por município
+    var valoresDistribuicaoCrimes = []
+    function carregarGraficoDistribuicaoCrimesMunicipio() {
+        valoresDistribuicaoCrimes = []
+        fetch(`/dashboard/distribuicaoCrimes/${municipios.indexOf(municipio_selecionado) + 1}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    for (let i = 0; i < 4; i++) {
+                        valoresDistribuicaoCrimes.push(json[i].total_ocorrencias)
+                    }
+                    graficoTotalCrimes.data.datasets[0].data = valoresDistribuicaoCrimes;
+                    graficoTotalCrimes.options.plugins.title.text = `Distribuição dos Crimes por Tipo em ${municipio_selecionado} (${ano_selecionado})`
+                    graficoTotalCrimes.update();
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
     }
-    // Carrega os KPIs iniciais
-    atualizarKPIs();
 
-    //Gráfico de total de crimes
+    // Gera o gráfico de distribuição de crimes do município selecionado
     const graficoTotalCrimes = new Chart(document.getElementById('graficoCrimes'), {
         type: 'bar',
         data: {
@@ -327,18 +496,16 @@
                 'Contra a Vida',
                 'Agressões Físicas',
                 'Sexuais',
-                'Contra o Patrimônio',
-                'Outros'
+                'Contra o Patrimônio'
             ],
             datasets: [{
                 label: 'Número de Ocorrências',
-                data: [180, 250, 90, 320, 70],
+                data: valoresDistribuicaoCrimes,
                 backgroundColor: [
                     '#FFD8A8',
                     '#FFC078',
                     '#FFA94D',
-                    '#FF922B',
-                    '#E8590C'
+                    '#FF922B'
                 ],
                 borderColor: '#fff',
                 borderWidth: 2,
@@ -392,71 +559,102 @@
     });
 
     // Gráfico de percentual de criminalidade por município
-    const ctxPercentual = document.getElementById('graficoPercentualMunicipios').getContext('2d');
-    const graficoPercentualMunicipios = new Chart(ctxPercentual, {
+    var valoresPercentualCrimes = []
+    function carregarPercentualCrimes() {
+        valoresPercentualCrimes = []
+        fetch(`/dashboard/percentualCrimes/${ano_selecionado}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+
+                    json.forEach((municipio) => {
+                        valoresPercentualCrimes.push(parseFloat(municipio.porcentagem).toFixed(2))
+                    })
+                    for (let i = 0; i < 9; i++) {
+                        graficoPercentualMunicipios.data.datasets[i].data = [valoresPercentualCrimes[i]]
+                    }
+                    graficoPercentualMunicipios.options.plugins.title.text = `Percentual dos Crimes por Município (${ano_selecionado})`
+                    console.log("aqui");
+                    console.log(valoresPercentualCrimes);
+                    graficoPercentualMunicipios.update()
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    }
+    const graficoPercentualMunicipios = new Chart(document.getElementById('graficoPercentualMunicipios').getContext('2d'), {
         type: 'bar',
         data: {
             labels: [''],
             datasets: [
                 {
                     label: 'Bertioga',
-                    data: [5.8],
+                    data: [valoresPercentualCrimes[0]],
                     backgroundColor: '#4e79a7',
                     borderWidth: 1.5,
                     borderColor: '#fff',
                 },
                 {
                     label: 'Cubatão',
-                    data: [7.2],
+                    data: [valoresPercentualCrimes[1]],
                     backgroundColor: '#f28e2b',
                     borderWidth: 1.5,
                     borderColor: '#fff',
                 },
                 {
                     label: 'Guarujá',
-                    data: [10.5],
+                    data: [valoresPercentualCrimes[2]],
                     backgroundColor: '#e15759',
                     borderWidth: 1.5,
                     borderColor: '#fff',
                 },
                 {
                     label: 'Itanhaém',
-                    data: [6.4],
+                    data: [valoresPercentualCrimes[3]],
                     backgroundColor: '#76b7b2',
                     borderWidth: 1.5,
                     borderColor: '#fff',
                 },
                 {
                     label: 'Mongaguá',
-                    data: [5.2],
+                    data: [valoresPercentualCrimes[4]],
                     backgroundColor: '#59a14f',
                     borderWidth: 1.5,
                     borderColor: '#fff',
                 },
                 {
                     label: 'Peruíbe',
-                    data: [6.9],
+                    data: [valoresPercentualCrimes[5]],
                     backgroundColor: '#edc948',
                     borderWidth: 1.5,
                     borderColor: '#fff',
                 },
                 {
                     label: 'Praia Grande',
-                    data: [13.8],
+                    data: [valoresPercentualCrimes[6]],
                     backgroundColor: '#b07aa1',
                     borderWidth: 1.5,
                     borderColor: '#fff',
                 },
                 {
                     label: 'Santos',
-                    data: [28.4],
+                    data: [valoresPercentualCrimes[7]],
                     backgroundColor: '#ff9da7',
                     borderWidth: 1.5,
                     borderColor: '#fff',
                 },
                 {
                     label: 'São Vicente',
-                    data: [15.8],
+                    data: [valoresPercentualCrimes[0]],
                     backgroundColor: '#9c755f',
                     borderWidth: 1.5,
                     borderColor: '#fff',
@@ -496,7 +694,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Participação Percentual dos Crimes por Município (2025)',
+                    text: `Percentual dos Crimes por Município (${ano_selecionado})`,
                     color: '#000',
                     font: {
                         family: 'Poppins',
@@ -530,15 +728,56 @@
     });
 
 
+
     // Gráfico de Atividade Policial
-    const atividade_policial = new Chart(document.getElementById('atividade-policial').getContext('2d'), {
+    var valoresCrimes = []
+    var valoresAtividadePolicial = []
+
+    function carregarGraficoAtividadePolicial() {
+        valoresCrimes = []
+        valoresAtividadePolicial = []
+        fetch(`/dashboard/crimesAtividadePolicial/${municipios.indexOf(municipio_selecionado) + 1}/${ano_selecionado}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+
+                    json.forEach((mes) => {
+                        if (mes.tipo_ocorrencia == "Crime") {
+                            valoresCrimes.push(mes.total_crimes)
+                        } else if (mes.tipo_ocorrencia == "Produtividade Policial") {
+                            valoresAtividadePolicial.push(mes.total_crimes)
+                        }
+                    })
+                    console.log(valoresAtividadePolicial);
+                    console.log(valoresCrimes);
+
+                    graficoAtividadePolicial.data.datasets[0].data = valoresAtividadePolicial
+                    graficoAtividadePolicial.data.datasets[1].data = valoresCrimes
+                    graficoAtividadePolicial.update()
+
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    }
+
+    const graficoAtividadePolicial = new Chart(document.getElementById('atividade-policial').getContext('2d'), {
         type: 'line',
         data: {
             labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [{
                 label: 'Atividade Policial',
                 borderWidth: 1.3,
-                data: [(Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed(), (Math.random() * 400 + 1000).toFixed()],
+                data: valoresAtividadePolicial,
                 borderColor: 'blue',
                 backgroundColor: 'transparent',
                 tension: 0.3,
@@ -546,7 +785,7 @@
             {
                 label: 'Crimes',
                 borderWidth: 1.3,
-                data: [312, 875, 1040, 420, 1335, 605, 1210, 790, 1398, 910, 275, 1175],
+                data: valoresCrimes,
                 borderColor: 'orange',
                 backgroundColor: 'transparent',
                 tension: 0.3
@@ -588,23 +827,6 @@
                     beginAtZero: true
                 }
             }
-        }
-    });
-
-    function atualizarAtividadePoilicial() {
-        atividade_policial.data.datasets[0].data = [(Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed()]
-        atividade_policial.data.datasets[1].data = [(Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed(), (Math.random() * 1200 + 200).toFixed()]
-
-        atividade_policial.update()
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var iconePerfil = document.getElementById("icone_perfil_usuario");
-
-        if (iconePerfil) {
-            iconePerfil.addEventListener("click", function () {
-                window.location.href = "./perfil.html";
-            });
         }
     });
 </script>

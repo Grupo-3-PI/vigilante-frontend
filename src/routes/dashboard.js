@@ -11,4 +11,20 @@ router.get("/totalCrimesMunicipio/:fkMunicipio", function (req, res) {
     dashboardController.totalCrimesMunicipio(req, res);
 });
 
+router.get("/totalCrimesTodosMunicipios/:ano", function (req, res) {
+    dashboardController.totalCrimesTodosMunicipios(req, res);
+});
+
+router.get("/distribuicaoCrimes/:fkMunicipio", function (req, res) {
+    dashboardController.distribuicaoCrimes(req, res);
+});
+
+router.get("/percentualCrimes/:ano", function (req, res) {
+    dashboardController.percentualCrimes(req, res);
+});
+
+router.get("/crimesAtividadePolicial/:fkMunicipio/:ano", function (req, res) {
+    dashboardController.crimesAtividadePolicial(req, res);
+});
+
 module.exports = router;

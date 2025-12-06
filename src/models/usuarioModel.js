@@ -49,10 +49,19 @@ function atualizarStatusUsuario(id, status) {
     return database.executar(instrucaoSql);
 }
 
+function usuariosInativos(fkAgencia) {
+    var instrucaoSql = `
+        SELECT COUNT(id) FROM Usuario WHERE STATUS = "Inativo" AND fk_agencia = ${fkAgencia};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     listarTodosAgencia,
     editarUsuarios,
-    atualizarStatusUsuario
+    atualizarStatusUsuario,
+    usuariosInativos,
 };
