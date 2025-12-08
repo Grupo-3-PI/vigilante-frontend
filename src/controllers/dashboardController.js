@@ -64,6 +64,13 @@ function percentualTrimestrePassado(req, res) {
     });
 }
 
+function percentualProdutividadePolicial(req, res) {
+    fkMunicipio = req.params.fkMunicipio;
+    dashboardModel.percentualProdutividadePolicial(fkMunicipio).then(function (resultadopercentualProdutividadePolicial) {
+        res.json(resultadopercentualProdutividadePolicial);
+    });
+}
+
 module.exports = {
     totalCrimes,
     totalCrimesMunicipio,
@@ -73,4 +80,5 @@ module.exports = {
     crimesAtividadePolicial,
     percentualUltimoMes,
     percentualTrimestrePassado,
+    percentualProdutividadePolicial,
 }

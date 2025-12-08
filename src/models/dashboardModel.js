@@ -142,6 +142,15 @@ function percentualTrimestrePassado(fk_municipio, ano) {
   return database.executar(instrucaoSql);
 }
 
+function percentualProdutividadePolicial(fk_municipio) {
+  var instrucaoSql = `
+    select 
+      (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) and fk_municipio = ${fk_municipio} and ano = YEAR(curdate()) and tipo_ocorrencia = 'Produtividade Policial') * 100 / 
+      (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) and fk_municipio = ${fk_municipio} and ano = YEAR(curdate()) and tipo_ocorrencia = 'Crime') - 100 as percentual;`;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
   totalCrimes,
@@ -152,4 +161,5 @@ module.exports = {
   crimesAtividadePolicial,
   percentualUltimoMes,
   percentualTrimestrePassado,
+  percentualProdutividadePolicial,
 };

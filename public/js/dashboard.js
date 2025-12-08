@@ -39,6 +39,7 @@ function selecionarTerceiroTrimestre() {
 
 
 // Carrega todas KPI's, tabela e gráficos
+carregarKpiPercentualProdutividadePolicial()
 carregarKpiPercentualTrimestrePassado()
 carregarKpiPercentualUltimoMes()
 
@@ -53,6 +54,7 @@ function selecionarMunicipio() {
     var indice_municipio = document.getElementById("select-municipio").value
     municipio_selecionado = municipios[indice_municipio]
     document.getElementById("nomeMunicipioKPI").textContent = municipio_selecionado;
+    carregarKpiPercentualProdutividadePolicial()
     carregarKpiPercentualTrimestrePassado()
     carregarKpiPercentualUltimoMes()
 
@@ -64,6 +66,7 @@ function selecionarMunicipio() {
 function selecionarAno() {
     var valor_ano = document.getElementById("select-ano").value
     ano_selecionado = valor_ano
+    carregarKpiPercentualProdutividadePolicial()
     carregarKpiPercentualTrimestrePassado()
     carregarKpiPercentualUltimoMes()
 
@@ -74,7 +77,35 @@ function selecionarAno() {
 
 }
 
+// KPI percentual de produtividade policial x crimes
+function carregarKpiPercentualProdutividadePolicial() {
+    fetch(`/dashboard/percentualProdutividadePolicial/${municipios.indexOf(municipio_selecionado) + 1}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
 
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                if (Number.isNaN(parseFloat(json[0].percentual))) {
+                    document.getElementById("percentualProdutividadePolicial").innerHTML = "0%";
+                } else {
+                    document.getElementById("percentualProdutividadePolicial").innerHTML = parseFloat(json[0].percentual).toFixed(1) + "%";
+                }
+
+            });
+        } else {
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
 // KPI de percentual de alteração no índice de criminalidade no trimestre passado
 function carregarKpiPercentualTrimestrePassado() {
@@ -144,8 +175,6 @@ function carregarKpiPercentualUltimoMes() {
 
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log("aqui");
-                console.log(json[0]["porcentagem"]);
 
                 if (json[0]["atual"] > json[0]["passado"]) {
                     document.getElementById("percentualAlteracao").innerHTML = "+" + parseFloat(json[0]["porcentagem"]).toFixed(1) + "%"

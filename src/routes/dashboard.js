@@ -35,4 +35,8 @@ router.get("/percentualTrimestrePassado/:fkMunicipio/:ano", function (req, res) 
     dashboardController.percentualTrimestrePassado(req, res);
 });
 
+router.get("/percentualProdutividadePolicial/:fkMunicipio", function (req, res) {
+    dashboardController.percentualProdutividadePolicial(req, res);
+});
+
 module.exports = router;
