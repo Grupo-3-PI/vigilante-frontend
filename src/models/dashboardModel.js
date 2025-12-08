@@ -19,6 +19,26 @@ function totalCrimesTodosMunicipios(ano) {
   return database.executar(instrucaoSql);
 }
 
+function percentualUltimoMes(fk_municipio, ano) {
+  var instrucaoSql = `
+    select (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) and fk_municipio = ${fk_municipio} and ano = ${ano}) as atual, (select sum(qtd_ocorrencias) from Ocorrencias where mes = (MONTH(curdate()) - 1) and fk_municipio = ${fk_municipio} and ano = ${ano}) as passado,  (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) and fk_municipio = ${fk_municipio} and ano = ${ano}) * 100 /  (select sum(qtd_ocorrencias) from Ocorrencias where mes = (MONTH(curdate()) - 1) and fk_municipio = ${fk_municipio} and ano = ${ano}) - 100 as porcentagem;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function percentualTrimestrePassado(fk_municipio, ano) {  
+  var instrucaoSql = `
+    select 
+      (select sum(qtd_ocorrencias) from Ocorrencias where mes >= 1 and mes <= 3 and ${fk_municipio} and ano = ${ano}) * 100 /  (select sum(qtd_ocorrencias) from Ocorrencias where mes >= 1 and mes <= 3 and ${fk_municipio} and ano = ${ano - 1}) - 100 as primeiro, 
+      (select sum(qtd_ocorrencias) from Ocorrencias where mes >= 4 and mes <= 6 and ${fk_municipio} and ano = ${ano}) * 100 /  (select sum(qtd_ocorrencias) from Ocorrencias where mes >= 4 and mes <= 6 and ${fk_municipio} and ano = ${ano - 1}) - 100 as segundo, 
+      (select sum(qtd_ocorrencias) from Ocorrencias where mes >= 7 and mes <= 9 and ${fk_municipio} and ano = ${ano}) * 100 /  (select sum(qtd_ocorrencias) from Ocorrencias where mes >= 7 and mes <= 9 and ${fk_municipio} and ano = ${ano - 1}) - 100 as terceiro,
+      (select sum(qtd_ocorrencias) from Ocorrencias where mes >= 10 and mes <= 12 and ${fk_municipio} and ano = ${ano}) * 100 /  (select sum(qtd_ocorrencias) from Ocorrencias where mes >= 10 and mes <= 12 and ${fk_municipio} and ano = ${ano - 1}) - 100 as quarto;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 function distribuicaoCrimes(fkMunicipio) {
   var instrucaoSql = `SELECT CASE
         WHEN nome_crime LIKE 'HOMICÍDIO DOLOSO%' 
@@ -130,4 +150,6 @@ module.exports = {
   distribuicaoCrimes,
   percentualCrimes,
   crimesAtividadePolicial,
+  percentualUltimoMes,
+  percentualTrimestrePassado
 };

@@ -1,9 +1,9 @@
 var database = require("../database/config");
 
-function cadastrar(titulo_relatorio, consulta, fk_Usuario, status) {
+function cadastrar(titulo_relatorio, consulta, fk_usuario) {
     var instrucaoSql = `
-        INSERT INTO Relatorio (titulo_relatorio, consulta, fk_Usuario, status, dt_geracao)
-        VALUES ('${titulo_relatorio}', ${consulta}, ${fk_Usuario}, '${status}', NOW());
+        INSERT INTO Relatorio (titulo_relatorio, consulta, fk_usuario, status, dt_geracao)
+        VALUES ('${titulo_relatorio}', '${consulta}', ${fk_usuario}, 'Ativo', NOW());
     `;
     return database.executar(instrucaoSql);
 }
@@ -21,6 +21,14 @@ function listarTodos() {
         FROM Relatorio r
         JOIN Usuario u ON r.fk_Usuario = u.id
         JOIN Agencia a ON u.fk_agencia = a.id;
+    `;
+    return database.executar(instrucaoSql);
+}
+
+function pegarDadosConsulta(id) {
+    var instrucaoSql = `
+        SELECT consulta FROM Relatorio
+        WHERE id = ${id};
     `;
     return database.executar(instrucaoSql);
 }
@@ -47,6 +55,7 @@ function atualizarStatus(id, status) {
 module.exports = {
     cadastrar,
     listarTodos,
+    pegarDadosConsulta,
     editar,
     atualizarStatus
 };
