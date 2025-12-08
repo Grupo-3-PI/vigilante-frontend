@@ -26,6 +26,11 @@
                     <i class='bx bxs-report'></i>
                     <span>Relatórios</span>
                 </a>
+
+                <a href="notificacoes.html" class="nav_item">
+                    <i class='bx bx-bell'></i>
+                    <span>Notificações</span>
+                </a>
             </nav>
         </div>
 
@@ -55,7 +60,7 @@
                 <h2 class="panel_subtitle">Opções de Notificações Slack</h2>
 
                 <div class="input_group checkbox_top">
-                    <input type="checkbox" id="ativar_notificacoes" class="large_checkbox">
+                    <input type="checkbox" id="ativar_notificacoes" class="large_checkbox" value=0>
                     <label for="ativar_notificacoes">Ativar/Desativar notificações</label>
                 </div>
 
@@ -64,9 +69,9 @@
                     <div class="select_wrapper">
                         <select id="canal_slack">
                             <option value="" disabled selected></option>
-                            <option value="geral">#geral</option>
-                            <option value="alertas">#alertas-seguranca</option>
-                            <option value="random">#random</option>
+                            <option value="C09VAA4SNAX">#geral-Prevcrime</option>
+                            <option value="C09SKQ9LCAW">#alertas</option>
+                            <option value="C09SGAC0N21">#time operacoes</option>
                         </select>
                     </div>
                 </div>
@@ -89,28 +94,12 @@
                     </div>
                 </div>
 
-                <button class="btn_salvar">Salvar</button>
+                <button class="btn_salvar" onclick="salvarConfig()">Salvar</button>
             </div>
 
             <div class="vertical_divider"></div>
 
-            <div class="panel_column right_col">
-                <h2 class="panel_subtitle">Status Slack</h2>
-
-                <div class="status_info">
-                    <p>Notificações: <span id="status_notificacao_texto">xxxx</span></p>
-                    <p>Canal das Notificações: <span id="status_canal_texto">xxxx</span></p>
-                </div>
-
-                <div class="status_list_group">
-                    <label class="label_bold">Tipo de notificações ativas:</label>
-                    <ul class="active_types_list">
-                        <li>Informações</li>
-                        <li>Avisos</li>
-                        <li>Erros</li>
-                    </ul>
-                </div>
-            </div>
+            
 
         </div>
     </div>
@@ -179,5 +168,77 @@
     });
 
     document.addEventListener('DOMContentLoaded', atualizarPreview);
+
+    function salvarConfig() {
+
+        const fkUsuario = sessionStorage.ID_USUARIO;
+        const canal = selectCanal.value;
+
+
+        fetch("/slack/alterarCanal", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fkUsuario: sessionStorage.ID_USUARIO,
+                canal: canal,
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Canal alterado com sucesso!");
+                } else {
+                    alert("Erro ao salvar configurações.");
+                }
+            })
+            .catch(err => console.log("ERRO:", err));
+
+
+        //Função para ativar/Desativar
+        status = toggleAtivar.checked ? 1 : 0;
+
+        fetch("/slack/alterarStatus", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fkUsuario: fkUsuario,
+                status: status,
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Status alterado com sucesso!");
+                } else {
+                    alert("Erro ao salvar configurações.");
+                }
+            })
+            .catch(err => console.log("ERRO:", err));
+
+        //Função para escolher notificações
+
+        info = checkInfo.checked ? 1 : 0;
+        warn = checkAvisos.checked ? 1 : 0;
+        error = checkErros.checked ? 1 : 0;
+
+
+        fetch("/slack/alterarNotificacoes", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fkUsuario: fkUsuario,
+                info: info,
+                warn: warn,
+                error: error,
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Notificações alteradas com sucesso!");
+                } else {
+                    alert("Erro ao salvar configurações.");
+                }
+            })
+            .catch(err => console.log("ERRO:", err));
+    }
+
 
 </script>
