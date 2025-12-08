@@ -1,11 +1,14 @@
 const municipios = ["Bertioga", "Cubatão", "Guarujá", "Itanhaém", "Mongaguá", "Peruíbe", "Praia Grande", "Santos", "São Vicente"];
 var ano = new Date().getFullYear();
-var municipio_selecionado = "Bertioga";
-let graficos = {};
-
+// var municipio_selecionado = "Bertioga";
 
 // -------------------- Funções do relatório --------------------
 let json = [];
+
+function carregarRodapePagina() {
+    var data = new Date();
+    document.getElementById("rodape-pagina").textContent = `Vigilante - gerado em ${data.getDay()}${data.getDate()}/${data.getMonth()}/${data.getFullYear()} ${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`
+}
 
 async function pegarDadosDashboard() {
 
@@ -16,20 +19,25 @@ async function pegarDadosDashboard() {
         let percentualTrimestrePassado = await carregarKpiPercentualTrimestrePassado(municipio);
         let percentalUltimoMes = await carregarKpiPercentualUltimoMes(municipio);
 
+        let distribuicaoCrimes = await valoresDistribuicaoCrimesMunicipio(municipio);
+        let atividadePolicial = await dadosAtividadePolicial(municipio);
+
         json.push({
-            municipio: `${municipio.toString()}`,
+            municipio: municipio.toString(),
             dados: {
-                totalCrimes: `${totalCrimes}`,
-                percentualTrimestrePassado: `${percentualTrimestrePassado}`,
-                percentalUltimoMes: `${percentalUltimoMes}`
+                totalCrimes: totalCrimes,
+                percentualTrimestrePassado: percentualTrimestrePassado,
+                percentalUltimoMes: percentalUltimoMes,
+                distribuicao: distribuicaoCrimes,
+                atividadePolicial: atividadePolicial
             }
         })
     }
 
     let jsonFinal = JSON.stringify({ municipios: json }, null, 2)
 
-    // console.log("Json retornado pelo pegarDadosDashboard", jsonFinal);
-    // alert(jsonFinal);
+    console.log("Json retornado pelo pegarDadosDashboard", jsonFinal);
+    alert(jsonFinal);
 
     return jsonFinal;
 }
@@ -54,7 +62,7 @@ async function pegarDadosDashboard() {
 
 
 async function pegarDadosRelatorio(id) {
-    let dados = await fetch(`/relatorios/pegarDadosConsulta/${id}`, {
+    var dados = await fetch(`/relatorios/pegarDadosConsulta/${id}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -69,26 +77,25 @@ async function pegarDadosRelatorio(id) {
             });
         }
     })
-        .then(json => {
-            return json[0].consulta.municipios.map(m => m.dados);
-        })
+        // .then(json => {
+        //     return json[0].consulta.municipios.map(m => m.dados);
+        // })
 
         .catch(function (erro) {
             console.log(erro);
         });
 
     console.log("Dados ", dados);
+
     return dados;
 }
-
-pegarDadosRelatorio(2);
 
 function gerarCardsMunicipios(lista) {
     console.log("gerarCardsMunicipios", lista)
 
     const container = document.getElementById("container-municipios");
 
-    lista.municipios.forEach(m => {
+    lista[0].consulta.municipios.forEach((m, index) => {
 
         const card = document.createElement("div");
         card.classList.add("card-municipio");
@@ -114,11 +121,11 @@ function gerarCardsMunicipios(lista) {
             </table>
 
             <div class="grafico1 grafico">
-                <canvas id="graficoCrimes-${m.index + 1}"></canvas>
+                <canvas id="graficoCrimes-${index}"></canvas>
             </div>
 
             <div class="atividade-policial">
-                <canvas id="atividade-policial-${m.index + 1}" width="490" height="125"></canvas>
+                <canvas id="atividade-policial-${index}" width="490" height="125"></canvas>
             </div>
 
             <div class="page-break"></div>
@@ -126,11 +133,17 @@ function gerarCardsMunicipios(lista) {
 
         container.appendChild(card);
 
-        criarGraficoCrimes(m.index + 1);
-        criarGraficoAtividadePolicial(m.index + 1);
 
-        carregarGraficoDistribuicaoCrimesMunicipio(m.municipio)
-        carregarGraficoAtividadePolicial(m.municipio)
+        let valoresDistribuicao = m.dados.distribuicao.map(item => Number(item.total_ocorrencias));
+        // let atividadePolicial = m.dados.atividadePolicial.map(item => Number(item.total_ocorrencias))
+        const atividadePolicial = [
+            m.dados.atividadePolicial.filter(i => i.tipo_ocorrencia === "Crime").map(i => Number(i.total_crimes)),
+            m.dados.atividadePolicial.filter(i => i.tipo_ocorrencia === "Produtividade Policial").map(i => Number(i.total_crimes))
+        ];
+
+
+        criarGraficoCrimes(index, m.municipio, valoresDistribuicao);
+        criarGraficoAtividadePolicial(index, m.municipio, atividadePolicial);
     });
 }
 
@@ -170,7 +183,7 @@ function gerarPDF() {
     const element = document.getElementById("conteudo");
 
     const data = new Date();
-    const nome_arquivo = `relatorio criminalidade baixada santista ${data.getDay()}-${data.getMonth()}-${data.getFullYear()} - ${data.getHours()}-${data.getMinutes()}.pdf`
+    const nome_arquivo = `relatorio criminalidade baixada santista ${data.getDay()}${data.getDate()}/${data.getMonth()}/${data.getFullYear()}.pdf`
 
     const opt = {
         margin: 10,
@@ -203,66 +216,36 @@ function exibirKPISEGraficos() {
 
 // KPI de percentual de alteração no índice de criminalidade no trimestre passado
 async function carregarKpiPercentualTrimestrePassado(municipio) {
-    let alteracao = await fetch(`/dashboard/percentualTrimestrePassado/${municipios.indexOf(municipio) + 1}/${new Date().getFullYear()}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
 
-    }).then(function (resposta) {
+    const resposta = await fetch(`/dashboard/percentualTrimestrePassado/${municipios.indexOf(municipio) + 1}/${ano}`);
 
+    if (!resposta.ok) {
+        console.error(await resposta.text());
+        return "0%";
+    }
 
-        if (resposta.ok) {
-            return resposta.json()
+    const json = await resposta.json();
 
-                .then(json => {
+    const trimestre = [
+        "primeiro",
+        "segundo",
+        "terceiro",
+        "quarto"
+    ];
 
-                    const mes_atual = new Date().getMonth()
-                    if (mes_atual >= 1 && mes_atual <= 3) {
+    const mes_atual = new Date().getMonth(); // 0-11
+    const indiceTrimestre = Math.floor(mes_atual / 3); // 0-3
 
-                        if (Number.isNaN(parseFloat(json[0].primeiro).toFixed(1))) {
-                            return parseFloat(json[0].primeiro).toFixed(1) + "%";
-                        } else {
-                            return "0%"
-                        }
+    const valor = parseFloat(json[0][trimestre[indiceTrimestre]]);
 
-                    } else if (mes_atual >= 4 && mes_atual <= 6) {
+    if (isNaN(valor)) return "0%";
 
-                        if (Number.isNaN(parseFloat(json[0].segundo).toFixed(1))) {
-                            return parseFloat(json[0].segundo).toFixed(1) + "%";
-                        } else {
-                            return "0%";
-                        }
-
-                    } else if (mes_atual >= 7 && mes_atual <= 9) {
-                        if (Number.isNaN(parseFloat(json[0].terceiro).toFixed(1))) {
-                            return parseFloat(json[0].terceiro).toFixed(1) + "%";
-                        } else {
-                            return "0%";
-                        }
-                    } else {
-                        if (Number.isNaN(parseFloat(json[0].quarto).toFixed(1))) {
-                            return parseFloat(json[0].quarto).toFixed(1) + "%";
-                        } else {
-                            return "0%";
-                        }
-                    }
-
-                });
-        } else {
-            resposta.text().then(texto => {
-                console.error(texto);
-            });
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-    });
-
-    return alteracao;
+    return valor.toFixed(1) + "%";
 }
 
+
 async function carregarKpiPercentualUltimoMes(municipio) {
-    let percentual = await fetch(`/dashboard/percentualUltimoMes/${municipios.indexOf(municipio) + 1}/${new Date().getFullYear()}`, {
+    let percentual = await fetch(`/dashboard/percentualUltimoMes/${municipios.indexOf(municipio) + 1}/${ano}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -273,8 +256,6 @@ async function carregarKpiPercentualUltimoMes(municipio) {
 
         if (resposta.ok) {
             return resposta.json().then(json => {
-                //console.log("aqui");
-                //console.log(json[0]["porcentagem"]);
 
                 if (json[0]["atual"] > json[0]["passado"]) {
                     return "+" + parseFloat(json[0]["porcentagem"]).toFixed(1) + "%"
@@ -335,43 +316,17 @@ async function carregarKpiPercentualUltimoMes(municipio) {
 // carregarTotalCrimes()
 // carregarKpiTotalCrimesMunicipio()
 async function carregarTudo() {
-    var jsonFinal = await pegarDadosDashboard()
-    // var jsonFinal = await pegarDadosRelatorio()
+    //var jsonFinal = await pegarDadosDashboard()
+    var jsonFinal = await pegarDadosRelatorio(12)
 
     carregarPercentualCrimes()
-
-
-
     carregarTabela()
 
-    gerarCardsMunicipios(JSON.parse(jsonFinal));
+    gerarCardsMunicipios(jsonFinal);
+    carregarRodapePagina()
 }
 
 carregarTudo();
-
-
-
-// Função para trocar o valor de municipio selecionado
-// function selecionarMunicipio() {
-//     var indice_municipio = document.getElementById("select-municipio").value
-//     municipio_selecionado = municipios[indice_municipio]
-//     document.getElementById("nomeMunicipioKPI").textContent = municipio_selecionado;
-//     carregarKpiTotalCrimesMunicipio()
-//     carregarGraficoDistribuicaoCrimesMunicipio()
-//     carregarGraficoAtividadePolicial()
-// }
-
-// Função para trocar o valor de ano selecionado
-// function selecionarAno() {
-//     var valor_ano = document.getElementById("select-ano").value
-//     ano = valor_ano
-//     carregarKpiTotalCrimesMunicipio()
-//     carregarTabela()
-//     carregarGraficoDistribuicaoCrimesMunicipio()
-//     carregarPercentualCrimes()
-//     carregarGraficoAtividadePolicial()
-
-// }
 
 // KPI de total de crimes em toda Baixada Santista
 async function carregarTotalCrimes() {
@@ -494,11 +449,31 @@ var idUsuario = Number(sessionStorage.ID_USUARIO);
 
 // Funções de filtro (exibirMunicipios, selecionarMunicipio, etc.) removidas do script
 // pois os elementos não existem mais no HTML.
+async function valoresDistribuicaoCrimesMunicipio(municipio) {
+    var dados = await fetch(`/dashboard/distribuicaoCrimes/${municipios.indexOf(municipio) + 1}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            //console.log(`valoresDistribuicaoCrimesMunicipio:`, resposta.json())
+            return resposta.json()
+        } else {
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
 
+    return dados;
+}
 
 //Gráfico de distribuição de crimes por município
 var valoresDistribuicaoCrimes = []
-function carregarGraficoDistribuicaoCrimesMunicipio(municipio) {
+function carregarGraficoDistribuicaoCrimesMunicipio(municipio, graficoTotalCrimes) {
     valoresDistribuicaoCrimes = []
     fetch(`/dashboard/distribuicaoCrimes/${municipios.indexOf(municipio) + 1}`, {
         method: "GET",
@@ -508,8 +483,8 @@ function carregarGraficoDistribuicaoCrimesMunicipio(municipio) {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(json)
-                for (let i = 0; i < 4; i++) {
+                console.log(`DistribuicaoCrimes: ${municipio}`, json)
+                for (let i = 0; i < json.length; i++) {
                     valoresDistribuicaoCrimes.push(json[i].total_ocorrencias)
                 }
                 graficoTotalCrimes.data.datasets[0].data = valoresDistribuicaoCrimes;
@@ -527,10 +502,10 @@ function carregarGraficoDistribuicaoCrimesMunicipio(municipio) {
 }
 
 // // Gera o gráfico de distribuição de crimes do município selecionado
-function criarGraficoCrimes(id) {
-    if (graficos[id]) {
-        graficos[id].destroy();
-    }
+function criarGraficoCrimes(id, municipio, valoresDistribuicaoCrimes) {
+    // if (graficos[id]) {
+    //     graficos[id].destroy();
+    // }
     const graficoTotalCrimes = new Chart(document.getElementById(`graficoCrimes-${id}`), {
         type: 'bar',
         data: {
@@ -577,7 +552,7 @@ function criarGraficoCrimes(id) {
                 },
                 title: {
                     display: true,
-                    text: `Distribuição dos Crimes por Tipo em ${municipio_selecionado} (${ano})`,
+                    text: `Distribuição dos Crimes por Tipo em ${municipio} (${ano})`,
                     color: 'black',
                     font: {
                         size: 14,
@@ -599,6 +574,8 @@ function criarGraficoCrimes(id) {
             }
         }
     });
+
+    //carregarGraficoDistribuicaoCrimesMunicipio(municipio, graficoTotalCrimes)
 }
 // // Gráfico de percentual de criminalidade por município
 var valoresPercentualCrimes = []
@@ -620,7 +597,6 @@ function carregarPercentualCrimes() {
                     graficoPercentualMunicipios.data.datasets[i].data = [valoresPercentualCrimes[i]]
                 }
                 graficoPercentualMunicipios.options.plugins.title.text = `Percentual dos Crimes por Município (${ano})`
-                console.log("aqui");
                 console.log(valoresPercentualCrimes);
                 graficoPercentualMunicipios.update()
             });
@@ -771,12 +747,32 @@ const graficoPercentualMunicipios = new Chart(document.getElementById('graficoPe
 });
 
 
+async function dadosAtividadePolicial(municipio) {
+    var dados = await fetch(`/dashboard/crimesAtividadePolicial/${municipios.indexOf(municipio) + 1}/${ano}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            return resposta.json();
+        } else {
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+
+    return dados;
+}
 
 // Gráfico de Atividade Policial
 var valoresCrimes = []
 var valoresAtividadePolicial = []
 
-function carregarGraficoAtividadePolicial(municipio) {
+function carregarGraficoAtividadePolicial(municipio, graficoAtividadePolicial) {
     valoresCrimes = []
     valoresAtividadePolicial = []
     fetch(`/dashboard/crimesAtividadePolicial/${municipios.indexOf(municipio) + 1}/${ano}`, {
@@ -795,8 +791,8 @@ function carregarGraficoAtividadePolicial(municipio) {
                         valoresAtividadePolicial.push(mes.total_crimes)
                     }
                 })
-                console.log(valoresAtividadePolicial);
-                console.log(valoresCrimes);
+                console.log(`ValoresAtividadePolicial: ${municipio}`, valoresAtividadePolicial);
+                console.log(`ValoresCrimes: ${municipio}`, valoresCrimes);
 
                 graficoAtividadePolicial.data.datasets[0].data = valoresAtividadePolicial
                 graficoAtividadePolicial.data.datasets[1].data = valoresCrimes
@@ -813,10 +809,10 @@ function carregarGraficoAtividadePolicial(municipio) {
     });
 }
 
-function criarGraficoAtividadePolicial(id) {
-    if (graficos[id]) {
-        graficos[id].destroy();
-    }
+function criarGraficoAtividadePolicial(id, municipio, atividadePolicial) {
+    // if (graficos[id]) {
+    //     graficos[id].destroy();
+    // }
     const graficoAtividadePolicial = new Chart(document.getElementById(`atividade-policial-${id}`).getContext('2d'), {
         type: 'line',
         data: {
@@ -824,7 +820,7 @@ function criarGraficoAtividadePolicial(id) {
             datasets: [{
                 label: 'Atividade Policial',
                 borderWidth: 1.3,
-                data: valoresAtividadePolicial,
+                data: atividadePolicial[1],
                 borderColor: 'blue',
                 backgroundColor: 'transparent',
                 tension: 0.3,
@@ -832,7 +828,7 @@ function criarGraficoAtividadePolicial(id) {
             {
                 label: 'Crimes',
                 borderWidth: 1.3,
-                data: valoresCrimes,
+                data: atividadePolicial[0],
                 borderColor: 'orange',
                 backgroundColor: 'transparent',
                 tension: 0.3
@@ -845,7 +841,7 @@ function criarGraficoAtividadePolicial(id) {
                 ctx.save();
                 ctx.font = '16px Poppins';
                 ctx.textAlign = 'left';
-                ctx.fillText(`Crimes por Produtividade Policial em ${municipio_selecionado} - ${ano}`, chart.chartArea.left - 15, chart.chartArea.top - 40);
+                ctx.fillText(`Crimes por Produtividade Policial em ${municipio} - ${ano}`, chart.chartArea.left - 15, chart.chartArea.top - 40);
                 ctx.restore();
             }
         }],
@@ -876,4 +872,6 @@ function criarGraficoAtividadePolicial(id) {
             }
         }
     });
+
+    //carregarGraficoAtividadePolicial(municipio, graficoAtividadePolicial);
 }

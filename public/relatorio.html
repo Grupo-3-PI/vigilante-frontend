@@ -75,6 +75,7 @@
                 </div>
 
                 <div class="area-tabela">
+                    <div class="page-break"></div>
                     <div id="titulo-tabela" class="titulo-tabela"></div>
                     <div class="dados-tabela">
                         <table class="tabela" id="tabela">
@@ -100,21 +101,18 @@
 </body>
 
 <script>
-    var data = new Date();
-    document.getElementById("rodape-pagina").textContent = `Vigilante - gerado em ${data.getDay()}${data.getDate()}/${data.getMonth()}/${data.getFullYear()} ${data.getHours()}:${data.getMinutes()}:${data.getMilliseconds()}`
 
+    // function totalCrimesMunicipio(dados) {
+    //     document.getElementById("quant-crimes-mes").textContent = dados;
+    // }
 
-    function totalCrimesMunicipio(dados) {
-        document.getElementById("quant-crimes-mes").textContent = dados;
-    }
+    // function alteracaoTrimestre(dados) {
+    //     document.getElementById("trimestre-anterior").textContent = dados;
+    // }
 
-    function alteracaoTrimestre(dados) {
-        document.getElementById("trimestre-anterior").textContent = dados;
-    }
-
-    function ultimoMes(dados) {
-        document.getElementById("ultimo-mes").textContent = dados;
-    }
+    // function ultimoMes(dados) {
+    //     document.getElementById("ultimo-mes").textContent = dados;
+    // }
 
 
 
