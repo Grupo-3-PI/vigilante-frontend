@@ -51,7 +51,7 @@ function entrar() {
                 // Chaves que o seu usuarioController.js retorna
                 sessionStorage.setItem("EMAIL_USUARIO", json.email);
                 sessionStorage.setItem("NOME_USUARIO", json.nome);
-                sessionStorage.setItem("ID_USUARIO", json.idAgencia); 
+                sessionStorage.setItem("ID_USUARIO", json.id); 
                 sessionStorage.setItem("CNPJ_USUARIO", json.cnpj);
                 
                 sessionStorage.setItem("CARGO_AGENCIA_USUARIO", json.cargo_agencia);

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <title>Vigilante | Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
+    <link rel="stylesheet" href="css/relatoriosPedidos.css">
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="container_navbar">
+        <!-- Container cima -->
+        <div class="container_top">
+            <!-- Logo -->
+            <div class="img_logo">
+                <img src="./images/logo_vigilante.svg" alt="">
+            </div>
+            <!-- Botões da navbar -->
+            <nav class="navbar_buttons">
+                <!-- Botoes -->
+                <a href="municipio.html" class="nav_item">
+                    <i class='bx bx-home'></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav_item">
+                    <i class='bx bx-grid-alt'></i>
+                    <span>Dashboard</span>
+                </a>
+                <span class="nav_item" onclick="exibirRelatorios()" style="color: #34495e;">
+                    <i class='bx bxs-report'></i>
+                    <span>Relatórios</span>
+                </span>
+                <a href="dicas.html" class="nav_item">
+                    <i class='bx bx-bulb'></i>
+                    <span>Dicas</span>
+                </a>
+            </nav>
+        </div>
+        <!-- Container baixo -->
+        <div class="container_bottom">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
+                <div class="user_icon">
+                    <i class='bx bx-user'></i>
+                </div>
+                <div class="user_info">
+                    <span class="perfil" id="cargo">Admin</span>
+                    <span class="nome" id="b_usuario"></span>
+                </div>
+                <div class="notificacao">
+                    <i class='bx bx-bell'></i>
+                </div>
+            </div>
+            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar
+                usuários</button>
+            <p class="copyright">©2025 PrevCrime, Inc.</p>
+        </div>
+    </div>
+
+    <div class="conteudo">
+        <!-- Relatórios -->
+        <div class="container_relatorios">
+            <div class="container_title">
+                <h2>Relatórios</h2>
+                <div class="btn_criar_relatorio">Solicitar Relatório</div>
+            </div>
+
+            <div class="container_relatorios_agencia">
+                <div class="relatorios">
+                    <div class="nome_data_relatorio">
+                        <span class="nome_relatorio">Relatório de Crimes</span>
+                        <span class="data_relatorio">31/01/2025</span>
+                    </div>
+                    <div class="funcoes">
+                        <div class="btn_editar"><i class='bx bx-edit'></i></div>
+                        <div class="btn_baixar"><i class='bx bx-download'></i></div>
+                        <div class="btn_excluir"><i class='bx bx-trash'></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pedidos -->
+        <div class="container_pedidos">
+            <div class="container_title">
+                <h2>Pedidos</h2>
+            </div>
+
+            <div class="container_pedidos_agencia">
+                <div class="relatorios">
+                    <div class="nome_data_pedido">
+                        <span class="nome_pedido">Usuário Solicitante</span>
+                        <span class="data_pedido">31/01/2025</span>
+                    </div>
+                    <div class="status_pedido">
+                        <span class="status_label">Status:</span>
+                        <span class="status_value">Pendente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    // Preenher nome e cargo
+    if (sessionStorage.NOME_USUARIO) {
+        document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+    }
+    if (sessionStorage.CARGO_AGENCIA_USUARIO) {
+        document.getElementById('cargo').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
+    }
+
+
+</script>

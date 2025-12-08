@@ -1,4 +1,4 @@
-function entrarAdmin() {
+function entrar() {
     var emailVar = email_login.value;
     var senhaVar = senha_login.value;
 
@@ -44,7 +44,7 @@ function entrarAdmin() {
                 });
 
                 setTimeout(() => {
-                    window.location = "./dashboardAdmin.html";
+                    window.location = "./filtros.html";
                 }, 1500);
             });
 
