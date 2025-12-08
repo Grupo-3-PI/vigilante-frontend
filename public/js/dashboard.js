@@ -53,7 +53,6 @@ carregarGraficoAtividadePolicial()
 function selecionarMunicipio() {
     var indice_municipio = document.getElementById("select-municipio").value
     municipio_selecionado = municipios[indice_municipio]
-    document.getElementById("nomeMunicipioKPI").textContent = municipio_selecionado;
     carregarKpiPercentualProdutividadePolicial()
     carregarKpiPercentualTrimestrePassado()
     carregarKpiPercentualUltimoMes()
@@ -93,7 +92,11 @@ function carregarKpiPercentualProdutividadePolicial() {
                 if (Number.isNaN(parseFloat(json[0].percentual))) {
                     document.getElementById("percentualProdutividadePolicial").innerHTML = "0%";
                 } else {
-                    document.getElementById("percentualProdutividadePolicial").innerHTML = parseFloat(json[0].percentual).toFixed(1) + "%";
+                    if (parseFloat(json[0].percentual).toFixed(1) > 0) {
+                        document.getElementById("percentualProdutividadePolicial").innerHTML = "+" + parseFloat(json[0].percentual).toFixed(1) + "%";
+                    } else {
+                        document.getElementById("percentualProdutividadePolicial").innerHTML = parseFloat(json[0].percentual).toFixed(1) + "%";
+                    }
                 }
 
             });
@@ -121,10 +124,12 @@ function carregarKpiPercentualTrimestrePassado() {
         if (resposta.ok) {
             resposta.json().then(json => {
 
-                const mes_atual = new Date().getMonth()
+                const mes_atual = new Date().getMonth() - 2
+                console.log(mes_atual);
+                
                 if (mes_atual >= 1 && mes_atual <= 3) {
 
-                    if (Number.isNaN(parseFloat(json[0].primeiro).toFixed(1))) {
+                    if (Number.isNaN(parseFloat(json[0].primeiro))) {
                         document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = parseFloat(json[0].primeiro).toFixed(1) + "%";
                     } else {
                         document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = "0%"
@@ -132,20 +137,20 @@ function carregarKpiPercentualTrimestrePassado() {
 
                 } else if (mes_atual >= 4 && mes_atual <= 6) {
 
-                    if (Number.isNaN(parseFloat(json[0].segundo).toFixed(1))) {
+                    if (Number.isNaN(parseFloat(json[0].segundo))) {
                         document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = parseFloat(json[0].segundo).toFixed(1) + "%";
                     } else {
                         document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = "0%";
                     }
 
                 } else if (mes_atual >= 7 && mes_atual <= 9) {
-                    if (Number.isNaN(parseFloat(json[0].terceiro).toFixed(1))) {
+                    if (Number.isNaN(parseFloat(json[0].terceiro))) {
                         document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = parseFloat(json[0].terceiro).toFixed(1) + "%";
                     } else {
                         document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = "0%";
                     }
                 } else {
-                    if (Number.isNaN(parseFloat(json[0].quarto).toFixed(1))) {
+                    if (Number.isNaN(parseFloat(json[0].quarto))) {
                         document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = parseFloat(json[0].quarto).toFixed(1) + "%";
                     } else {
                         document.getElementById("percentualAlteracaoTrimestrePassado").innerHTML = "0%";
@@ -163,6 +168,7 @@ function carregarKpiPercentualTrimestrePassado() {
     });
 }
 
+
 function carregarKpiPercentualUltimoMes() {
     fetch(`/dashboard/percentualUltimoMes/${municipios.indexOf(municipio_selecionado) + 1}/${new Date().getFullYear()}`, {
         method: "GET",
@@ -176,9 +182,12 @@ function carregarKpiPercentualUltimoMes() {
         if (resposta.ok) {
             resposta.json().then(json => {
 
+                console.log(json[0]);
+                
+
                 if (json[0]["atual"] > json[0]["passado"]) {
                     document.getElementById("percentualAlteracao").innerHTML = "+" + parseFloat(json[0]["porcentagem"]).toFixed(1) + "%"
-                } else if (!Number.isNaN(parseFloat(json[0]["porcentagem"]).toFixed(1))) {
+                } else if (Number.isNaN(parseFloat(json[0]["porcentagem"]))) {
                     document.getElementById("percentualAlteracao").innerHTML = "0%"
                 }
                 else {
