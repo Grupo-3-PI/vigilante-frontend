@@ -4,50 +4,59 @@ var ano_selecionado = 2025;
 var municipio_selecionado = "Bertioga";
 
 
-var valorPrimeiroTrimestre = false;
-function selecionarPrimeiroTrimestre() {
-    if (valorPrimeiroTrimestre) {
-        document.getElementById("trimestre1").style.color = 'rgba(255, 255, 255, 0.805)';
-        valorPrimeiroTrimestre = false
-    } else {
-        document.getElementById("trimestre1").style.color = 'white';
-        valorPrimeiroTrimestre = true
-    }
+// Aplica o filtro nos elementos
+var filtroAplicado = "aba"
+function aplicarFiltro() {
+    
+    filtroAplicado = document.getElementById("select-filtros").value
+    carregarKpiPercentualUltimoMes(filtroAplicado)
+    carregarGraficoAtividadePolicial(filtroAplicado)
 }
 
-var valorSegundoTrimestre = false;
-function selecionarSegundoTrimestre() {
-    if (valorSegundoTrimestre) {
-        document.getElementById("trimestre2").style.color = 'rgba(255, 255, 255, 0.805)';
-        valorSegundoTrimestre = false
-    } else {
-        document.getElementById("trimestre2").style.color = 'white';
-        valorSegundoTrimestre = true
-    }
-}
+// Carrega todos os filtros cadastrados no banco para o select
+function carregarFiltros() {
+    fetch(`/dashboard/filtros/`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
 
-var valorTerceiroTrimestre = false;
-function selecionarTerceiroTrimestre() {
-    if (valorTerceiroTrimestre) {
-        document.getElementById("trimestre3").style.color = 'rgba(255, 255, 255, 0.805)';
-        valorTerceiroTrimestre = false
-    } else {
-        document.getElementById("trimestre3").style.color = 'white';
-        valorTerceiroTrimestre = true
-    }
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                json.forEach((filtro => {
+
+                    document.getElementById("select-filtros").innerHTML += `<option value="${filtro.categoria}">${filtro.nome}</option>`
+
+                }))
+
+            });
+        } else {
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
 }
 
 
 // Carrega todas KPI's, tabela e gráficos
+aplicarFiltro()
+carregarFiltros()
+
 carregarKpiPercentualProdutividadePolicial()
 carregarKpiPercentualTrimestrePassado()
-carregarKpiPercentualUltimoMes()
+carregarKpiPercentualUltimoMes(filtroAplicado)
 
 carregarTabela()
 
 carregarGraficoDistribuicaoCrimesMunicipio()
 carregarPercentualCrimes()
-carregarGraficoAtividadePolicial()
+carregarGraficoAtividadePolicial(filtroAplicado)
 
 // Função para trocar o valor de municipio selecionado
 function selecionarMunicipio() {
@@ -125,8 +134,7 @@ function carregarKpiPercentualTrimestrePassado() {
             resposta.json().then(json => {
 
                 const mes_atual = new Date().getMonth() - 2
-                console.log(mes_atual);
-                
+
                 if (mes_atual >= 1 && mes_atual <= 3) {
 
                     if (Number.isNaN(parseFloat(json[0].primeiro))) {
@@ -169,21 +177,25 @@ function carregarKpiPercentualTrimestrePassado() {
 }
 
 
-function carregarKpiPercentualUltimoMes() {
-    fetch(`/dashboard/percentualUltimoMes/${municipios.indexOf(municipio_selecionado) + 1}/${new Date().getFullYear()}`, {
+function carregarKpiPercentualUltimoMes(filtroAplicado) {
+    
+    if (filtroAplicado == undefined) {
+        
+        filtroAplicado = "aba"
+        
+    }
+    
+    fetch(`/dashboard/percentualUltimoMes/${municipios.indexOf(municipio_selecionado) + 1}/${new Date().getFullYear()}/${filtroAplicado}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
         }
 
     }).then(function (resposta) {
-
+        
 
         if (resposta.ok) {
             resposta.json().then(json => {
-
-                console.log(json[0]);
-                
 
                 if (json[0]["atual"] > json[0]["passado"]) {
                     document.getElementById("percentualAlteracao").innerHTML = "+" + parseFloat(json[0]["porcentagem"]).toFixed(1) + "%"
@@ -215,7 +227,6 @@ function carregarTabela() {
         if (resposta.ok) {
 
             resposta.json().then(json => {
-                console.log(json[0]);
 
                 var valores_municipio = []
                 document.getElementById("corpo-tabela").innerHTML = ""
@@ -394,7 +405,6 @@ function carregarPercentualCrimes() {
                     graficoPercentualMunicipios.data.datasets[i].data = [valoresPercentualCrimes[i]]
                 }
                 graficoPercentualMunicipios.options.plugins.title.text = `Percentual dos Crimes por Município (${ano_selecionado})`
-                console.log(valoresPercentualCrimes);
                 graficoPercentualMunicipios.update()
             });
         } else {
@@ -548,10 +558,10 @@ const graficoPercentualMunicipios = new Chart(document.getElementById('graficoPe
 var valoresCrimes = []
 var valoresAtividadePolicial = []
 
-function carregarGraficoAtividadePolicial() {
+function carregarGraficoAtividadePolicial(filtro) {
     valoresCrimes = []
     valoresAtividadePolicial = []
-    fetch(`/dashboard/crimesAtividadePolicial/${municipios.indexOf(municipio_selecionado) + 1}/${ano_selecionado}`, {
+    fetch(`/dashboard/crimesAtividadePolicial/${municipios.indexOf(municipio_selecionado) + 1}/${ano_selecionado}/${filtro}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -567,8 +577,8 @@ function carregarGraficoAtividadePolicial() {
                         valoresAtividadePolicial.push(mes.total_crimes)
                     }
                 })
-                console.log(valoresAtividadePolicial);
-                console.log(valoresCrimes);
+
+                
 
                 graficoAtividadePolicial.data.datasets[0].data = valoresAtividadePolicial
                 graficoAtividadePolicial.data.datasets[1].data = valoresCrimes

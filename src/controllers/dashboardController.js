@@ -43,7 +43,8 @@ function percentualCrimes(req, res) {
 function crimesAtividadePolicial(req, res) {
     fkMunicipio = req.params.fkMunicipio;
     ano = req.params.ano;
-    dashboardModel.crimesAtividadePolicial(fkMunicipio, ano).then(function (resultadoCrimesAtividadePolicial) {
+    filtro = req.params.filtro;
+    dashboardModel.crimesAtividadePolicial(fkMunicipio, ano, filtro).then(function (resultadoCrimesAtividadePolicial) {
         res.json(resultadoCrimesAtividadePolicial);
     });
 }
@@ -51,7 +52,8 @@ function crimesAtividadePolicial(req, res) {
 function percentualUltimoMes(req, res) {
     fkMunicipio = req.params.fkMunicipio;
     ano = req.params.ano;
-    dashboardModel.percentualUltimoMes(fkMunicipio, ano).then(function (resultadopercentualUltimoMes) {
+    filtro = req.params.filtro;
+    dashboardModel.percentualUltimoMes(fkMunicipio, ano, filtro).then(function (resultadopercentualUltimoMes) {
         res.json(resultadopercentualUltimoMes);
     });
 }
@@ -71,6 +73,12 @@ function percentualProdutividadePolicial(req, res) {
     });
 }
 
+function filtros(req, res) {
+    dashboardModel.filtros().then(function (resultadoFiltros) {
+        res.json(resultadoFiltros);
+    });
+}
+
 module.exports = {
     totalCrimes,
     totalCrimesMunicipio,
@@ -81,4 +89,5 @@ module.exports = {
     percentualUltimoMes,
     percentualTrimestrePassado,
     percentualProdutividadePolicial,
+    filtros,
 }

@@ -23,11 +23,11 @@ router.get("/percentualCrimes/:ano", function (req, res) {
     dashboardController.percentualCrimes(req, res);
 });
 
-router.get("/crimesAtividadePolicial/:fkMunicipio/:ano", function (req, res) {
+router.get("/crimesAtividadePolicial/:fkMunicipio/:ano/:filtro", function (req, res) {
     dashboardController.crimesAtividadePolicial(req, res);
 });
 
-router.get("/percentualUltimoMes/:fkMunicipio/:ano", function (req, res) {
+router.get("/percentualUltimoMes/:fkMunicipio/:ano/:filtro", function (req, res) {
     dashboardController.percentualUltimoMes(req, res);
 });
 
@@ -37,6 +37,10 @@ router.get("/percentualTrimestrePassado/:fkMunicipio/:ano", function (req, res) 
 
 router.get("/percentualProdutividadePolicial/:fkMunicipio", function (req, res) {
     dashboardController.percentualProdutividadePolicial(req, res);
+});
+
+router.get("/filtros/", function (req, res) {
+    dashboardController.filtros(req, res);
 });
 
 module.exports = router;
