@@ -19,7 +19,7 @@ router.get("/distribuicaoCrimes/:fkMunicipio", function (req, res) {
     dashboardController.distribuicaoCrimes(req, res);
 });
 
-router.get("/percentualCrimes/:ano", function (req, res) {
+router.get("/percentualCrimes/:ano/:filtro", function (req, res) {
     dashboardController.percentualCrimes(req, res);
 });
 

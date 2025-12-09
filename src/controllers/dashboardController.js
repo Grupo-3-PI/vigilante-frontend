@@ -35,7 +35,8 @@ function distribuicaoCrimes(req, res) {
 
 function percentualCrimes(req, res) {
     ano = req.params.ano;
-    dashboardModel.percentualCrimes(ano).then(function (resultadoPercentualCrimes) {
+    filtro = req.params.filtro;
+    dashboardModel.percentualCrimes(ano, filtro).then(function (resultadoPercentualCrimes) {
         res.json(resultadoPercentualCrimes);
     });
 }

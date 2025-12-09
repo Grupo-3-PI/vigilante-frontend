@@ -11,6 +11,7 @@ function aplicarFiltro() {
     filtroAplicado = document.getElementById("select-filtros").value
     carregarKpiPercentualUltimoMes(filtroAplicado)
     carregarGraficoAtividadePolicial(filtroAplicado)
+    carregarPercentualCrimes(filtroAplicado)
 }
 
 // Carrega todos os filtros cadastrados no banco para o select
@@ -55,7 +56,7 @@ carregarKpiPercentualUltimoMes(filtroAplicado)
 carregarTabela()
 
 carregarGraficoDistribuicaoCrimesMunicipio()
-carregarPercentualCrimes()
+carregarPercentualCrimes(filtroAplicado)
 carregarGraficoAtividadePolicial(filtroAplicado)
 
 // Função para trocar o valor de municipio selecionado
@@ -80,7 +81,7 @@ function selecionarAno() {
 
     carregarTabela()
     carregarGraficoDistribuicaoCrimesMunicipio()
-    carregarPercentualCrimes()
+    carregarPercentualCrimes(filtroAplicado)
     carregarGraficoAtividadePolicial()
 
 }
@@ -387,9 +388,9 @@ const graficoTotalCrimes = new Chart(document.getElementById('graficoCrimes'), {
 
 // Gráfico de percentual de criminalidade por município
 var valoresPercentualCrimes = []
-function carregarPercentualCrimes() {
+function carregarPercentualCrimes(filtroAplicado) {
     valoresPercentualCrimes = []
-    fetch(`/dashboard/percentualCrimes/${ano_selecionado}`, {
+    fetch(`/dashboard/percentualCrimes/${ano_selecionado}/${filtroAplicado}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -406,6 +407,7 @@ function carregarPercentualCrimes() {
                 }
                 graficoPercentualMunicipios.options.plugins.title.text = `Percentual dos Crimes por Município (${ano_selecionado})`
                 graficoPercentualMunicipios.update()
+
             });
         } else {
             resposta.text().then(texto => {
