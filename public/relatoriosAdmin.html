@@ -11,8 +11,7 @@
     <title>Gerenciar Relatórios</title>
 </head>
 
-<body>
-
+<body onload="carregarSolicitacoes()">
     <div class="container_navbar">
         <div class="container_top">
             <div class="img_logo">
@@ -23,7 +22,7 @@
                     <i class='bx bx-filter-alt'></i>
                     <span>Filtros</span>
                 </a>
-                <a href="relatoriosAdmin.html" class="nav_item active">
+                <a href="relatoriosAdmin.html" class="nav_item active" style="color: #83a2ff;">
                     <i class='bx bxs-report'></i>
                     <span>Relatórios</span>
                 </a>
@@ -91,7 +90,18 @@
                         Fechar
                     </a>
                     <p class="title">Solicitações de Relatórios</p>
-                    <div class="container_solicitacoes" id="solicitacoes_container"></div>
+                    <div class="container_solicitacoes" id="solicitacoes_container">
+                        <div class="container_pedido">
+                            <span class="solicitante">João Silva</span>
+                            <span class="agencia">CVC</span>
+                            <span class="data">11/2025</span>
+
+                            <div class="acoes">
+                                <button class="btn_aprovar">Aprovar</button>
+                                <button class="btn_reprovar">Reprovar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,12 +123,22 @@
         if (!res.ok) return;
 
         res.json().then(json => {
+
+
             document.getElementById("total_relatorios").innerHTML = json.length;
             document.getElementById("relatorios_reprovados").innerHTML =
                 json.filter(item => item.status == "Reprovado").length;
 
             for (let i = 0; i < json.length; i++) {
                 const r = json[i];
+
+                let iconeStatus = "";
+
+                if (r.status == "Ativo") {
+                    iconeStatus = "<i class='bx bxs-lock-open' style='color:#ffffff'></i>";
+                } else {
+                    iconeStatus = "<i class='bx bxs-lock' style='color:#ffffff'></i>";
+                }
 
                 document.getElementById("container_relatorios").innerHTML += `
                     <div class="tabela_row">
@@ -130,8 +150,14 @@
                         <input class="col" type="text" value="${r.agencia}" disabled>
 
                         <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+
+                            <button class="btn_verde editar">
+                                <i class="bx bx-edit-alt"></i>
+                            </button>
+
+                            <button class="btn_vermelho cancelar">
+                                ${iconeStatus}
+                            </button>
                         </div>
                     </div>
                 `;
@@ -168,6 +194,7 @@
         }
     });
 
+
     document.getElementById("container_relatorios").addEventListener("click", function (event) {
 
         const btn = event.target.closest(".cancelar");
@@ -179,8 +206,10 @@
 
         if (statusInput.value == "Ativo") {
             statusInput.value = "Desativado";
+            btn.innerHTML = `<i class='bx bxs-lock-open' style='color:#ffffff'></i>`;
         } else {
             statusInput.value = "Ativo";
+            btn.innerHTML = `<i class='bx bxs-lock' style='color:#ffffff'></i>`;
         }
 
         const id = row.querySelector("span").innerHTML;
@@ -193,5 +222,39 @@
             })
         });
     });
+
+    function carregarSolicitacoes() {
+        fetch("/pedido/listar")
+            .then(res => res.json())
+            .then(lista => {
+                const container = document.getElementById("solicitacoes_container");
+                container.innerHTML = ""; 
+
+                if (lista.length === 0) {
+                    container.innerHTML = `<p class="nenhum">Nenhuma solicitação encontrada.</p>`;
+                    return;
+                }
+
+                lista.forEach(p => {
+                    const div = document.createElement("div");
+                    div.className = "container_pedido";
+
+                    div.innerHTML = `
+                    <span class="solicitante">${p.solicitante}</span>
+                    <span class="agencia">${p.agencia}</span>
+                    <span class="data">${p.data_criacao}</span>
+
+                    <div class="acoes">
+                        <button class="btn_aprovar" onclick="aprovarPedido(${p.id})">Aprovar</button>
+                        <button class="btn_reprovar" onclick="reprovarPedido(${p.id})">Reprovar</button>
+                    </div>
+                `;
+
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => console.error("Erro ao listar solicitações:", err));
+    }
+
 
 </script>

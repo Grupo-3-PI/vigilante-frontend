@@ -125,8 +125,18 @@
 
         function mostrarMensagem(texto, tipo) {
             const msg = document.createElement("div");
-            msg.className = `msg ${tipo}`;
-            msg.textContent = texto;
+            msg.className = `container_toast_modal`;
+
+            const coluna = document.createElement("div");
+            coluna.className = "coluna";
+            coluna.id = `msg_${tipo}`;
+
+            const textoDiv = document.createElement("div");
+            textoDiv.className = "texto";
+            textoDiv.textContent = texto;
+
+            msg.appendChild(coluna);
+            msg.appendChild(textoDiv);
 
             document.body.appendChild(msg);
 
@@ -150,7 +160,7 @@
             }
 
             if (senhaNova !== senhaConfirm) {
-                return mostrarMensagem("As senhas não coincidem", "erro");
+                return mostrarMensagem("As senhas não são iguais", "erro");
             }
 
             fetch(`/usuarios/editarUsuarios/${id}`, {
@@ -172,7 +182,7 @@
                         mostrarMensagem("Senha atual incorreta", "erro");
                     }
                 })
-                .catch(() => mostrarMensagem("Erro ao conectar ao servidor", "erro"));
+                .catch(() => mostrarMensagem("Erro", "erro"));
         }
 
     </script>

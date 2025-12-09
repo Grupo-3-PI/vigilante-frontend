@@ -21,7 +21,7 @@
             </div>
 
             <nav class="navbar_buttons">
-                <a href="filtros.html" class="nav_item">
+                <a href="filtros.html" class="nav_item" style="color: #83a2ff;">
                     <i class='bx bx-filter-alt'></i>
                     <span>Filtros</span>
                 </a>
@@ -143,6 +143,14 @@
             let container = document.getElementById("container_filtros");
 
             json.forEach(filtro => {
+
+                let iconeStatus = "";
+                if (filtro.status == "Ativo") {
+                    iconeStatus = "<i class='bx bxs-lock' style='color:#ffffff'></i>";
+                } else {
+                    iconeStatus = "<i class='bx bxs-lock-open' style='color:#ffffff'></i>";
+                }
+
                 container.innerHTML += `
                     <div class="tabela_row">
                         <span class="col">${filtro.id}</span>
@@ -153,10 +161,12 @@
                         <input class="col" type="text" value="${filtro.status}" disabled>
 
                         <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_verde editar">
+                                <i class="bx bx-edit-alt"></i>
+                            </button>
 
-                            <button class="btn_vermelho cancelar" data-id="${filtro.id}">
-                                <i class="bx bx-trash"></i>
+                            <button class="btn_vermelho cancelar">
+                                ${iconeStatus}
                             </button>
                         </div>
                     </div>`;
@@ -164,7 +174,6 @@
         });
 
     document.getElementById("container_filtros").addEventListener("click", function (event) {
-
         const btn = event.target.closest(".editar");
         if (!btn) return;
 
@@ -180,70 +189,47 @@
             inputs.forEach(input => input.disabled = true);
             btn.innerHTML = "<i class='bx bx-edit-alt'></i>";
 
-            var filtro_atualizado = [];
-            filtro_atualizado.push(row.querySelector("span").innerHTML);
-
-            inputs.forEach(input => filtro_atualizado.push(input.value));
-
-            fetch(`/filtros/editar/${filtro_atualizado[0]}`, {
+            fetch(`/filtros/editar/${row.querySelector("span").innerHTML}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    nomeServer: filtro_atualizado[1],
-                    descricaoServer: filtro_atualizado[2],
-                    categoriaServer: filtro_atualizado[3],
-                    statusServer: filtro_atualizado[4]
+                    nomeServer: inputs[0].value,
+                    descricaoServer: inputs[1].value,
+                    categoriaServer: inputs[2].value,
+                    statusServer: inputs[3].value
                 })
             });
         }
     });
 
-
     document.getElementById("container_filtros").addEventListener("click", function (event) {
-
         const btn = event.target.closest(".cancelar");
         if (!btn) return;
 
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
-
         const statusInput = inputs[3];
 
         if (statusInput.value == "Ativo") {
             statusInput.value = "Desativado";
+            btn.innerHTML = "<i class='bx bxs-lock-open' style='color:#ffffff'></i>";
         } else {
             statusInput.value = "Ativo";
+            btn.innerHTML = "<i class='bx bxs-lock' style='color:#ffffff'></i>";
         }
 
-        var filtro_atualizado = [];
-        filtro_atualizado.push(row.querySelectorAll("span")[0].innerHTML); 
-        inputs.forEach(input => {
-            filtro_atualizado.push(input.value);
-        });
-
-        fetch(`/filtros/atualizarStatus/${filtro_atualizado[0]}`, {
+        fetch(`/filtros/atualizarStatus/${row.querySelector("span").innerHTML}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                nomeServer: filtro_atualizado[1],
-                descricaoServer: filtro_atualizado[2],
-                categoriaServer: filtro_atualizado[3],
-                statusServer: filtro_atualizado[4]
+                nomeServer: inputs[0].value,
+                descricaoServer: inputs[1].value,
+                categoriaServer: inputs[2].value,
+                statusServer: inputs[3].value
             })
-        })
-            .then(function (resposta) {
-
-                console.log(`Filtro ${filtro_atualizado[0]} atualizado!`);
-
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
+        });
     });
-    
 </script>
+
 
 <script src="js/cadastrarFiltro.js"></script>

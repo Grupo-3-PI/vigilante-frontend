@@ -132,7 +132,6 @@ nav {
     cursor: not-allowed;
 }
 
-/* Botões do Formulário */
 .card-perfil button {
     text-decoration: none;
     text-align: center;
@@ -160,18 +159,37 @@ nav {
     transform: scale(1.05);
 }
 
-.msg {
+
+.container_toast_modal {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-weight: 500;
-    color: #fff;
+    width: 320px;
+    height: 70px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.051);
     animation: fadeIn .3s ease;
+    z-index: 9999;
 }
-.msg.sucesso { background: #1bf85d; }
-.msg.erro { background: #ff1900; }
+
+.coluna {
+    width: 16px;
+    height: 100%;
+    border-radius: 12px 0 0 12px;
+}
+
+#msg_sucesso { background: linear-gradient(180deg, #1bf85d, #0bbd42); }
+#msg_erro    { background: linear-gradient(180deg, #ff6464, #ff0000); }
+
+.texto {
+    margin-left: 22px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+}
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }

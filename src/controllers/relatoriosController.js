@@ -48,9 +48,21 @@ function atualizarStatus(req, res) {
         });
 }
 
+function listarPorAgencia(req, res) {
+    var idAgencia = req.params.idAgencia;
+
+    relatorioModel.listarPorAgencia(idAgencia)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.log("Erro ao listar relatórios por agência:", erro);
+            res.status(500).json(erro);
+        });
+}
+
 module.exports = {
     cadastrar,
     listarTodos,
     editar,
-    atualizarStatus
+    atualizarStatus,
+    listarPorAgencia
 };

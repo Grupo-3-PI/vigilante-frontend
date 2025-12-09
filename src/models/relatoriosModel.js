@@ -44,9 +44,28 @@ function atualizarStatus(id, status) {
     return database.executar(instrucaoSql);
 }
 
+function listarPorAgencia(idAgencia) {
+    var instrucaoSql = `
+        SELECT 
+            r.id,
+            r.titulo_relatorio AS nome,
+            u.nome AS solicitante,
+            r.status,
+            a.nome AS agencia,
+            r.dt_geracao
+        FROM Relatorio r
+        JOIN Usuario u ON r.fk_Usuario = u.id
+        JOIN Agencia a ON u.fk_agencia = a.id
+        WHERE a.id = ${idAgencia};
+    `;
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     cadastrar,
     listarTodos,
     editar,
-    atualizarStatus
+    atualizarStatus,
+    listarPorAgencia
 };

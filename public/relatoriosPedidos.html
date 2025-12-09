@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<body onload="carregarRelatorios(); carregarPedidos();">
     <!-- Navbar -->
     <div class="container_navbar">
         <!-- Container cima -->
@@ -73,7 +73,7 @@
         <div class="container_relatorios">
             <div class="container_title">
                 <h2>Relatórios</h2>
-                <div class="btn_criar_relatorio">Solicitar Relatório</div>
+                <div class="btn_criar_relatorio" onclick="cadastrar()">Solicitar Relatório</div>
             </div>
 
             <div class="container_relatorios_agencia">
@@ -121,6 +121,132 @@
     }
     if (sessionStorage.CARGO_AGENCIA_USUARIO) {
         document.getElementById('cargo').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
+    }
+
+    function formatarData(dataISO) {
+        const data = new Date(dataISO);
+        return data.toLocaleDateString("pt-BR");
+    }
+
+    //Listar relatórios
+    const idAgencia = sessionStorage.ID_AGENCIA;
+
+    function carregarRelatorios() {
+
+        fetch(`/relatorios/listar/${idAgencia}`)
+            .then(res => res.json())
+            .then(relatorios => {
+
+                const container = document.querySelector(".container_relatorios_agencia");
+                container.innerHTML = "";
+
+                if (relatorios.length === 0) {
+                    container.innerHTML = `
+                    <p class="nenhum-relatorio">Nenhum relatório encontrado para sua agência.</p>
+                `;
+                    return;
+                }
+
+                relatorios.forEach(r => {
+                    const div = document.createElement("div");
+                    div.className = "relatorios";
+
+                    div.innerHTML = `
+                    <div class="nome_data_relatorio">
+                        <span class="nome_relatorio">${r.nome}</span>
+                        <span class="data_relatorio">${formatarData(r.dt_geracao)}</span>
+                    </div>
+                    <div class="funcoes">
+                        <div class="btn_editar" onclick="editarRelatorio(${r.id})">
+                            <i class='bx bx-edit'></i>
+                        </div>
+                        <div class="btn_baixar" onclick="baixarRelatorio(${r.id})">
+                            <i class='bx bx-download'></i>
+                        </div>
+                        <div class="btn_excluir" onclick="excluirRelatorio(${r.id})">
+                            <i class='bx bx-trash'></i>
+                        </div>
+                    </div>
+                `;
+
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => console.error("Erro ao carregar relatórios:", err));
+    }
+
+    function carregarPedidos() {
+        const idAgencia = sessionStorage.ID_AGENCIA;
+
+        fetch(`/pedido/listarPorAgencia/${idAgencia}`)
+            .then(res => res.json())
+            .then(pedidos => {
+                const container = document.querySelector(".container_pedidos_agencia");
+                container.innerHTML = "";
+
+                if (pedidos.length === 0) {
+                    container.innerHTML = `
+                    <p class="nenhum-pedido">Nenhum pedido encontrado para sua agência.</p>
+                `;
+                    return;
+                }
+
+                pedidos.forEach(p => {
+                    const div = document.createElement("div");
+                    div.className = "relatorios";
+
+                    div.innerHTML = `
+                    <div class="nome_data_pedido">
+                        <span class="nome_pedido">${p.nome_usuario}</span>
+                        <span class="data_pedido">${formatarData(p.data_criacao)}</span>
+                    </div>
+                    <div class="status_pedido">
+                        <span class="status_label">Status:</span>
+                        <span class="status_value">${p.status}</span>
+                    </div>
+                `;
+
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => {
+                console.error("Erro ao carregar pedidos:", err);
+            });
+    }
+
+    function cadastrar() {
+        const fk_usuario = sessionStorage.ID_USUARIO;
+
+        if (!fk_usuario) {
+            alert("Erro: usuário não encontrado.");
+            return;
+        }
+
+        const descricao = "Solicitação de relatório";
+
+        fetch("/pedido/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                descricaoServer: descricao,
+                fk_usuarioServer: fk_usuario
+            })
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Falha ao cadastrar pedido");
+                }
+                return res.json();
+            })
+            .then(() => {
+                alert("Pedido solicitado com sucesso!");
+                carregarPedidos(); 
+            })
+            .catch(err => {
+                console.error("Erro ao cadastrar pedido:", err);
+            });
     }
 
 
