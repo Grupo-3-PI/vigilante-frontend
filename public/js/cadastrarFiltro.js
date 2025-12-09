@@ -2,7 +2,6 @@ function cadastrar() {
     const nome = document.getElementById("nome_value").value.trim();
     const descricao = document.getElementById("descricao_value").value.trim();
     const categoria = document.getElementById("categoria_filtro").value;
-    const fkAdministrador = sessionStorage.ADMIN_ID;
 
     if (nome.length < 3) {
         alert("O nome do filtro deve ter pelo menos 3 caracteres.");
@@ -16,8 +15,17 @@ function cadastrar() {
         alert("Selecione uma categoria.");
         return;
     }
-    if (!fkAdministrador) {
-        alert("Administrador não encontrado (sessionStorage.ADMIN_ID).");
+
+    const fkAdministradorRaw = sessionStorage.ADMIN_ID;
+
+    if (!fkAdministradorRaw) {
+        alert("Administrador não encontrado (sessionStorage.ADMIN_ID). Faça login novamente.");
+        return;
+    }
+
+    const fkAdministrador = Number(fkAdministradorRaw);
+    if (Number.isNaN(fkAdministrador)) {
+        alert("ID do administrador inválido.");
         return;
     }
 
@@ -25,10 +33,10 @@ function cadastrar() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            nome,
-            descricao,
-            categoria,
-            fkAdministrador
+            nomeServer: nome,
+            descricaoServer: descricao,
+            categoriaServer: categoria,
+            fkAdministradorServer: fkAdministrador
         })
     })
     .then(r => {
@@ -37,9 +45,9 @@ function cadastrar() {
     })
     .then(data => {
         alert("Filtro cadastrado com sucesso!");
-        document.getElementById("modal").close();
+        const modal = document.getElementById("modal");
+        if (modal && typeof modal.close === "function") modal.close();
 
-        // limpa inputs
         document.getElementById("nome_value").value = "";
         document.getElementById("descricao_value").value = "";
         document.getElementById("categoria_filtro").value = "";

@@ -1,0 +1,92 @@
+[
+    {
+        "nome": "Homicídio Doloso",
+        "parametro": "homicidio_doloso",
+        "usada": false
+    },
+    {
+        "nome": "Homicídio Doloso por Acidente de Trânsito",
+        "parametro": "homicidio_doloso_acidente_transito",
+        "usada": false
+    },
+    {
+        "nome": "Homicídio Culposo por Acidente de Trânsito",
+        "parametro": "homicidio_culposo_acidente_transito",
+        "usada": false
+    },
+    {
+        "nome": "Homicídio Culposo - Outros",
+        "parametro": "homicidio_culposo_outros",
+        "usada": false
+    },
+    {
+        "nome": "Tentativa de Homicídio",
+        "parametro": "tentativa_homicidio",
+        "usada": false
+    },
+    {
+        "nome": "Lesão Corporal Seguida de Morte",
+        "parametro": "lesao_corp_morte",
+        "usada": false
+    },
+    {
+        "nome": "Lesão Corporal Dolosa",
+        "parametro": "lesao_corp_dolosa",
+        "usada": false
+    },
+    {
+        "nome": "Lesão Corporal Culposa por Acidente de Trânsito",
+        "parametro": "lesao_corp_culposa_acidente_transito",
+        "usada": false
+    },
+    {
+        "nome": "Lesão Corporal Culposa - Outras",
+        "parametro": "lesao_corp_culposa_outros",
+        "usada": false
+    },
+    {
+        "nome": "Latrocínio",
+        "parametro": "latrocinio",
+        "usada": false
+    },
+    {
+        "nome": "Estupro",
+        "parametro": "estupro",
+        "usada": false
+    },
+    {
+        "nome": "Estupro de Vulnerável",
+        "parametro": "estupro_vulneravel",
+        "usada": false
+    },
+    {
+        "nome": "Roubo - Outros",
+        "parametro": "roubo_outros",
+        "usada": false
+    },
+    {
+        "nome": "Roubo de Veículo",
+        "parametro": "roubo_veiculo",
+        "usada": false
+    },
+    {
+        "nome": "Roubo a Banco",
+        "parametro": "roubo_banco",
+        "usada": false
+    },
+    {
+        "nome": "Roubo de Carga",
+        "parametro": "roubo_carga",
+        "usada": false
+    },
+    {
+        "nome": "Furto - Outros",
+        "parametro": "furto_outros",
+        "usada": false
+    },
+    {
+        "nome": "Furto de Veículo",
+        "parametro": "furto_veiculo",
+        "usada": false
+    }
+]

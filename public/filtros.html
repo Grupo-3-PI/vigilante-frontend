@@ -11,7 +11,7 @@
     <title>Gerenciar Filtros</title>
 </head>
 
-<body>
+<body onload="carregarCategorias()">
 
     <!-- Navbar -->
     <div class="container_navbar">
@@ -107,9 +107,6 @@
 
                         <select name="Categoria" id="categoria_filtro">
                             <option value="">Selecione uma Categoria</option>
-                            <option value="Furto">Crime: Furto</option>
-                            <option value="Roubo">Crime: Roubo</option>
-                            <option value="Assédio">Crime: Assédio</option>
                         </select>
                     </div>
 
@@ -229,6 +226,26 @@
             })
         });
     });
+
+    function carregarCategorias() {
+        fetch("js/categorias.json")
+            .then(res => res.json())
+            .then(json => {
+                const select = document.getElementById("categoria_filtro");
+
+                select.innerHTML = `
+                <option value="">Selecione uma Categoria</option>
+            `;
+
+                json.forEach(cat => {
+                    const option = document.createElement("option");
+                    option.value = cat.parametro;
+                    option.textContent = cat.nome;
+                    select.appendChild(option);
+                });
+            })
+            .catch(err => console.error("Erro ao carregar categorias:", err));
+    }
 </script>
 
 
