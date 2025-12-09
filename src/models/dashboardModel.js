@@ -124,8 +124,7 @@ function crimesAtividadePolicial(fkMunicipio, ano) {
 
 function percentualUltimoMes(fk_municipio, ano) {
   var instrucaoSql = `
-    select (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) and fk_municipio = ${fk_municipio} and ano = ${ano}) as atual, (select sum(qtd_ocorrencias) from Ocorrencias where mes = (MONTH(curdate()) - 1) and fk_municipio = ${fk_municipio} and ano = ${ano}) as passado,  (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) and fk_municipio = ${fk_municipio} and ano = ${ano}) * 100 /  (select sum(qtd_ocorrencias) from Ocorrencias where mes = (MONTH(curdate()) - 1) and fk_municipio = ${fk_municipio} and ano = ${ano}) - 100 as porcentagem;
-  `;
+    select (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) - 2 and fk_municipio = ${fk_municipio} and ano = ${ano}) as atual, (select sum(qtd_ocorrencias) from Ocorrencias where mes = (MONTH(curdate()) - 3) and fk_municipio = ${fk_municipio} and ano = ${ano}) as passado,  (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) - 2 and fk_municipio = ${fk_municipio} and ano = ${ano}) * 100 /  (select sum(qtd_ocorrencias) from Ocorrencias where mes = (MONTH(curdate()) - 3) and fk_municipio = ${fk_municipio} and ano = ${ano}) - 100 as porcentagem;  `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
@@ -145,8 +144,8 @@ function percentualTrimestrePassado(fk_municipio, ano) {
 function percentualProdutividadePolicial(fk_municipio) {
   var instrucaoSql = `
     select 
-      (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) and fk_municipio = ${fk_municipio} and ano = YEAR(curdate()) and tipo_ocorrencia = 'Produtividade Policial') * 100 / 
-      (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) and fk_municipio = ${fk_municipio} and ano = YEAR(curdate()) and tipo_ocorrencia = 'Crime') - 100 as percentual;`;
+      (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) - 2 and fk_municipio = ${fk_municipio} and ano = YEAR(curdate()) and tipo_ocorrencia = 'Produtividade Policial') * 100 / 
+      (select sum(qtd_ocorrencias) from Ocorrencias where mes = MONTH(curdate()) - 2 and fk_municipio = ${fk_municipio} and ano = YEAR(curdate()) and tipo_ocorrencia = 'Crime') - 100 as percentual;`;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
