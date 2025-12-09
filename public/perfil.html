@@ -40,6 +40,10 @@
                     <i class='bx bx-grid-alt'></i>
                     <span>Dashboard</span>
                 </a>
+                <a href="relatoriosPedidos.html" class="nav_item">
+                    <i class='bx bxs-report'></i>
+                    <span>Relatórios</span>
+                </a>
                 <a href="dicas.html" class="nav_item">
                     <i class='bx bx-bulb'></i>
                     <span>Dicas</span>
@@ -48,20 +52,20 @@
         </div>
         <!-- Container baixo -->
         <div class="container_bottom">
-            <div class="card_usuario">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
                     <i class='bx bx-user'></i>
                 </div>
                 <div class="user_info">
-                    <span class="perfil">Admin</span>
-                    <span class="nome">Luckinhas</span>
+                    <span class="perfil" id="cargo">Admin</span>
                     <span class="nome" id="b_usuario"></span>
                 </div>
                 <div class="notificacao">
                     <i class='bx bx-bell'></i>
                 </div>
             </div>
-            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar usuários</button>
+            <button class="btn_gerenciar_usuario" onclick="window.location.href='gerenciadorUsuario.html'">Gerenciar
+                usuários</button>
             <p class="copyright">©2025 PrevCrime, Inc.</p>
         </div>
     </div>
@@ -76,8 +80,8 @@
                     <h3>Alterar Senha</h3>
                     <div class="form-container">
                         <div class="form-group">
-                            <label for="input_senha_atual">Novo Nome:</label>
-                            <input id="input_senha_atual" type="text" placeholder="Luckinhas">
+                            <label for="input_nome">Novo Nome:</label>
+                            <input id="input_nome" type="text" placeholder="Luckinhas">
                         </div>
                         <div class="form-group">
                             <label for="input_senha_atual">Senha Atual:</label>
@@ -91,8 +95,8 @@
                             <label for="input_senha_confirmar">Confirmar Nova Senha:</label>
                             <input id="input_senha_confirmar" type="password" placeholder="********">
                         </div>
-                        <button class="btn-salvar"
-                            onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Alterações </button>
+                        <button class="btn-salvar" onclick="salvarEdicao()">Salvar Alterações
+                        </button>
                     </div>
                 </div>
             </div>
@@ -101,18 +105,76 @@
     </div>
 
     <script>
-        // Esta função roda DEPOIS do sessao.js
+        // Preencher nome e cargo
+        if (sessionStorage.NOME_USUARIO) {
+            document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+        }
+        if (sessionStorage.CARGO_AGENCIA_USUARIO) {
+            document.getElementById('cargo').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
-            // Pega os dados do sessionStorage (que já foram validados)
             var nomeAgencia = sessionStorage.NOME_USUARIO;
             var emailAgencia = sessionStorage.EMAIL_USUARIO;
             var cnpjAgencia = sessionStorage.CNPJ_USUARIO;
 
-            // Preenche os campos do formulário
             if (input_nome) input_nome.value = nomeAgencia;
             if (input_email) input_email.value = emailAgencia;
             if (input_cnpj) input_cnpj.value = cnpjAgencia;
         });
+
+        function mostrarMensagem(texto, tipo) {
+            const msg = document.createElement("div");
+            msg.className = `msg ${tipo}`;
+            msg.textContent = texto;
+
+            document.body.appendChild(msg);
+
+            setTimeout(() => msg.remove(), 3000);
+        }
+
+        function salvarEdicao() {
+
+            const id = sessionStorage.ID_USUARIO;
+            const nome = document.getElementById("input_nome").value;
+            const senhaAtual = document.getElementById("input_senha_atual").value;
+            const senhaNova = document.getElementById("input_senha_nova").value;
+            const senhaConfirm = document.getElementById("input_senha_confirmar").value;
+
+            if (!nome.trim()) {
+                return mostrarMensagem("Preencha o nome", "erro");
+            }
+
+            if (!senhaAtual.trim()) {
+                return mostrarMensagem("Digite sua senha atual", "erro");
+            }
+
+            if (senhaNova !== senhaConfirm) {
+                return mostrarMensagem("As senhas não coincidem", "erro");
+            }
+
+            fetch(`/usuarios/editarUsuarios/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nome,
+                    senhaAtualServer: senhaAtual,
+                    senhaNovaServer: senhaNova
+                })
+            })
+                .then(res => {
+                    if (res.ok) {
+                        sessionStorage.NOME_USUARIO = nome;
+                        mostrarMensagem("Informações atualizadas", "sucesso");
+                    } else {
+                        mostrarMensagem("Senha atual incorreta", "erro");
+                    }
+                })
+                .catch(() => mostrarMensagem("Erro ao conectar ao servidor", "erro"));
+        }
+
     </script>
 
 </body>

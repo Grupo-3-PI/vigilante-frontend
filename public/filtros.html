@@ -34,13 +34,13 @@
         </div>
 
         <div class="container_bottom">
-            <div class="card_usuario">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
                     <i class='bx bx-user'></i>
                 </div>
                 <div class="user_info">
                     <span class="perfil">Admin</span>
-                    <span id="nome" class="nome">Guilherme</span>
+                    <span id="nome" class="nome">Usuário</span>
                 </div>
                 <div class="notificacao">
                     <i class='bx bx-bell'></i>
@@ -127,6 +127,10 @@
 </html>
 
 <script>
+    let nomeAdmin = sessionStorage.getItem('ADMIN_NOME');
+    let nome = document.getElementById("nome");
+    nome.innerHTML = nomeAdmin;
+
     const modal = document.querySelector('dialog');
     document.getElementById("open").onclick = () => modal.showModal();
     document.getElementById("close").onclick = () => modal.close();
@@ -242,4 +246,4 @@
     
 </script>
 
-<script src="js/cadastro.js"></script>
+<script src="js/cadastrarFiltro.js"></script>
