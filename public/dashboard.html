@@ -47,6 +47,11 @@
                     <i class='bx bx-bulb'></i>
                     <span>Dicas</span>
                 </a>
+
+                <div onclick="limparSessao()" class="nav_item" style="cursor: pointer;">
+                    <i class='bx bx-log-out'></i>
+                    <span>Sair</span>
+                </div>
             </nav>
         </div>
         <!-- Container baixo -->
@@ -188,7 +193,7 @@
                 <option value="2023">2023</option>
             </select>
             <select id="select-filtros" onchange="aplicarFiltro()">
-                <option value="nulo">Selecionar Filtro</option>                
+                <option value="nulo">Selecionar Filtro</option>
             </select>
         </div>
         <div class="dados">

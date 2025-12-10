@@ -12,16 +12,16 @@ function validarSessao() {
     // Se o email ou o nome não existirem (forem nulos),
     // significa que o usuário não está logado.
     if (email == null || nome == null) {
-        
+
         // Limpa qualquer lixo que possa ter ficado
         sessionStorage.clear();
-        
+
         // Avisa o usuário e o expulsa para a tela de login
         alert("Sua sessão expirou ou você não está logado. Por favor, faça login novamente.");
-        window.location = "login.html"; 
-    
+        window.location = "login.html";
+
     } else {
-        
+
         // Se o usuário está logado:
         if (b_usuario != null) {
             // Se existir, preenche com a saudação
@@ -45,45 +45,51 @@ function validarSessao() {
             senhaServer: senhaVar
         })
     })
-    .then(resposta => {
+        .then(resposta => {
 
-        if (resposta.ok) {
-            resposta.json().then(json => {
+            if (resposta.ok) {
+                resposta.json().then(json => {
 
-                sessionStorage.setItem("ADMIN_ID", json.id);
-                sessionStorage.setItem("ADMIN_NOME", json.nome);
-                sessionStorage.setItem("ADMIN_EMAIL", json.email);
+                    sessionStorage.setItem("ADMIN_ID", json.id);
+                    sessionStorage.setItem("ADMIN_NOME", json.nome);
+                    sessionStorage.setItem("ADMIN_EMAIL", json.email);
 
-                Swal.close();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login realizado!',
-                    showConfirmButton: false,
-                    timer: 1500
+                    Swal.close();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login realizado!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    setTimeout(() => {
+                        window.location = "./dashboardAdmin.html";
+                    }, 1500);
                 });
 
-                setTimeout(() => {
-                    window.location = "./dashboardAdmin.html";
-                }, 1500);
-            });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro no login',
+                    text: 'Email ou senha inválidos!'
+                });
+            }
 
-        } else {
+        })
+        .catch(erro => {
             Swal.fire({
                 icon: 'error',
-                title: 'Erro no login',
-                text: 'Email ou senha inválidos!'
+                title: 'Erro no servidor',
+                text: 'Não foi possível conectar.'
             });
-        }
-
-    })
-    .catch(erro => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro no servidor',
-            text: 'Não foi possível conectar.'
+            console.error(erro);
         });
-        console.error(erro);
-    });
 
     return false;
+
+}
+
+function limparSessao() {
+    sessionStorage.clear();
+    window.location = "login.html";
 }
