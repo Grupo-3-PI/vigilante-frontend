@@ -65,7 +65,7 @@
                 <div class="card_info">
                     <div class="coluna"></div>
                     <span class="card_titulo">Filtros Desativados</span>
-                    <span class="card_valor">4</span>
+                    <span class="card_valor" id="filtros_desativados">0</span>
                 </div>
 
                 <div id="open">Adicionar Filtro <i class='bx bxs-file-plus'></i></div>
@@ -136,6 +136,9 @@
         .then(res => res.json())
         .then(json => {
             document.getElementById("total_filtros").innerHTML = json.length;
+
+            let qtdDesativados = json.filter(f => f.status === "Desativado").length;
+            document.getElementById("filtros_desativados").innerHTML = qtdDesativados;
 
             let container = document.getElementById("container_filtros");
 

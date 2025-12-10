@@ -34,7 +34,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/agencia", agenciaRouter);
-app.use("/pedido", pedidoRouter);
+app.use("/pedidos", pedidoRouter);
 app.use("/filtros", filtrosRouter);
 app.use("/relatorios", relatoriosRouter);
 app.use("/admin", adminRouter);

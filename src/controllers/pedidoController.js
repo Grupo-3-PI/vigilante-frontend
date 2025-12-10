@@ -1,16 +1,14 @@
 var pedidoModel = require("../models/pedidoModel");
 
 function cadastrar(req, res) {
-    var descricao = req.body.descricaoServer;
+    var status = "Pendente";
     var fk_usuario = req.body.fk_usuarioServer;
+    var fk_administrador = req.body.fk_administradorServer;
 
-    var status = "pendente";
-    var fk_administrador = null; 
-
-    if (!descricao || !fk_usuario) {
+    if (!fk_usuario) {
         res.status(400).send("Dados inválidos");
     } else {
-        pedidoModel.cadastrar(descricao, status, fk_usuario, fk_administrador)
+        pedidoModel.cadastrar(status, fk_usuario, fk_administrador)
             .then(resultado => res.json(resultado))
             .catch(erro => {
                 res.status(500).json(erro.sqlMessage);
@@ -40,9 +38,40 @@ function listarPorAgencia(req, res) {
         });
 }
 
+function aceitar(req, res) {
+    var id = req.params.id;
+
+    if (!id) {
+        res.status(400).send("Dados inválidos");
+    } else {
+        pedidoModel.aceitar(id)
+            .then(resultado => res.json(resultado))
+            .catch(erro => {
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+
+}
+
+function recusar(req, res) {
+    var id = req.params.id;
+
+    if (!id) {
+        res.status(400).send("Dados inválidos");
+    } else {
+        pedidoModel.recusar(id)
+            .then(resultado => res.json(resultado))
+            .catch(erro => {
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+
+}
 
 module.exports = {
     cadastrar,
     listar,
-    listarPorAgencia
+    listarPorAgencia,
+    aceitar,
+    recusar
 };

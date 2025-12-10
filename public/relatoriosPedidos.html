@@ -16,6 +16,8 @@
     <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
     <link rel="stylesheet" href="css/relatoriosPedidos.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body onload="carregarRelatorios(); carregarPedidos();">
@@ -73,7 +75,7 @@
         <div class="container_relatorios">
             <div class="container_title">
                 <h2>Relatórios</h2>
-                <div class="btn_criar_relatorio" onclick="cadastrar()">Solicitar Relatório</div>
+                <div class="btn_criar_relatorio" onclick="criarPedidoRelatorio()">Solicitar Relatório</div>
             </div>
 
             <div class="container_relatorios_agencia">
@@ -148,11 +150,12 @@
                 }
 
                 relatorios.forEach(r => {
-                    const div = document.createElement("div");
-                    div.className = "relatorios";
+                    if (r.status == "Ativo") {
+                        const div = document.createElement("div");
+                        div.className = "relatorios";
 
-                    div.innerHTML = `
-                    <div class="nome_data_relatorio">
+                        div.innerHTML = `
+                    <div class="nome_data_relatorio" data-id="${r.id}" onclick="abrirRelatorio(${r.id})">
                         <span class="nome_relatorio">${r.nome}</span>
                         <span class="data_relatorio">${formatarData(r.dt_geracao)}</span>
                     </div>
@@ -160,16 +163,14 @@
                         <div class="btn_editar" onclick="editarRelatorio(${r.id})">
                             <i class='bx bx-edit'></i>
                         </div>
-                        <div class="btn_baixar" onclick="baixarRelatorio(${r.id})">
-                            <i class='bx bx-download'></i>
-                        </div>
                         <div class="btn_excluir" onclick="excluirRelatorio(${r.id})">
                             <i class='bx bx-trash'></i>
                         </div>
                     </div>
                 `;
 
-                    container.appendChild(div);
+                        container.appendChild(div);
+                    }
                 });
             })
             .catch(err => console.error("Erro ao carregar relatórios:", err));
@@ -178,7 +179,7 @@
     function carregarPedidos() {
         const idAgencia = sessionStorage.ID_AGENCIA;
 
-        fetch(`/pedido/listarPorAgencia/${idAgencia}`)
+        fetch(`/pedidos/listarPorAgencia/${idAgencia}`)
             .then(res => res.json())
             .then(pedidos => {
                 const container = document.querySelector(".container_pedidos_agencia");
@@ -214,40 +215,117 @@
             });
     }
 
-    function cadastrar() {
-        const fk_usuario = sessionStorage.ID_USUARIO;
+    function criarPedidoRelatorio() {
+        var fk_usuario = Number(sessionStorage.ID_USUARIO);
 
-        if (!fk_usuario) {
-            alert("Erro: usuário não encontrado.");
+        fetch("/pedidos/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fk_usuarioServer: fk_usuario,
+                fk_administradorServer: null
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Pedido cadastrado com sucesso!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    //carregarUsuarios()
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function editarRelatorio(idRelatorio) {
+        const container = document.querySelector(`.nome_data_relatorio[data-id="${idRelatorio}"]`);
+        const nomeSpan = container.querySelector(".nome_relatorio");
+
+        const btn = document.querySelector(`.btn_editar[onclick="editarRelatorio(${idRelatorio})"]`);
+
+        const isEditing = nomeSpan.isContentEditable;
+
+        if (!isEditing) {
+            nomeSpan.contentEditable = "true";
+            nomeSpan.focus();
+            btn.innerHTML = `<i class='bx bx-x'></i>`;
+        } else {
+
+            nomeSpan.contentEditable = "false";
+            btn.innerHTML = `<i class='bx bx-edit'></i>`;
+
+            const novoNome = nomeSpan.innerText.trim();
+
+            if (!novoNome) {
+                alert("O nome do relatório não pode ficar vazio.");
+                return;
+            }
+
+            const atualizado = {
+                titulo_relatorio: novoNome
+            };
+
+            fetch(`/relatorios/editar/${idRelatorio}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(atualizado)
+            })
+                .then(res => res.json())
+                .then(data => console.log("Atualizado:", data))
+                .catch(err => console.error("Erro ao atualizar:", err));
+        }
+    }
+
+    function excluirRelatorio(idRelatorio) {
+        if (!confirm("Tem certeza que deseja desativar este relatório?")) {
             return;
         }
 
-        const descricao = "Solicitação de relatório";
+        const atualizado = {
+            status: "Desativado"
+        };
 
-        fetch("/pedido/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                descricaoServer: descricao,
-                fk_usuarioServer: fk_usuario
-            })
+        fetch(`/relatorios/status/${idRelatorio}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(atualizado)
         })
             .then(res => {
                 if (!res.ok) {
-                    throw new Error("Falha ao cadastrar pedido");
+                    throw new Error("Erro ao desativar relatório.");
                 }
                 return res.json();
             })
-            .then(() => {
-                alert("Pedido solicitado com sucesso!");
-                carregarPedidos(); 
+            .then(data => {
+                console.log("Status atualizado:", data);
+
+                const item = document.querySelector(`.nome_data_relatorio[data-id="${idRelatorio}"]`);
+
+                if (item) {
+                    item.parentElement.remove();
+                }
             })
-            .catch(err => {
-                console.error("Erro ao cadastrar pedido:", err);
-            });
+            .catch(err => console.error("Erro:", err));
     }
 
+
+
+    function abrirRelatorio(id) {
+        sessionStorage.setItem("ID_RELATORIO", id)
+        window.open('/relatorio.html', '_blank');
+    }
 
 </script>
