@@ -11,7 +11,7 @@
     <title>Gerenciar Filtros</title>
 </head>
 
-<body>
+<body onload="carregarCategorias()">
 
     <!-- Navbar -->
     <div class="container_navbar">
@@ -21,7 +21,7 @@
             </div>
 
             <nav class="navbar_buttons">
-                <a href="filtros.html" class="nav_item">
+                <a href="filtros.html" class="nav_item" style="color: #83a2ff;">
                     <i class='bx bx-filter-alt'></i>
                     <span>Filtros</span>
                 </a>
@@ -39,13 +39,13 @@
         </div>
 
         <div class="container_bottom">
-            <div class="card_usuario">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
                     <i class='bx bx-user'></i>
                 </div>
                 <div class="user_info">
                     <span class="perfil">Admin</span>
-                    <span id="nome" class="nome">Guilherme</span>
+                    <span id="nome" class="nome">Usuário</span>
                 </div>
                 <div class="notificacao">
                     <i class='bx bx-bell'></i>
@@ -70,7 +70,7 @@
                 <div class="card_info">
                     <div class="coluna"></div>
                     <span class="card_titulo">Filtros Desativados</span>
-                    <span class="card_valor">4</span>
+                    <span class="card_valor" id="filtros_desativados">0</span>
                 </div>
 
                 <div id="open">Adicionar Filtro <i class='bx bxs-file-plus'></i></div>
@@ -112,9 +112,6 @@
 
                         <select name="Categoria" id="categoria_filtro">
                             <option value="">Selecione uma Categoria</option>
-                            <option value="Furto">Crime: Furto</option>
-                            <option value="Roubo">Crime: Roubo</option>
-                            <option value="Assédio">Crime: Assédio</option>
                         </select>
                     </div>
 
@@ -132,6 +129,10 @@
 </html>
 
 <script>
+    let nomeAdmin = sessionStorage.getItem('ADMIN_NOME');
+    let nome = document.getElementById("nome");
+    nome.innerHTML = nomeAdmin;
+
     const modal = document.querySelector('dialog');
     document.getElementById("open").onclick = () => modal.showModal();
     document.getElementById("close").onclick = () => modal.close();
@@ -141,9 +142,20 @@
         .then(json => {
             document.getElementById("total_filtros").innerHTML = json.length;
 
+            let qtdDesativados = json.filter(f => f.status === "Desativado").length;
+            document.getElementById("filtros_desativados").innerHTML = qtdDesativados;
+
             let container = document.getElementById("container_filtros");
 
             json.forEach(filtro => {
+
+                let iconeStatus = "";
+                if (filtro.status == "Ativo") {
+                    iconeStatus = "<i class='bx bxs-lock' style='color:#ffffff'></i>";
+                } else {
+                    iconeStatus = "<i class='bx bxs-lock-open' style='color:#ffffff'></i>";
+                }
+
                 container.innerHTML += `
                     <div class="tabela_row">
                         <span class="col">${filtro.id}</span>
@@ -154,10 +166,12 @@
                         <input class="col" type="text" value="${filtro.status}" disabled>
 
                         <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
+                            <button class="btn_verde editar">
+                                <i class="bx bx-edit-alt"></i>
+                            </button>
 
-                            <button class="btn_vermelho cancelar" data-id="${filtro.id}">
-                                <i class="bx bx-trash"></i>
+                            <button class="btn_vermelho cancelar">
+                                ${iconeStatus}
                             </button>
                         </div>
                     </div>`;
@@ -165,7 +179,6 @@
         });
 
     document.getElementById("container_filtros").addEventListener("click", function (event) {
-
         const btn = event.target.closest(".editar");
         if (!btn) return;
 
@@ -181,70 +194,67 @@
             inputs.forEach(input => input.disabled = true);
             btn.innerHTML = "<i class='bx bx-edit-alt'></i>";
 
-            var filtro_atualizado = [];
-            filtro_atualizado.push(row.querySelector("span").innerHTML);
-
-            inputs.forEach(input => filtro_atualizado.push(input.value));
-
-            fetch(`/filtros/editar/${filtro_atualizado[0]}`, {
+            fetch(`/filtros/editar/${row.querySelector("span").innerHTML}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    nomeServer: filtro_atualizado[1],
-                    descricaoServer: filtro_atualizado[2],
-                    categoriaServer: filtro_atualizado[3],
-                    statusServer: filtro_atualizado[4]
+                    nomeServer: inputs[0].value,
+                    descricaoServer: inputs[1].value,
+                    categoriaServer: inputs[2].value,
+                    statusServer: inputs[3].value
                 })
             });
         }
     });
 
-
     document.getElementById("container_filtros").addEventListener("click", function (event) {
-
         const btn = event.target.closest(".cancelar");
         if (!btn) return;
 
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
-
         const statusInput = inputs[3];
 
         if (statusInput.value == "Ativo") {
             statusInput.value = "Desativado";
+            btn.innerHTML = "<i class='bx bxs-lock-open' style='color:#ffffff'></i>";
         } else {
             statusInput.value = "Ativo";
+            btn.innerHTML = "<i class='bx bxs-lock' style='color:#ffffff'></i>";
         }
 
-        var filtro_atualizado = [];
-        filtro_atualizado.push(row.querySelectorAll("span")[0].innerHTML); 
-        inputs.forEach(input => {
-            filtro_atualizado.push(input.value);
-        });
-
-        fetch(`/filtros/atualizarStatus/${filtro_atualizado[0]}`, {
+        fetch(`/filtros/atualizarStatus/${row.querySelector("span").innerHTML}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                nomeServer: filtro_atualizado[1],
-                descricaoServer: filtro_atualizado[2],
-                categoriaServer: filtro_atualizado[3],
-                statusServer: filtro_atualizado[4]
+                nomeServer: inputs[0].value,
+                descricaoServer: inputs[1].value,
+                categoriaServer: inputs[2].value,
+                statusServer: inputs[3].value
             })
-        })
-            .then(function (resposta) {
-
-                console.log(`Filtro ${filtro_atualizado[0]} atualizado!`);
-
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
+        });
     });
-    
+
+    function carregarCategorias() {
+        fetch("js/categorias.json")
+            .then(res => res.json())
+            .then(json => {
+                const select = document.getElementById("categoria_filtro");
+
+                select.innerHTML = `
+                <option value="">Selecione uma Categoria</option>
+            `;
+
+                json.forEach(cat => {
+                    const option = document.createElement("option");
+                    option.value = cat.parametro;
+                    option.textContent = cat.nome;
+                    select.appendChild(option);
+                });
+            })
+            .catch(err => console.error("Erro ao carregar categorias:", err));
+    }
 </script>
 
-<script src="js/cadastro.js"></script>
+
+<script src="js/cadastrarFiltro.js"></script>

@@ -7,5 +7,7 @@ router.post("/cadastrar", relatorioController.cadastrar);
 router.get("/listar", relatorioController.listarTodos);
 router.put("/editar/:id", relatorioController.editar);
 router.put("/status/:id", relatorioController.atualizarStatus);
+router.get("/listar/:idAgencia", relatorioController.listarPorAgencia);
+router.get("/pegarDadosConsulta/:id", relatorioController.pegarDadosConsulta);
 
 module.exports = router;

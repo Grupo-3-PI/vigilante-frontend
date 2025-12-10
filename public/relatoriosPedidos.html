@@ -16,9 +16,11 @@
     <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
     <link rel="stylesheet" href="css/relatoriosPedidos.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
-<body>
+<body onload="carregarRelatorios(); carregarPedidos();">
     <!-- Navbar -->
     <div class="container_navbar">
         <!-- Container cima -->
@@ -34,7 +36,7 @@
                     <i class='bx bx-home'></i>
                     <span>Home</span>
                 </a>
-                <a href="dashboard.html" class="nav_item" style="color: #34495e;">
+                <a href="dashboard.html" class="nav_item">
                     <i class='bx bx-grid-alt'></i>
                     <span>Dashboard</span>
                 </a>
@@ -50,12 +52,12 @@
         </div>
         <!-- Container baixo -->
         <div class="container_bottom">
-            <div class="card_usuario">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
                     <i class='bx bx-user'></i>
                 </div>
                 <div class="user_info">
-                    <span class="perfil">Admin</span>
+                    <span class="perfil" id="cargo">Admin</span>
                     <span class="nome" id="b_usuario"></span>
                 </div>
                 <div class="notificacao">
@@ -73,10 +75,21 @@
         <div class="container_relatorios">
             <div class="container_title">
                 <h2>Relatórios</h2>
+                <div class="btn_criar_relatorio" onclick="criarPedidoRelatorio()">Solicitar Relatório</div>
             </div>
 
             <div class="container_relatorios_agencia">
-                <div class="relatorios"></div>
+                <div class="relatorios">
+                    <div class="nome_data_relatorio">
+                        <span class="nome_relatorio">Relatório de Crimes</span>
+                        <span class="data_relatorio">31/01/2025</span>
+                    </div>
+                    <div class="funcoes">
+                        <div class="btn_editar"><i class='bx bx-edit'></i></div>
+                        <div class="btn_baixar"><i class='bx bx-download'></i></div>
+                        <div class="btn_excluir"><i class='bx bx-trash'></i></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -85,13 +98,234 @@
             <div class="container_title">
                 <h2>Pedidos</h2>
             </div>
+
+            <div class="container_pedidos_agencia">
+                <div class="relatorios">
+                    <div class="nome_data_pedido">
+                        <span class="nome_pedido">Usuário Solicitante</span>
+                        <span class="data_pedido">31/01/2025</span>
+                    </div>
+                    <div class="status_pedido">
+                        <span class="status_label">Status:</span>
+                        <span class="status_value">Pendente</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-
 </body>
 
 <script>
 
+    // Preenher nome e cargo
+    if (sessionStorage.NOME_USUARIO) {
+        document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+    }
+    if (sessionStorage.CARGO_AGENCIA_USUARIO) {
+        document.getElementById('cargo').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
+    }
+
+    function formatarData(dataISO) {
+        const data = new Date(dataISO);
+        return data.toLocaleDateString("pt-BR");
+    }
+
+    //Listar relatórios
+    const idAgencia = sessionStorage.ID_AGENCIA;
+
+    function carregarRelatorios() {
+
+        fetch(`/relatorios/listar/${idAgencia}`)
+            .then(res => res.json())
+            .then(relatorios => {
+
+                const container = document.querySelector(".container_relatorios_agencia");
+                container.innerHTML = "";
+
+                if (relatorios.length === 0) {
+                    container.innerHTML = `
+                    <p class="nenhum-relatorio">Nenhum relatório encontrado para sua agência.</p>
+                `;
+                    return;
+                }
+
+                relatorios.forEach(r => {
+                    if (r.status == "Ativo") {
+                        const div = document.createElement("div");
+                        div.className = "relatorios";
+
+                        div.innerHTML = `
+                    <div class="nome_data_relatorio" data-id="${r.id}" onclick="abrirRelatorio(${r.id})">
+                        <span class="nome_relatorio">${r.nome}</span>
+                        <span class="data_relatorio">${formatarData(r.dt_geracao)}</span>
+                    </div>
+                    <div class="funcoes">
+                        <div class="btn_editar" onclick="editarRelatorio(${r.id})">
+                            <i class='bx bx-edit'></i>
+                        </div>
+                        <div class="btn_excluir" onclick="excluirRelatorio(${r.id})">
+                            <i class='bx bx-trash'></i>
+                        </div>
+                    </div>
+                `;
+
+                        container.appendChild(div);
+                    }
+                });
+            })
+            .catch(err => console.error("Erro ao carregar relatórios:", err));
+    }
+
+    function carregarPedidos() {
+        const idAgencia = sessionStorage.ID_AGENCIA;
+
+        fetch(`/pedidos/listarPorAgencia/${idAgencia}`)
+            .then(res => res.json())
+            .then(pedidos => {
+                const container = document.querySelector(".container_pedidos_agencia");
+                container.innerHTML = "";
+
+                if (pedidos.length === 0) {
+                    container.innerHTML = `
+                    <p class="nenhum-pedido">Nenhum pedido encontrado para sua agência.</p>
+                `;
+                    return;
+                }
+
+                pedidos.forEach(p => {
+                    const div = document.createElement("div");
+                    div.className = "relatorios";
+
+                    div.innerHTML = `
+                    <div class="nome_data_pedido">
+                        <span class="nome_pedido">${p.nome_usuario}</span>
+                        <span class="data_pedido">${formatarData(p.data_criacao)}</span>
+                    </div>
+                    <div class="status_pedido">
+                        <span class="status_label">Status:</span>
+                        <span class="status_value">${p.status}</span>
+                    </div>
+                `;
+
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => {
+                console.error("Erro ao carregar pedidos:", err);
+            });
+    }
+
+    function criarPedidoRelatorio() {
+        var fk_usuario = Number(sessionStorage.ID_USUARIO);
+
+        fetch("/pedidos/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fk_usuarioServer: fk_usuario,
+                fk_administradorServer: null
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Pedido cadastrado com sucesso!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    //carregarUsuarios()
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function editarRelatorio(idRelatorio) {
+        const container = document.querySelector(`.nome_data_relatorio[data-id="${idRelatorio}"]`);
+        const nomeSpan = container.querySelector(".nome_relatorio");
+
+        const btn = document.querySelector(`.btn_editar[onclick="editarRelatorio(${idRelatorio})"]`);
+
+        const isEditing = nomeSpan.isContentEditable;
+
+        if (!isEditing) {
+            nomeSpan.contentEditable = "true";
+            nomeSpan.focus();
+            btn.innerHTML = `<i class='bx bx-x'></i>`;
+        } else {
+
+            nomeSpan.contentEditable = "false";
+            btn.innerHTML = `<i class='bx bx-edit'></i>`;
+
+            const novoNome = nomeSpan.innerText.trim();
+
+            if (!novoNome) {
+                alert("O nome do relatório não pode ficar vazio.");
+                return;
+            }
+
+            const atualizado = {
+                titulo_relatorio: novoNome
+            };
+
+            fetch(`/relatorios/editar/${idRelatorio}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(atualizado)
+            })
+                .then(res => res.json())
+                .then(data => console.log("Atualizado:", data))
+                .catch(err => console.error("Erro ao atualizar:", err));
+        }
+    }
+
+    function excluirRelatorio(idRelatorio) {
+        if (!confirm("Tem certeza que deseja desativar este relatório?")) {
+            return;
+        }
+
+        const atualizado = {
+            status: "Desativado"
+        };
+
+        fetch(`/relatorios/status/${idRelatorio}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(atualizado)
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Erro ao desativar relatório.");
+                }
+                return res.json();
+            })
+            .then(data => {
+                console.log("Status atualizado:", data);
+
+                const item = document.querySelector(`.nome_data_relatorio[data-id="${idRelatorio}"]`);
+
+                if (item) {
+                    item.parentElement.remove();
+                }
+            })
+            .catch(err => console.error("Erro:", err));
+    }
+
+
+
+    function abrirRelatorio(id) {
+        sessionStorage.setItem("ID_RELATORIO", id)
+        window.open('/relatorio.html', '_blank');
+    }
 
 </script>

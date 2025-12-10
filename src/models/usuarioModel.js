@@ -39,6 +39,16 @@ function editarUsuarios(id, nome, email, status, cargo) {
     return database.executar(instrucaoSql);
 }
 
+function atualizarNomeSenha(id, nome, senhaAtual, senhaNova) {
+    const sql = `
+        UPDATE Usuario 
+        SET nome = '${nome}', senha = '${senhaNova}' 
+        WHERE id = ${id} AND senha = '${senhaAtual}';
+    `;
+    return database.executar(sql);
+}
+
+
 function atualizarStatusUsuario(id, status) {
     console.log("Atualizando status do usuários...", id);
 
@@ -64,4 +74,5 @@ module.exports = {
     editarUsuarios,
     atualizarStatusUsuario,
     usuariosInativos,
+    atualizarNomeSenha,
 };

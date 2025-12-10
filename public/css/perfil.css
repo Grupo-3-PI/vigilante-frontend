@@ -63,7 +63,7 @@ nav {
     display: block;
     width: 180px;
     height: 3px;
-    background: linear-gradient(90deg, #0800ff, #9aceff);
+    background: linear-gradient(90deg, #FF7A00, #FFD200);
     margin: 12px auto 0;
     border-radius: 2px;
 }
@@ -132,7 +132,6 @@ nav {
     cursor: not-allowed;
 }
 
-/* Botões do Formulário */
 .card-perfil button {
     text-decoration: none;
     text-align: center;
@@ -152,10 +151,47 @@ nav {
 }
 
 .btn-salvar {
-    background: linear-gradient(135deg, #1500B7, #6F3BFF);
+    background: linear-gradient(90deg, #FF7A00, #FFD200);
 }
 
 .card-perfil button:hover {
     opacity: 0.85;
     transform: scale(1.05);
+}
+
+
+.container_toast_modal {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 70px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.051);
+    animation: fadeIn .3s ease;
+    z-index: 9999;
+}
+
+.coluna {
+    width: 16px;
+    height: 100%;
+    border-radius: 12px 0 0 12px;
+}
+
+#msg_sucesso { background: linear-gradient(180deg, #1bf85d, #0bbd42); }
+#msg_erro    { background: linear-gradient(180deg, #ff6464, #ff0000); }
+
+.texto {
+    margin-left: 22px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

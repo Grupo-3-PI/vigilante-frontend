@@ -49,7 +49,7 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if(cargo_agencia == undefined) {
+    } else if (cargo_agencia == undefined) {
         res.status(400).send("O cargo da empresa está undefined");
     } else if (codigo_empresa == undefined) {
         res.status(400).send("O código da empresa está undefined!");
@@ -108,57 +108,42 @@ function listarTodosAgencia(req, res) {
 }
 
 function editarUsuarios(req, res) {
-    var id = req.params.id;
-    var nome = req.body.nomeServer;
-    var email = req.body.emailServer;
-    var status = req.body.statusServer;
-    var cargo_agencia = req.body.cargo_agenciaServer;
+    const id = req.params.id;
+    const nome = req.body.nomeServer;
+    const senhaAtual = req.body.senhaAtualServer;
+    const senhaNova = req.body.senhaNovaServer;
 
-    if (nome == undefined) {
-        res.status(400).send(`O nome do usuário de id ${id} está undefined!`);
-    } else if (email == undefined) {
-        res.status(400).send(`O email usuário de id ${id} está undefined!`);
-    } else if(cargo_agencia == undefined) {
-        res.status(400).send(`O cargo do usuário de id ${id} está undefined!`);
-    } else if(status == undefined) {
-        res.status(400).send(`O status do usuário de id ${id} está undefined!`);
-    } else {
-        usuarioModel.editarUsuarios(id, nome, email, status, cargo_agencia)
-        .then(
-            function (resultado) {
-                res.json(resultado);
+    usuarioModel.atualizarNomeSenha(id, nome, senhaAtual, senhaNova)
+        .then(resultado => {
+            if (resultado.affectedRows == 0) {
+                res.status(403).send("Senha atual incorreta");
+            } else {
+                res.status(200).send("Atualizado");
             }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao editar: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-    }
+        });
 }
+
 
 function atualizarStatusUsuario(req, res) {
     var id = req.params.id;
     var status = req.body.statusServer;
 
-    if(status == undefined) {
+    if (status == undefined) {
         res.status(400).send(`O status do usuário de id ${id} está undefined!`);
     } else {
         usuarioModel.atualizarStatusUsuario(id, status)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao editar: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            )
+            .catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("Houve um erro ao editar: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
     }
 }
 
@@ -166,8 +151,8 @@ function usuariosInativos(req, res) {
     fkAgencia = req.params.fkAgencia
 
     usuarioModel.usuariosInativos(fkAgencia).then(function (resultadoUsuariosInativos) {
-            res.json(resultadoUsuariosInativos);
-        });
+        res.json(resultadoUsuariosInativos);
+    });
 }
 
 module.exports = {

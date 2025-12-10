@@ -41,7 +41,11 @@
                     <i class='bx bx-grid-alt'></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="dicas.html" class="nav_item">
+                <a href="relatoriosPedidos.html" class="nav_item">
+                    <i class='bx bxs-report'></i>
+                    <span>Relatórios</span>
+                </a>
+                <a href="dicas.html" class="nav_item" style="color: #34495e;">
                     <i class='bx bx-bulb'></i>
                     <span>Dicas</span>
                 </a>
@@ -49,7 +53,7 @@
         </div>
         <!-- Container baixo -->
         <div class="container_bottom">
-            <div class="card_usuario">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
                     <i class='bx bx-user' id="icone_perfil_usuario" style="cursor: pointer;"></i>
                 </div>
@@ -179,7 +183,6 @@
             });
         }
 
-        // Preenche o nome do usuário na navbar
         if (sessionStorage.NOME_USUARIO) {
             document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
             document.getElementById('b_cargo_agencia').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;

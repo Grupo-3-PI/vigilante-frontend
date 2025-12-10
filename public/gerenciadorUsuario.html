@@ -32,6 +32,10 @@
                     <i class='bx bx-grid-alt'></i>
                     <span>Dashboard</span>
                 </a>
+                <a href="relatoriosPedidos.html" class="nav_item">
+                    <i class='bx bxs-report'></i>
+                    <span>Relatórios</span>
+                </a>
                 <a href="dicas.html" class="nav_item">
                     <i class='bx bx-bulb'></i>
                     <span>Dicas</span>
@@ -40,7 +44,7 @@
         </div>
         <!-- Container baixo -->
         <div class="container_bottom">
-            <div class="card_usuario">
+            <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
                     <i class='bx bx-user' id="icone_perfil_usuario" style="cursor: pointer;"></i>
                 </div>
@@ -67,11 +71,6 @@
                     <div class="coluna"></div>
                     <span class="card_titulo">Total de Funcionários</span>
                     <span id="total_funcionarios" class="card_valor"></span>
-                </div>
-                <div class="card_info">
-                    <div class="coluna"></div>
-                    <span class="card_titulo">Funcionários Excluídos</span>
-                    <span class="card_valor">2</span>
                 </div>
                 <div class="card_info">
                     <div class="coluna"></div>
@@ -132,6 +131,15 @@
             </div>
         </div>
     </dialog>
+
+    <div id="modalAcesso" class="modal-acesso">
+        <div class="modal-content">
+            <h2>Acesso Negado</h2>
+            <p>Apenas administradores podem acessar esta página.</p>
+            <button id="btnVoltar"><i class='bx bx-arrow-back'></i> Voltar</button>
+        </div>
+    </div>
+
 </body>
 
 </html>
@@ -146,86 +154,64 @@
 
     function carregarUsuarios() {
 
-
-
         fetch("/usuarios/listarTodosAgencia", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                fkAgenciaServer: 1,
-            })
-
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fkAgenciaServer: 1 })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO listarUsuarios()!");
 
             if (resposta.ok) {
-                console.log(resposta);
-
-
-
                 resposta.json().then(json => {
 
-                    document.getElementById("total_funcionarios").innerHTML = json.length
+                    document.getElementById("total_funcionarios").innerHTML = json.length;
 
-                    // Carrega lista de usuários
-                    for (i = 0; i < json.length; i++) {
+                    for (let i = 0; i < json.length; i++) {
+
+                        let iconeStatus = "";
+
+                        if (json[i].status == "Ativo") {
+                            iconeStatus = "<i class='bx bx-lock' style='color:#ffffff'></i>";
+                        } else {
+                            iconeStatus = "<i class='bx bx-lock-open-alt' style='color:#ffffff'></i>";
+                        }
 
                         document.getElementById("container_usuarios").innerHTML += `
-                    <div class="tabela_row">
-                        <span class="col">${json[i].id}</span>
-                        <input class="col" type="text" value="${json[i].nome}" disabled>
-                        <input class="col" type="email" value="${json[i].email}" disabled>
-                        <input class="col" type="text" value="${json[i].status}" style="padding-left:30%" disabled>
-                        <input class="col" type="text" value="${json[i].cargo_agencia}" disabled>
+                        <div class="tabela_row">
+                            <span class="col">${json[i].id}</span>
 
-                        <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
-                        </div>
-                    </div>`
+                            <input class="col" type="text" value="${json[i].nome}" disabled>
+                            <input class="col" type="email" value="${json[i].email}" disabled>
+                            <input class="col" type="text" value="${json[i].status}" disabled style="padding-left:30%">
+                            <input class="col" type="text" value="${json[i].cargo_agencia}" disabled>
 
+                            <div class="funcoes">
+                                <button class="btn_verde editar">
+                                    <i class="bx bx-edit-alt"></i>
+                                </button>
+
+                                <button class="btn_vermelho cancelar">
+                                    ${iconeStatus}
+                                </button>
+                            </div>
+                        </div>`;
                     }
-
-                });
-
-
-            } else {
-                console.log("Houve um erro ao listar usuários!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
                 });
             }
-
-        }).catch(function (erro) {
-            console.log(erro);
         });
-
     }
 
-    fetch(`/usuarios/usuariosInativos/${1}`, {
+    fetch(`/usuarios/usuariosInativos/1`, {
         method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: { "Content-Type": "application/json" }
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                document.getElementById("funcionarios_desativados").innerHTML = json[0]["COUNT(id)"]
-            });
-        } else {
-            resposta.text().then(texto => {
-                console.error(texto);
+                document.getElementById("funcionarios_desativados").innerHTML =
+                    json[0]["COUNT(id)"];
             });
         }
-    }).catch(function (erro) {
-        console.log(erro);
     });
 
-
-    // Editar usuário
     document.getElementById("container_usuarios").addEventListener("click", function (event) {
 
         const btn = event.target.closest(".editar");
@@ -233,7 +219,6 @@
 
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
-
         const desabilitado = inputs[0].disabled;
 
         if (desabilitado) {
@@ -244,36 +229,25 @@
             inputs.forEach(input => input.disabled = true);
             btn.innerHTML = "<i class='bx bx-edit-alt'></i>";
 
-            var usuario_atualizado = []
-            usuario_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
-            inputs.forEach(input => {
-                usuario_atualizado.push(input.value);
-            });
+            const id = row.querySelector("span").innerHTML;
+            const nome = inputs[0].value;
+            const email = inputs[1].value;
+            const status = inputs[2].value;
+            const cargo = inputs[3].value;
 
-            // Atualiza o usuário
-            fetch(`/usuarios/editarUsuarios/${usuario_atualizado[0]}`, {
+            fetch(`/usuarios/editarUsuarios/${id}`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    nomeServer: usuario_atualizado[1],
-                    emailServer: usuario_atualizado[2],
-                    statusServer: usuario_atualizado[3],
-                    cargo_agenciaServer: usuario_atualizado[4],
+                    nomeServer: nome,
+                    emailServer: email,
+                    statusServer: status,
+                    cargo_agenciaServer: cargo
                 })
-            }).then(function (resposta) {
-
-                console.log(`Usuário ${usuario_atualizado[0]} atualizado!`);
-
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
             });
         }
-
     });
 
-    // Atualizar status do usuário
     document.getElementById("container_usuarios").addEventListener("click", function (event) {
 
         const btn = event.target.closest(".cancelar");
@@ -281,38 +255,32 @@
 
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
+        const statusInput = inputs[2];
 
-        if (inputs[2].value == "Ativo") {
-            inputs[2].value = "Inativo"
+        if (statusInput.value == "Ativo") {
+            statusInput.value = "Inativo";
+            btn.innerHTML = "<i class='bx bx-lock-open-alt' style='color:#ffffff'></i>";
         } else {
-            inputs[2].value = "Ativo"
+            statusInput.value = "Ativo";
+            btn.innerHTML = "<i class='bx bx-lock' style='color:#ffffff'></i>";
         }
 
-        var usuario_atualizado = []
-        usuario_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
-        inputs.forEach(input => {
-            usuario_atualizado.push(input.value);
-        });
+        const id = row.querySelector("span").innerHTML;
+        const nome = inputs[0].value;
+        const email = inputs[1].value;
+        const status = statusInput.value;
+        const cargo = inputs[3].value;
 
-        fetch(`/usuarios/atualizarStatusUsuario/${usuario_atualizado[0]}`, {
+        fetch(`/usuarios/atualizarStatusUsuario/${id}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                nomeServer: usuario_atualizado[1],
-                emailServer: usuario_atualizado[2],
-                statusServer: usuario_atualizado[3],
-                cargo_agenciaServer: usuario_atualizado[4],
+                nomeServer: nome,
+                emailServer: email,
+                statusServer: status,
+                cargo_agenciaServer: cargo
             })
-        }).then(function (resposta) {
-
-            console.log(`Usuário ${usuario_atualizado[0]} atualizado!`);
-
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
         });
-
     });
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -326,5 +294,6 @@
     });
 
 </script>
+
 
 <script src="js/cadastro.js"></script>

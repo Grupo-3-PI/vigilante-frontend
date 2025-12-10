@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/relatorios.css">
     <link rel="stylesheet" href="css/navbarAdmin.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/solicitacoesRelatorio.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+
     <title>Gerenciar Relatórios</title>
 </head>
 
-<body>
-
+<body onload="carregarSolicitacoes()">
     <div class="container_navbar">
         <div class="container_top">
             <div class="img_logo">
@@ -23,7 +25,7 @@
                     <i class='bx bx-filter-alt'></i>
                     <span>Filtros</span>
                 </a>
-                <a href="relatoriosAdmin.html" class="nav_item active">
+                <a href="relatoriosAdmin.html" class="nav_item active" style="color: #83a2ff;">
                     <i class='bx bxs-report'></i>
                     <span>Relatórios</span>
                 </a>
@@ -86,7 +88,7 @@
 
         </div>
     </div>
-
+    
     <dialog id="modal">
         <div class="container">
             <div class="container_forms">
@@ -96,9 +98,17 @@
                         Fechar
                     </a>
                     <p class="title">Solicitações de Relatórios</p>
-
                     <div class="container_solicitacoes" id="solicitacoes_container">
+                        <div class="container_pedido">
+                            <span class="solicitante">João Silva</span>
+                            <span class="agencia">CVC</span>
+                            <span class="data">11/2025</span>
 
+                            <div class="acoes">
+                                <button class="btn_aprovar">Aprovar</button>
+                                <button class="btn_reprovar">Reprovar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,28 +119,39 @@
 
 </html>
 
+<script src="js/relatorio.js" defer></script>
+
 <script>
 
     const modal = document.querySelector("dialog");
-    document.getElementById("open").onclick = () => modal.showModal();
+    document.getElementById("open").onclick = () => {
+        modal.showModal();
+        carregarSolicitacoes();
+    }
     document.getElementById("close").onclick = () => modal.close();
-
 
     fetch("/relatorios/listar", {
         method: "GET"
     }).then(res => {
-
         if (!res.ok) return;
 
         res.json().then(json => {
+
 
             document.getElementById("total_relatorios").innerHTML = json.length;
             document.getElementById("relatorios_reprovados").innerHTML =
                 json.filter(item => item.status == "Reprovado").length;
 
             for (let i = 0; i < json.length; i++) {
-
                 const r = json[i];
+
+                let iconeStatus = "";
+
+                if (r.status == "Ativo") {
+                    iconeStatus = "<i class='bx bxs-lock-open' style='color:#ffffff'></i>";
+                } else {
+                    iconeStatus = "<i class='bx bxs-lock' style='color:#ffffff'></i>";
+                }
 
                 document.getElementById("container_relatorios").innerHTML += `
                     <div class="tabela_row">
@@ -138,19 +159,24 @@
 
                         <input class="col" type="text" value="${r.nome}" disabled>
                         <input class="col" type="text" value="${r.solicitante}" disabled>
-                        <input class="col" type="text" value="${r.status}" disabled style="padding-left:30%">
+                        <input class="col" type="text" value="${r.status}" disabled>
                         <input class="col" type="text" value="${r.agencia}" disabled>
 
                         <div class="funcoes">
-                            <button class="btn_verde editar"><i class="bx bx-edit-alt"></i></button>
-                            <button class="btn_vermelho cancelar"><i class="bx bx-trash"></i></button>
+
+                            <button class="btn_verde editar">
+                                <i class="bx bx-edit-alt"></i>
+                            </button>
+
+                            <button class="btn_vermelho cancelar">
+                                ${iconeStatus}
+                            </button>
                         </div>
                     </div>
                 `;
             }
         });
     });
-
 
     document.getElementById("container_relatorios").addEventListener("click", function (event) {
 
@@ -160,7 +186,6 @@
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
         const disabled = inputs[0].disabled;
-
         const idRelatorio = row.querySelector("span").innerHTML;
 
         if (disabled) {
@@ -171,10 +196,7 @@
             btn.innerHTML = `<i class='bx bx-edit-alt'></i>`;
 
             const atualizado = {
-                nome: inputs[0].value,
-                solicitante: inputs[1].value,
-                status: inputs[2].value,
-                agencia: inputs[3].value
+                titulo_relatorio: inputs[0].value
             };
 
             fetch(`/relatorios/editar/${idRelatorio}`, {
@@ -185,6 +207,7 @@
         }
     });
 
+
     document.getElementById("container_relatorios").addEventListener("click", function (event) {
 
         const btn = event.target.closest(".cancelar");
@@ -192,42 +215,85 @@
 
         const row = btn.closest(".tabela_row");
         const inputs = row.querySelectorAll("input");
-
         const statusInput = inputs[2];
 
         if (statusInput.value == "Ativo") {
             statusInput.value = "Desativado";
+            btn.innerHTML = `<i class='bx bxs-lock-open' style='color:#ffffff'></i>`;
         } else {
             statusInput.value = "Ativo";
+            btn.innerHTML = `<i class='bx bxs-lock' style='color:#ffffff'></i>`;
         }
 
-        var relatorio_atualizado = [];
-        relatorio_atualizado.push(row.querySelectorAll("span")[0].innerHTML);
+        const id = row.querySelector("span").innerHTML;
 
-        inputs.forEach(input => {
-            relatorio_atualizado.push(input.value);
-        });
-
-        fetch(`/relatorios/status/${relatorio_atualizado[0]}`, {
+        fetch(`/relatorios/status/${id}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                nomeServer: relatorio_atualizado[1],
-                solicitanteServer: relatorio_atualizado[2],
-                statusServer: relatorio_atualizado[3],
-                agenciaServer: relatorio_atualizado[4]
+                status: statusInput.value
             })
-        })
-            .then(function (resposta) {
-                console.log(`Relatório ${relatorio_atualizado[0]} atualizado!`);
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
+        });
     });
 
+    function carregarSolicitacoes() {
+        fetch("/pedidos/listar")
+            .then(res => res.json())
+            .then(lista => {
+                const container = document.getElementById("solicitacoes_container");
+                container.innerHTML = "";
 
+                if (lista.length === 0) {
+                    container.innerHTML = `<p class="nenhum">Nenhuma solicitação encontrada.</p>`;
+                    return;
+                }
+
+                lista.forEach(p => {
+                    if (p.status == "Pendente") {
+                        const div = document.createElement("div");
+                        div.className = "container_pedido";
+
+                        div.innerHTML = `
+                    <span class="solicitante">${p.solicitante}</span>
+                    <span class="agencia">${p.agencia}</span>
+                    <span class="data">${p.data_criacao}</span>
+
+                    <div class="acoes">
+                        <button class="btn_aprovar" onclick="aceitarPedido(${p.id})">Aprovar</button>
+                        <button class="btn_reprovar" onclick="recusarPedido(${p.id})">Reprovar</button>
+                    </div>
+                `;
+
+                        container.appendChild(div);
+                    }
+
+                });
+            })
+            .catch(err => console.error("Erro ao listar solicitações:", err));
+    }
+
+    function aceitarPedido(id) {
+        try {
+            fetch(`/pedidos/aceitar/${id}`, {
+                method: "PUT"
+            });
+            gerarRelatorio();
+            carregarSolicitacoes()
+        } catch (error) {
+            console.log("Erro ao aceitar pedido:", error);
+            throw error;
+        }
+    }
+
+    function recusarPedido(id) {
+        try {
+            fetch(`/pedidos/recusar/${id}`, {
+                method: "PUT"
+            });
+            carregarSolicitacoes()
+        } catch (error) {
+            console.log("Erro ao recusar pedido:", error);
+            throw error;
+        }
+    }
 </script>

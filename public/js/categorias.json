@@ -1,0 +1,87 @@
+[
+    {
+        "nome": "Homicídio Doloso",
+        "parametro": "HOMICÍDIO DOLOSO",
+        "usada": false
+    },
+    {
+        "nome": "Homicídio Doloso por Acidente de Trânsito",
+        "parametro": "HOMICÍDIO DOLOSO POR ACIDENTE DE TRÂNSITO",
+        "usada": false
+    },
+    {
+        "nome": "Homicídio Culposo - Outros",
+        "parametro": "HOMICÍDIO CULPOSO OUTROS",
+        "usada": false
+    },
+    {
+        "nome": "Tentativa de Homicídio",
+        "parametro": "TENTATIVA DE HOMICÍDIO",
+        "usada": false
+    },
+    {
+        "nome": "Lesão Corporal Seguida de Morte",
+        "parametro": "LESÃO CORPORAL SEGUIDA DE MORTE",
+        "usada": false
+    },
+    {
+        "nome": "Lesão Corporal Dolosa",
+        "parametro": "LESÃO CORPORAL DOLOSA",
+        "usada": false
+    },
+    {
+        "nome": "Lesão Corporal Culposa por Acidente de Trânsito",
+        "parametro": "LESÃO CORPORAL CULPOSA POR ACIDENTE DE TRÂNSITO",
+        "usada": false
+    },
+    {
+        "nome": "Lesão Corporal Culposa - Outras",
+        "parametro": "LESÃO CORPORAL CULPOSA - OUTRAS",
+        "usada": false
+    },
+    {
+        "nome": "Latrocínio",
+        "parametro": "LATROCÍNIO",
+        "usada": false
+    },
+    {
+        "nome": "Estupro",
+        "parametro": "ESTUPRO",
+        "usada": false
+    },
+    {
+        "nome": "Estupro de Vulnerável",
+        "parametro": "ESTUPRO DE VULNERÁVEL",
+        "usada": false
+    },
+    {
+        "nome": "Roubo - Outros",
+        "parametro": "ROUBO",
+        "usada": false
+    },
+    {
+        "nome": "Roubo de Veículo",
+        "parametro": "ROUBO DE VEÍCULO",
+        "usada": false
+    },
+    {
+        "nome": "Roubo a Banco",
+        "parametro": "ROUBO A BANCO",
+        "usada": false
+    },
+    {
+        "nome": "Roubo de Carga",
+        "parametro": "ROUBO DE CARGA",
+        "usada": false
+    },
+    {
+        "nome": "Furto - Outros",
+        "parametro": "FURTO",
+        "usada": false
+    },
+    {
+        "nome": "Furto de Veículo",
+        "parametro": "FURTO DE VEÍCULO",
+        "usada": false
+    }
+]

@@ -50,6 +50,7 @@ function entrar() {
                 sessionStorage.setItem("NOME_USUARIO", json.nome);
                 sessionStorage.setItem("ID_USUARIO", json.id); 
                 sessionStorage.setItem("CNPJ_USUARIO", json.fk_agencia);
+                sessionStorage.setItem("ID_AGENCIA", json.fk_agencia);
                 
                 sessionStorage.setItem("CARGO_AGENCIA_USUARIO", json.cargo_agencia);
 

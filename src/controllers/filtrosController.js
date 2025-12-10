@@ -4,18 +4,24 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var descricao = req.body.descricaoServer;
     var categoria = req.body.categoriaServer;
-    var fk_administrador = req.body.fkAdministradorServer;
+    var fk_administrador = Number(req.body.fkAdministradorServer); 
 
-    if (!nome || !descricao || !categoria || !fk_administrador) {
-        res.status(400).send("Dados inválidos");
-    } else {
-        filtroModel.cadastrar(nome, descricao, categoria, fk_administrador)
-            .then(resultado => res.json(resultado))
-            .catch(erro => {
-                res.status(500).json(erro.sqlMessage);
-            });
+    if (!nome || !descricao || !categoria) {
+        return res.status(400).send("Dados inválidos");
     }
+
+    if (!fk_administrador || isNaN(fk_administrador)) {
+        return res.status(400).send("Administrador não identificado ou inválido");
+    }
+
+    filtroModel.cadastrar(nome, descricao, categoria, fk_administrador)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro ao cadastrar filtro:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
+
 
 function listarTodos(req, res) {
     filtroModel.listarTodos()
