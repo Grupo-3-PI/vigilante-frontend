@@ -54,10 +54,10 @@
         <div class="container_bottom">
             <div class="card_usuario" onclick="window.location.href='perfil.html'">
                 <div class="user_icon">
-                    <i class='bx bx-user'></i>
+                    <i class='bx bx-user' id="icone_perfil_usuario" style="cursor: pointer;"></i>
                 </div>
                 <div class="user_info">
-                    <span class="perfil" id="cargo">Admin</span>
+                    <span class="perfil" id="b_cargo_agencia">Admin</span>
                     <span class="nome" id="b_usuario"></span>
                 </div>
                 <div class="notificacao">
@@ -95,7 +95,8 @@
                             <label for="input_senha_confirmar">Confirmar Nova Senha:</label>
                             <input id="input_senha_confirmar" type="password" placeholder="********">
                         </div>
-                        <button class="btn-salvar" onclick="salvarEdicao()">Salvar Alterações
+                        <button class="btn-salvar"
+                            onclick="alert('Função de salvar senha ainda não implementada.')">Salvar Alterações
                         </button>
                     </div>
                 </div>
@@ -105,14 +106,6 @@
     </div>
 
     <script>
-        // Preencher nome e cargo
-        if (sessionStorage.NOME_USUARIO) {
-            document.getElementById('b_usuario').innerHTML = sessionStorage.NOME_USUARIO;
-        }
-        if (sessionStorage.CARGO_AGENCIA_USUARIO) {
-            document.getElementById('cargo').innerHTML = sessionStorage.CARGO_AGENCIA_USUARIO;
-        }
-
         document.addEventListener("DOMContentLoaded", function () {
             var nomeAgencia = sessionStorage.NOME_USUARIO;
             var emailAgencia = sessionStorage.EMAIL_USUARIO;
@@ -123,68 +116,15 @@
             if (input_cnpj) input_cnpj.value = cnpjAgencia;
         });
 
-        function mostrarMensagem(texto, tipo) {
-            const msg = document.createElement("div");
-            msg.className = `container_toast_modal`;
+        document.addEventListener("DOMContentLoaded", function () {
+            var iconePerfil = document.getElementById("icone_perfil_usuario");
 
-            const coluna = document.createElement("div");
-            coluna.className = "coluna";
-            coluna.id = `msg_${tipo}`;
-
-            const textoDiv = document.createElement("div");
-            textoDiv.className = "texto";
-            textoDiv.textContent = texto;
-
-            msg.appendChild(coluna);
-            msg.appendChild(textoDiv);
-
-            document.body.appendChild(msg);
-
-            setTimeout(() => msg.remove(), 3000);
-        }
-
-        function salvarEdicao() {
-
-            const id = sessionStorage.ID_USUARIO;
-            const nome = document.getElementById("input_nome").value;
-            const senhaAtual = document.getElementById("input_senha_atual").value;
-            const senhaNova = document.getElementById("input_senha_nova").value;
-            const senhaConfirm = document.getElementById("input_senha_confirmar").value;
-
-            if (!nome.trim()) {
-                return mostrarMensagem("Preencha o nome", "erro");
+            if (iconePerfil) {
+                iconePerfil.addEventListener("click", function () {
+                    window.location.href = "./perfil.html";
+                });
             }
-
-            if (!senhaAtual.trim()) {
-                return mostrarMensagem("Digite sua senha atual", "erro");
-            }
-
-            if (senhaNova !== senhaConfirm) {
-                return mostrarMensagem("As senhas não são iguais", "erro");
-            }
-
-            fetch(`/usuarios/editarUsuarios/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    nomeServer: nome,
-                    senhaAtualServer: senhaAtual,
-                    senhaNovaServer: senhaNova
-                })
-            })
-                .then(res => {
-                    if (res.ok) {
-                        sessionStorage.NOME_USUARIO = nome;
-                        mostrarMensagem("Informações atualizadas", "sucesso");
-                    } else {
-                        mostrarMensagem("Senha atual incorreta", "erro");
-                    }
-                })
-                .catch(() => mostrarMensagem("Erro", "erro"));
-        }
-
+        });
     </script>
 
 </body>

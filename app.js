@@ -22,6 +22,7 @@ var dashboardRouter = require("./src/routes/dashboard");
 var pedidoRouter = require("./src/routes/pedido");
 var filtrosRouter = require("./src/routes/filtros");
 var relatoriosRouter = require("./src/routes/relatorios");
+var slackRouter = require("./src/routes/slack")
 var adminRouter = require("./src/routes/admin");
 
 app.use(express.json());
@@ -37,6 +38,7 @@ app.use("/agencia", agenciaRouter);
 app.use("/pedidos", pedidoRouter);
 app.use("/filtros", filtrosRouter);
 app.use("/relatorios", relatoriosRouter);
+app.use("/slack", slackRouter);
 app.use("/admin", adminRouter);
 
 app.listen(PORTA_APP, function () {
