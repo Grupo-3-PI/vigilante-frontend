@@ -55,7 +55,8 @@ function listarPorAgencia(idAgencia) {
         FROM Relatorio r
         JOIN Usuario u ON r.fk_Usuario = u.id
         JOIN Agencia a ON u.fk_agencia = a.id
-        WHERE a.id = ${idAgencia};
+        WHERE a.id = ${idAgencia}
+        ORDER BY r.dt_geracao DESC;
     `;
     return database.executar(instrucaoSql);
 }
