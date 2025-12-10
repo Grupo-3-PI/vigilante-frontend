@@ -34,7 +34,6 @@ h3 {
 }
 
 .barra-superior {
-  display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
@@ -116,10 +115,12 @@ h3 {
 }
 
 i {
-  font-size: large;
-  color: aqua;
-  background-color: black;
-  border: 1px solid black;
+  font-size: 60px;
+  float: right;
+  border: 2px solid black;
+  border-radius: 300px;
+  margin-top: 40px;
+  cursor: pointer;
 }
 
 table td,
