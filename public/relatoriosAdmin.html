@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/relatorios.css">
     <link rel="stylesheet" href="css/navbarAdmin.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/solicitacoesRelatorio.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+
     <title>Gerenciar Relatórios</title>
 </head>
 
@@ -80,7 +83,7 @@
 
         </div>
     </div>
-
+    
     <dialog id="modal">
         <div class="container">
             <div class="container_forms">
@@ -111,10 +114,15 @@
 
 </html>
 
+<script src="js/relatorio.js" defer></script>
+
 <script>
 
     const modal = document.querySelector("dialog");
-    document.getElementById("open").onclick = () => modal.showModal();
+    document.getElementById("open").onclick = () => {
+        modal.showModal();
+        carregarSolicitacoes();
+    }
     document.getElementById("close").onclick = () => modal.close();
 
     fetch("/relatorios/listar", {
@@ -224,11 +232,11 @@
     });
 
     function carregarSolicitacoes() {
-        fetch("/pedido/listar")
+        fetch("/pedidos/listar")
             .then(res => res.json())
             .then(lista => {
                 const container = document.getElementById("solicitacoes_container");
-                container.innerHTML = ""; 
+                container.innerHTML = "";
 
                 if (lista.length === 0) {
                     container.innerHTML = `<p class="nenhum">Nenhuma solicitação encontrada.</p>`;
@@ -236,25 +244,51 @@
                 }
 
                 lista.forEach(p => {
-                    const div = document.createElement("div");
-                    div.className = "container_pedido";
+                    if (p.status == "Pendente") {
+                        const div = document.createElement("div");
+                        div.className = "container_pedido";
 
-                    div.innerHTML = `
+                        div.innerHTML = `
                     <span class="solicitante">${p.solicitante}</span>
                     <span class="agencia">${p.agencia}</span>
                     <span class="data">${p.data_criacao}</span>
 
                     <div class="acoes">
-                        <button class="btn_aprovar" onclick="aprovarPedido(${p.id})">Aprovar</button>
-                        <button class="btn_reprovar" onclick="reprovarPedido(${p.id})">Reprovar</button>
+                        <button class="btn_aprovar" onclick="aceitarPedido(${p.id})">Aprovar</button>
+                        <button class="btn_reprovar" onclick="recusarPedido(${p.id})">Reprovar</button>
                     </div>
                 `;
 
-                    container.appendChild(div);
+                        container.appendChild(div);
+                    }
+
                 });
             })
             .catch(err => console.error("Erro ao listar solicitações:", err));
     }
 
+    function aceitarPedido(id) {
+        try {
+            fetch(`/pedidos/aceitar/${id}`, {
+                method: "PUT"
+            });
+            gerarRelatorio();
+            carregarSolicitacoes()
+        } catch (error) {
+            console.log("Erro ao aceitar pedido:", error);
+            throw error;
+        }
+    }
 
+    function recusarPedido(id) {
+        try {
+            fetch(`/pedidos/recusar/${id}`, {
+                method: "PUT"
+            });
+            carregarSolicitacoes()
+        } catch (error) {
+            console.log("Erro ao recusar pedido:", error);
+            throw error;
+        }
+    }
 </script>

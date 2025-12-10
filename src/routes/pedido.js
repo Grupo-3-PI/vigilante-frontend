@@ -15,4 +15,12 @@ router.get("/listarPorAgencia/:idAgencia", function (req, res) {
     pedidoController.listarPorAgencia(req, res);
 });
 
+router.put("/aceitar/:id", function (req, res) {
+    pedidoController.aceitar(req, res);
+})
+
+router.put("/recusar/:id", function (req, res) {
+    pedidoController.recusar(req, res);
+})
+
 module.exports = router;

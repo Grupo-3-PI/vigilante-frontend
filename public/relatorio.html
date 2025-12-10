@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilante | Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="./images/icon-prevcrime-_1_.svg">
+
+    <link rel="stylesheet" href="css/relatorio.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div class="pagina">
+        <section class="barra-superior">
+            <!-- Logo -->
+
+            <button class="gerarPDF" onclick="gerarPDF()">GerarPDF</button>
+
+        </section>
+
+        <div class="conteudo" id="conteudo">
+            <div class="relatorio" id="relatorio">
+                <img src="./images/logo_vigilante.svg" alt="logo_vigilante" class="img_logo">
+                <h1 class="titulo-pagina">
+                    Relatório geral de criminalidade na Baixada Santista
+                </h1>
+
+                <p>O presente relatório gerado pela equipe de desenvolvimento Prevcrime da São Paulo Tech School
+                    informa os dados de criminalidade na
+                    Baixada Santista em 2025. Os dados foram coletados da base de dados da Secretaria
+                    de Segurança Pública, processados e analisados para estudo com o objetivo de informar à agências de
+                    turismo dados relevantes acerca da criminalidade local.
+                </p>
+
+
+
+                <h2>
+                    Análise de dados por separação de Municípios
+                </h2>
+
+
+                <div id="container-municipios" class="container-municipios">
+                </div>
+            </div>
+
+
+
+            <div class="dados-gerais">
+                <h2>
+                    Dados gerais da região
+                </h2>
+
+                <p>As informações abaixo mostram a proporção da criminalidade em toda a região da Baixada Santista</p>
+
+                <div class="grafico2 grafico">
+                    <canvas id="graficoPercentualMunicipios"></canvas>
+                </div>
+
+                <div class="area-tabela">
+                    <div class="page-break"></div>
+                    <div id="titulo-tabela" class="titulo-tabela"></div>
+                    <div class="dados-tabela">
+                        <table class="tabela" id="tabela">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th style="padding-left: 15px;">Município</th>
+                                    <th style="padding-left: 10px;">Score</th>
+                                    <th style="padding-right: 5px;">Crimes</th>
+                                    <th style="padding-right: 10px;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corpo-tabela">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <p id="rodape-pagina"></p>
+        </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/relatorio.js"></script>
+
+<script>
+    carregarTudo(sessionStorage.ID_RELATORIO)
+</script>

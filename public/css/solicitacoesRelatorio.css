@@ -1,12 +1,13 @@
 #modal {
     border: none;
     border-radius: 10px;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: 55vh;
     width: 45vw;
+    z-index: 1000;
 }
 
 .container {
@@ -102,4 +103,13 @@
     color: #fff;
     background-color: #e74c3c;
     cursor: pointer;
+}
+
+.swal2-container {
+    position: fixed !important;
+    z-index: 999999 !important;
+}
+
+dialog[open] {
+    z-index: 10 !important;
 }

@@ -1,13 +1,12 @@
 var database = require("../database/config");
 
-function cadastrar(titulo_relatorio, fk_Usuario, fk_Ocorrencias, status) {
+function cadastrar(titulo_relatorio, consulta, fk_usuario) {
     var instrucaoSql = `
-        INSERT INTO Relatorio (titulo_relatorio, fk_Usuario, fk_Ocorrencias, status, dt_geracao)
-        VALUES ('${titulo_relatorio}', ${fk_Usuario}, ${fk_Ocorrencias}, '${status}', NOW());
+        INSERT INTO Relatorio (titulo_relatorio, consulta, fk_usuario, status, dt_geracao)
+        VALUES ('${titulo_relatorio}', '${consulta}', ${fk_usuario}, 'Ativo', NOW());
     `;
     return database.executar(instrucaoSql);
 }
-
 
 function listarTodos() {
     var instrucaoSql = `
@@ -61,11 +60,19 @@ function listarPorAgencia(idAgencia) {
     return database.executar(instrucaoSql);
 }
 
+function pegarDadosConsulta(id) {
+    var instrucaoSql = `
+        SELECT consulta FROM Relatorio
+        WHERE id = ${id};
+    `;
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     cadastrar,
     listarTodos,
     editar,
     atualizarStatus,
-    listarPorAgencia
+    listarPorAgencia,
+    pegarDadosConsulta
 };
